@@ -1,723 +1,683 @@
-A csatolt kep referencia
-
-El tudnad kesziteni profibb premium webdesignnal az alabbi html weboldalt?
-
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
 <title>Furrow — Precision Agriculture Command Center</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<script data-purpose="tailwind-config">
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            furrow: {
-              lime: '#84cc16',
-              limeGlow: '#a3e635',
-              darkBg: '#090d0b',
-              panel: 'rgba(16, 24, 20, 0.78)',
-              panelBorder: 'rgba(255, 255, 255, 0.08)',
-              hoverBorder: 'rgba(163, 230, 53, 0.35)',
-            }
-          }
-        }
-      }
-    }
-  </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--edge:clamp(12px,1.45vw,24px);--muted:#b4c1b8;--lime:#a3e635;--line:rgba(255,255,255,.12)}
-body{margin:0;background:#080d0a;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#050806;
+  --ink:#f3f7ef; --ink-2:#c5cfc1; --ink-3:#8a968a; --ink-4:#5d695f;
+  --lime:#bff24a; --lime-d:#8fd11a; --lime-deep:#4d7c0f;
+  --amber:#f5b342; --rose:#fb7185; --sky:#5fc8ff; --emerald:#34d399;
+  --glass:rgba(19,24,20,.56);
+  --glass-hi:rgba(12,16,13,.86);
+  --stroke:rgba(255,255,255,.07); --stroke-2:rgba(255,255,255,.13);
+  --r-xl:30px; --r-lg:24px; --r-md:16px; --r-sm:11px;
+  --blur:blur(28px) saturate(155%);
+  --shadow:0 30px 60px -28px rgba(0,0,0,.85),0 8px 20px -12px rgba(0,0,0,.6);
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --gap:14px; --pad:clamp(12px,1.6vw,28px);
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font:400 14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-feature-settings:'cv11','ss03','tnum' 1;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.045;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+button:disabled,[aria-disabled=true]{opacity:.45;cursor:default}
 [hidden]{display:none!important}
-::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:#526358;border-radius:6px}
-button,select{cursor:pointer}button:disabled{cursor:default;opacity:.5}
-:where(button,a,input,select,[tabindex]):focus-visible{outline:2px solid #bef264!important;outline-offset:3px}
-.glass-hud{background:rgba(13,20,16,.93);backdrop-filter:blur(20px);border:1px solid var(--line);box-shadow:0 16px 36px -8px #000a,0 0 1px 1px #ffffff0d inset}
-.glass-pill{background:rgba(22,33,27,.92);backdrop-filter:blur(12px);border:1px solid var(--line)}
-#app .text-slate-400{color:var(--muted)}
-.skip-link{position:fixed;top:8px;left:8px;z-index:90;transform:translateY(-160%);background:#bef264;color:#101710;padding:10px 16px;border-radius:10px}.skip-link:focus{transform:none}
-#app{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;isolation:isolate;gap:12px;padding:calc(var(--edge) + env(safe-area-inset-top,0px)) calc(var(--edge) + env(safe-area-inset-right,0px)) calc(var(--edge) + env(safe-area-inset-bottom,0px)) calc(var(--edge) + env(safe-area-inset-left,0px))}
-.top-header{position:relative;z-index:8;display:grid;gap:10px;flex:none}.topbar,.nav-left,.nav-right,.subheader{display:flex;align-items:center}.topbar{position:relative;justify-content:space-between;gap:10px;padding:8px 12px}.nav-left,.nav-right{gap:clamp(8px,1vw,18px)}.nav-links{display:flex;gap:2px;padding:4px}.nav-item{padding:7px clamp(8px,1vw,14px);border:1px solid transparent;white-space:nowrap;color:#cbd5e1}.nav-item:hover,[data-dialog]:hover{color:#fff}.nav-item[aria-current]{border-color:var(--line);background:#ffffff26;color:#fff}
-.inventory,.nav-search{display:none}.connection,.avatar{flex:none}.menu-toggle{display:none}.subheader{gap:12px;justify-content:space-between;padding-inline:4px}.page-title{font-size:clamp(1.25rem,2.3vw,2rem);line-height:1.15}.weather{flex:none}.search-icon{position:absolute;right:9px;top:50%;translate:0 -50%;pointer-events:none}.nav-search input{padding-right:28px}.search-results{position:absolute;top:calc(100% + 8px);inset-inline:0;z-index:15;min-width:160px}.search-results button{width:100%;text-align:left;padding:7px;border-radius:6px}.search-results button:hover{background:#ffffff14}
-#content{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto auto auto;gap:12px;min-width:0;min-height:0;isolation:isolate}
-#map-view{position:relative;grid-area:1 / 1 / 2 / 3;overflow:hidden;border-radius:20px;background:radial-gradient(ellipse at 60% 45%,#263c25,#121d16 66%,#080d0a);min-height:clamp(370px,54dvh,550px);border:1px solid var(--line);touch-action:pan-y;user-select:none}
-#map-stage{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:center;transition:transform .22s ease-out;--counter-angle:0deg;--counter-scale:1}#map-stage.dragging{transition:none}
-.map-image,.map-vectors,.vignette{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.map-image{object-fit:cover;transition:filter .22s ease}.map-vectors{overflow:hidden}.vignette{z-index:1}.vignette-0{opacity:.68}.vignette-1,.vignette-2{opacity:.56}
-#map-view[data-layer=ndvi] .map-image{filter:hue-rotate(32deg) saturate(1.9) contrast(1.18)}#map-view[data-layer=ndvi]{background-color:#304521}
-#map-view[data-layer=soil] .map-image{filter:sepia(.8) saturate(1.45) contrast(1.1)}
-#map-view[data-layer=ndvi]::after,#map-view[data-layer=soil]::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;background:linear-gradient(144deg,#b13527,#e7b43a 44%,#63bc39 72%);opacity:.37}
-#map-view[data-layer=soil]::after{background:linear-gradient(135deg,#7d4121,#eab260 64%,#6b4428);opacity:.42}
-#map-view[data-layer=ndvi]::after,#map-view[data-layer=soil]::after{z-index:1}
-.field-trigger{position:absolute;left:63%;top:48%;min-width:44px;min-height:44px;z-index:3;text-align:left;transform-origin:24px 50%;transform:translate(-24px,-50%) rotate(var(--counter-angle)) scale(var(--counter-scale));}
-.radar-pin{width:48px;height:48px}.field-label{display:flex;white-space:nowrap}.field-label>span:first-child{display:grid;place-items:center}.field-label:hover,.field-trigger[aria-expanded=true] .field-label{border-color:var(--lime)}
-.map-tools{grid-area:1 / 2 / 2 / 3;align-self:start;justify-self:end;z-index:4;display:grid;gap:8px;justify-items:end;margin:10px}.layer-choice{width:100%;border:1px solid transparent;color:#e2e8f0}.layer-choice:hover{background:#ffffff12}.layer-choice[aria-pressed=true]{border-color:#a3e635aa;background:#ffffff1a}.layer-caption{min-width:0}.layer-caption span{display:block;font-size:12px}.layer-description{color:var(--muted);font:11px ui-monospace,monospace}.layer-choice[aria-pressed=true] .layer-description{color:#bef264}
-.map-caption{grid-area:1 / 1 / 2 / 3;align-self:end;justify-self:start;margin:10px;z-index:3;font-size:11px;color:#e2e8f0;pointer-events:none}
-.map-detail,.view-panel{grid-area:1 / 1 / 2 / 3;align-self:end;justify-self:start;z-index:5;margin:0 12px 45px;width:min(300px,calc(100% - 24px))}.map-detail{z-index:6}
-.analytics{grid-column:1/-1;grid-row:3;display:grid;gap:10px;min-width:0;align-content:start}.analytics article,.ops-card{min-width:0}.drawer-toggle{display:none}.operations{grid-column:1/-1;grid-row:4;display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
-.period-select{font-size:12px;background:#17261c;color:#f1f5f9;border:1px solid #ffffff26;padding:5px 28px 5px 9px}.fleet-heading{display:flex;flex-wrap:wrap;align-items:center;column-gap:8px;row-gap:2px;min-width:0}.fleet-time,.matrix-legend{font-size:11px}.fleet-time{white-space:nowrap}.matrix-legend{margin:-3px 0 7px}
-.cell-caution{background-image:repeating-linear-gradient(135deg,transparent 0 2px,#14141490 2px 3px)}.cell-stress{background-image:radial-gradient(circle,#171717 1px,transparent 1.4px);background-size:4px 4px}.polygon-glow{filter:drop-shadow(0 0 8px #84cc1690) drop-shadow(0 0 20px #84cc1640)}
-[data-fleet-status].is-stale{color:#fda4af;border-color:#fb718580;background:#f43f5e22}[data-fleet-status].is-stale>span:first-child{background:#fb7185;animation:none}
-#detail-dialog{margin:auto;width:min(440px,calc(100% - 32px))}#detail-dialog::backdrop{background:#030604bb}#detail-dialog button{min-height:44px}
-@keyframes radarPulse{0%{transform:scale(.65);opacity:.9}50%{transform:scale(1.6);opacity:.25}100%{transform:scale(2.4);opacity:0}}.radar-ring-1,.radar-ring-2{animation:radarPulse 2.8s cubic-bezier(.215,.61,.355,1) infinite}.radar-ring-2{animation-delay:.9s}
-@keyframes dronePulse{0%,100%{transform:scale(1);opacity:0.9}50%{transform:scale(1.25);opacity:1}}
-.drone-anim{animation:dronePulse 1.8s ease-in-out infinite}
-@media(max-width:767px){
- .brand{flex:none}.connection,.avatar,.weather{display:none!important}.menu-toggle{display:block}.nav-right{margin-left:auto}.nav-links{display:none;position:absolute;inset-inline:0;top:calc(100% + 6px);z-index:12;background:#111d16;padding:7px}.nav-links.is-open{display:grid}.nav-item{text-align:left}.map-tools{gap:5px;margin:7px}.map-tools>div{padding:3px;gap:0}.map-tools>div>*+*{margin-top:0!important}.layer-choice{padding:2px 6px}.layer-choice>div:first-child,.layer-description{display:none}.layer-choice{justify-content:center}.layer-caption span{font-size:11px}.map-tools>div:nth-child(2)>div{margin-block:2px!important}.field-label{padding:7px 9px}.field-label>span:first-child{display:none}.map-caption{max-width:92%}
- button:not(.skip-link),select{min-height:44px;min-width:44px}.analytics button svg,.operations button svg{margin-inline:auto}
-}
-@media(min-width:768px) and (max-width:1279px){
- .operations{grid-template-columns:repeat(2,minmax(0,1fr))}.drawer-toggle{display:block;grid-area:1 / 1 / 2 / 3;align-self:start;justify-self:start;margin:12px;z-index:7;min-height:44px}.analytics{display:none;grid-area:1 / 1 / 2 / 3;align-self:start;justify-self:start;margin:64px 12px 44px;width:min(325px,calc(100% - 175px));max-height:calc(clamp(370px,54dvh,550px) - 108px);overflow:auto;z-index:6;padding:2px;overscroll-behavior:contain}.analytics.is-open{display:grid}
-}
-@media(min-width:1150px){.nav-search{display:block;width:clamp(140px,13vw,205px)}}
-@media(min-width:1280px){
- #app{height:100vh;height:100dvh;min-height:610px}#content{flex:1;grid-template-columns:minmax(255px,310px) minmax(0,1fr) auto;grid-template-rows:minmax(240px,1fr) auto;gap:12px}#map-view{grid-area:1 / 1 / 2 / 4;min-height:0}.analytics{display:grid;grid-area:1 / 1 / 2 / 2;z-index:4;align-content:start;align-self:stretch;overflow:auto;padding:12px 4px 12px 12px;scroll-padding:12px;overscroll-behavior:contain}.operations{grid-area:2 / 1 / 3 / 4;grid-template-columns:repeat(4,minmax(0,1fr))}.map-tools{grid-area:1 / 3 / 2 / 4}.map-caption{grid-area:1 / 2 / 2 / 4}.map-detail,.view-panel{grid-area:1 / 2 / 2 / 4}
-}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:where(button,a,input,select,[tabindex]):focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:10px}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:6px}::-webkit-scrollbar-track{background:transparent}
+.skip-link{position:fixed;top:10px;left:10px;z-index:200;transform:translateY(-200%);background:var(--lime);color:#10170a;padding:10px 16px;border-radius:12px;font-weight:600}
+.skip-link:focus{transform:none}
+.mono{font-family:var(--mono);font-feature-settings:normal}
+.i{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.i.sm{width:13px;height:13px}
+
+/* ---------- Glass primitive ---------- */
+.glass{position:relative;border-radius:var(--r-lg);border:1px solid var(--stroke);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 38%),var(--glass);
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.06)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(155deg,rgba(255,255,255,.24),rgba(255,255,255,0) 32%,rgba(255,255,255,0) 68%,rgba(191,242,74,.16));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.glass.strong{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 38%),var(--glass-hi)}
+.card{padding:16px 18px}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;min-height:30px}
+.card-title{margin:0;font-size:13.5px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.meta{font-size:11px;color:var(--ink-3)}
+.icon-btn{width:32px;height:32px;border-radius:11px;display:grid;place-items:center;color:var(--ink-3);border:1px solid transparent;transition:.2s var(--ease)}
+.icon-btn:hover{color:#fff;background:rgba(255,255,255,.08);border-color:var(--stroke)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;border:1px solid var(--stroke-2);white-space:nowrap;line-height:1.3}
+.pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+.pill.ok{color:var(--lime);background:rgba(191,242,74,.09);border-color:rgba(191,242,74,.28)}
+.pill.warn{color:var(--amber);background:rgba(245,179,66,.1);border-color:rgba(245,179,66,.3)}
+.pill.warn .dot{animation:blink 1.6s ease-in-out infinite}
+.pill.is-stale{color:#fda4af;background:rgba(244,63,94,.12);border-color:rgba(251,113,133,.4)}
+.big{font-size:30px;font-weight:600;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-3);margin-left:4px}
+
+/* ---------- App shell ---------- */
+.app{position:relative;display:flex;flex-direction:column;gap:var(--gap);min-height:100dvh;padding:calc(var(--pad) + env(safe-area-inset-top,0px)) calc(var(--pad) + env(safe-area-inset-right,0px)) calc(var(--pad) + env(safe-area-inset-bottom,0px)) calc(var(--pad) + env(safe-area-inset-left,0px));isolation:isolate}
+.topbar{position:relative;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px 8px 12px;border-radius:22px}
+.nav-left,.nav-right{display:flex;align-items:center;gap:clamp(8px,1vw,16px)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16.5px;letter-spacing:-.02em}
+.brand-mark{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;color:#0c1406;background:linear-gradient(145deg,#e4ff8a,#8fd11a 55%,#3f7d0b);box-shadow:0 6px 18px -4px rgba(143,209,26,.55),inset 0 1px 0 rgba(255,255,255,.55)}
+.nav-links{display:flex;gap:2px;padding:3px;border-radius:14px;background:rgba(0,0,0,.34);border:1px solid var(--stroke)}
+.nav-item{padding:7px clamp(9px,1vw,15px);border-radius:11px;font-size:12px;font-weight:550;color:var(--ink-3);white-space:nowrap;border:1px solid transparent;transition:.25s var(--ease)}
+.nav-item:hover{color:#fff}
+.nav-item[aria-current]{color:#fff;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.07));border-color:var(--stroke-2);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.inventory{display:none;gap:4px;font-size:11.5px;color:var(--ink-2)}
+.inventory span{padding:5px 9px;border-radius:9px;background:rgba(255,255,255,.05);white-space:nowrap}
+.inventory b{color:#fff;font-weight:600}
+.sim-toggle{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:12px;font-size:11.5px;font-weight:600;color:var(--lime);background:rgba(191,242,74,.09);border:1px solid rgba(191,242,74,.28);transition:.25s var(--ease)}
+.sim-toggle:hover{background:rgba(191,242,74,.16)}
+.sim-toggle .pulse{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(191,242,74,.6);animation:ping 2s infinite}
+.sim-toggle.paused{color:var(--amber);background:rgba(245,179,66,.09);border-color:rgba(245,179,66,.3)}
+.sim-toggle.paused .pulse{background:var(--amber);animation:none;box-shadow:none}
+.nav-search{display:none;position:relative;width:clamp(150px,14vw,220px)}
+.nav-search input{width:100%;padding:8px 32px 8px 13px;border-radius:12px;font-size:12px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);color:var(--ink);transition:.2s}
+.nav-search input::placeholder{color:var(--ink-3)}
+.nav-search input:focus{outline:0;border-color:rgba(191,242,74,.5);background:rgba(255,255,255,.08);box-shadow:0 0 0 4px rgba(191,242,74,.1)}
+.nav-search .i{position:absolute;right:11px;top:50%;translate:0 -50%;color:var(--ink-3);pointer-events:none}
+.search-results{position:absolute;top:calc(100% + 8px);inset-inline:0;z-index:30;padding:6px;min-width:190px;border-radius:16px;font-size:12px;color:var(--ink-3)}
+.search-results button{display:block;width:100%;text-align:left;padding:8px 10px;border-radius:10px;color:var(--ink)}
+.search-results button:hover,.search-results button:focus-visible{background:rgba(255,255,255,.08)}
+.chip-status{display:none;align-items:center;gap:7px;padding:7px 11px;border-radius:12px;font-size:11px;font-weight:600;color:var(--emerald);background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.24)}
+.bell{position:relative}
+.bell::after{content:"";position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 2px #151a16,0 0 10px var(--lime)}
+.avatar{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;font-size:11.5px;font-weight:700;color:var(--lime);background:linear-gradient(145deg,#2b312c,#161a17);border:1px solid var(--stroke-2);flex:none}
+.menu-toggle{display:none;padding:8px 13px;border-radius:12px;font-size:12px;font-weight:600;background:rgba(255,255,255,.07);border:1px solid var(--stroke-2)}
+
+.subhead{position:relative;z-index:10;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:2px 6px}
+.page-title{margin:0;font-size:clamp(24px,2.6vw,38px);font-weight:650;letter-spacing:-.04em;line-height:1.05;text-shadow:0 2px 24px rgba(0,0,0,.5)}
+.page-sub{margin:6px 0 0;font-size:12.5px;color:var(--ink-2);text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.weather{display:flex;gap:8px;flex-wrap:wrap}
+.wchip{display:flex;align-items:center;gap:9px;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:550;color:var(--ink);background:rgba(16,21,17,.5);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--stroke-2);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.wchip small{display:block;font-size:10.5px;color:var(--ink-3);font-weight:500;line-height:1.1}
+.wchip .i{width:17px;height:17px}
+.wchip b{font-weight:650;display:block;line-height:1.15}
+
+/* ---------- Alert ---------- */
+.alert{position:fixed;z-index:60;top:calc(14px + env(safe-area-inset-top,0px));left:50%;translate:-50% 0;width:min(680px,calc(100% - 24px));display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 14px;border-radius:18px;font-size:12px;color:#ffd5db;background:linear-gradient(180deg,rgba(244,63,94,.26),rgba(244,63,94,.14));border:1px solid rgba(251,113,133,.45);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);box-shadow:0 24px 50px -18px rgba(244,63,94,.5);transition:.4s var(--ease)}
+.alert.hidden{opacity:0;translate:-50% -140%;pointer-events:none}
+.alert-tag{font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#fecdd3;background:rgba(76,5,25,.6);padding:3px 8px;border-radius:7px;border:1px solid rgba(251,113,133,.35);white-space:nowrap}
+.alert-body{display:flex;align-items:center;gap:10px;min-width:0}
+.alert-dismiss{padding:6px 12px;border-radius:10px;font-weight:600;font-size:11.5px;background:rgba(251,113,133,.2);color:#fff;border:1px solid rgba(251,113,133,.3);white-space:nowrap}
+.alert-dismiss:hover{background:rgba(251,113,133,.35)}
+
+/* ---------- Map ---------- */
+.map{position:relative;z-index:1;height:clamp(400px,58dvh,600px);border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--stroke);background:radial-gradient(ellipse at 60% 45%,#2a4328,#122017 66%,#070c09);touch-action:pan-y;user-select:none;box-shadow:var(--shadow)}
+#map-stage{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:center;transition:transform .35s var(--ease);--counter-angle:0deg;--counter-scale:1;will-change:transform}
+#map-stage.dragging{transition:none}
+.map-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;filter:saturate(.92) contrast(1.06) brightness(.82);transition:filter .4s ease}
+.map-vectors{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.map-vectors g[id$="group"] .hit,.map-vectors .marker{pointer-events:all;cursor:pointer}
+.map[data-layer=ndvi] .map-image{filter:hue-rotate(34deg) saturate(2) contrast(1.15) brightness(.85)}
+.map[data-layer=soil] .map-image{filter:sepia(.85) saturate(1.5) contrast(1.1) brightness(.82)}
+.map::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;mix-blend-mode:soft-light;transition:opacity .4s;background:linear-gradient(144deg,#b13527,#e7b43a 44%,#63bc39 72%)}
+.map[data-layer=ndvi]::after{opacity:.45}
+.map[data-layer=soil]::after{opacity:.5;background:linear-gradient(135deg,#7d4121,#eab260 64%,#6b4428)}
+.veil{position:absolute;inset:0;pointer-events:none;z-index:1}
+.veil.a{background:linear-gradient(90deg,rgba(5,8,6,.88),rgba(5,8,6,.25) 42%,rgba(5,8,6,.55))}
+.veil.b{background:linear-gradient(0deg,rgba(5,8,6,.92),rgba(5,8,6,0) 45%,rgba(5,8,6,.7))}
+.veil.c{background:radial-gradient(ellipse at 58% 46%,transparent 28%,rgba(3,6,4,.7) 100%)}
+
+.field-trigger{position:absolute;left:63%;top:48%;z-index:3;min-width:44px;min-height:44px;display:flex;align-items:center;gap:10px;text-align:left;transform-origin:24px 50%;transform:translate(-24px,-50%) rotate(var(--counter-angle)) scale(var(--counter-scale))}
+.radar{position:relative;width:48px;height:48px;display:grid;place-items:center;flex:none}
+.radar i{position:absolute;border-radius:50%;border:1px solid rgba(191,242,74,.55);animation:radar 2.8s cubic-bezier(.215,.61,.355,1) infinite}
+.radar i:nth-child(1){width:48px;height:48px}
+.radar i:nth-child(2){width:32px;height:32px;animation-delay:.9s}
+.radar b{position:relative;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(191,242,74,.18);border:1px solid var(--lime);box-shadow:0 0 22px rgba(191,242,74,.7),inset 0 0 8px rgba(191,242,74,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.radar b::after{content:"";width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 8px #fff}
+.field-label{display:flex;align-items:center;gap:12px;padding:9px 14px 9px 10px;border-radius:18px;white-space:nowrap;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,0)),rgba(12,17,13,.78);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid rgba(191,242,74,.32);box-shadow:var(--shadow),0 0 24px -6px rgba(191,242,74,.35);transition:.3s var(--ease)}
+.field-trigger:hover .field-label,.field-trigger[aria-expanded=true] .field-label{border-color:var(--lime);box-shadow:var(--shadow),0 0 32px -4px rgba(191,242,74,.55)}
+.field-ico{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;color:var(--lime);background:rgba(191,242,74,.13);border:1px solid rgba(191,242,74,.32)}
+.field-name{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:650;letter-spacing:-.01em}
+.field-name .i{color:var(--ink-3)}
+.field-meta{display:flex;align-items:center;gap:6px;margin-top:2px;font-size:11.5px;font-weight:600;color:var(--lime)}
+.field-meta .dot{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime)}
+.field-meta span:last-child{color:rgba(191,242,74,.72);font-weight:500}
+
+.map-tools{position:absolute;z-index:6;top:12px;right:12px;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.layers{padding:6px;display:flex;flex-direction:column;gap:2px;border-radius:20px;width:168px}
+.layer{display:flex;align-items:center;gap:10px;padding:6px 10px 6px 6px;border-radius:14px;text-align:left;border:1px solid transparent;color:var(--ink-2);transition:.2s var(--ease)}
+.layer:hover{background:rgba(255,255,255,.07);color:#fff}
+.layer[aria-pressed=true]{color:#fff;background:rgba(255,255,255,.1);border-color:rgba(191,242,74,.4)}
+.thumb{width:32px;height:32px;border-radius:50%;flex:none;border:1.5px solid rgba(255,255,255,.22);box-shadow:inset 0 0 8px rgba(0,0,0,.5)}
+.layer[aria-pressed=true] .thumb{border-color:var(--lime)}
+.t-sat{background:radial-gradient(circle at 35% 30%,#8bc24a,#2f6a1c 55%,#173d12)}
+.t-ndvi{background:linear-gradient(140deg,#c2410c,#facc15 50%,#16a34a)}
+.t-soil{background:radial-gradient(circle at 40% 35%,#a5603a,#6b3a22 60%,#3b2113)}
+.t-drone{background:radial-gradient(circle,#0c4a6e,#082f49);display:grid;place-items:center;color:var(--sky)}
+.lc b{display:block;font-size:12px;font-weight:600}
+.lc small{display:block;font-size:10.5px;color:var(--ink-3);font-family:var(--mono)}
+.layer[aria-pressed=true] .lc small{color:var(--lime)}
+#drone-layer-toggle[aria-pressed=true] .lc small{color:var(--sky)}
+.ctrls{padding:5px;display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:18px}
+.ctrls button{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:var(--ink-2);transition:.2s var(--ease)}
+.ctrls button:hover{color:#fff;background:rgba(255,255,255,.1)}
+.ctrls hr{width:18px;height:1px;border:0;background:var(--stroke-2);margin:2px 0}
+.map-caption{position:absolute;z-index:3;left:12px;bottom:12px;margin:0;padding:6px 12px;border-radius:999px;font-size:11px;color:var(--ink-2);pointer-events:none;background:rgba(12,17,13,.6);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--stroke-2)}
+.map-detail,.view-panel{position:absolute;z-index:7;left:12px;bottom:52px;width:min(310px,calc(100% - 200px));padding:16px 18px;min-width:230px}
+.map-detail h2,.view-panel h2{margin:0;font-size:15px;font-weight:650;letter-spacing:-.01em}
+.map-detail p,.view-panel p{margin:6px 0 0;font-size:12.5px;color:var(--ink-2)}
+.link-btn{margin-top:10px;font-size:12.5px;font-weight:600;color:var(--lime)}
+.link-btn:hover{text-decoration:underline}
+
+/* ---------- Left rail ---------- */
+.rail{position:relative;z-index:5;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px;align-content:start}
+.gauge-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.gauge{position:relative;width:150px;height:88px;flex:none}
+.gauge svg{width:100%;height:100%;overflow:visible}
+.gauge .tick{stroke:rgba(255,255,255,.12);stroke-width:3.2;stroke-linecap:round;transition:stroke .5s,opacity .5s}
+.gauge .tick.on{filter:drop-shadow(0 0 3px rgba(191,242,74,.55))}
+.gauge-val{position:absolute;inset:auto 0 0 0;text-align:center;font-size:32px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.gauge-val span{font-size:14px;color:var(--lime);margin-left:2px;letter-spacing:0}
+.area{text-align:right}
+.area .big{font-size:34px}
+.delta{display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;color:var(--emerald);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.22)}
+.select-wrap{position:relative}
+.select-wrap select{appearance:none;-webkit-appearance:none;padding:6px 28px 6px 12px;border-radius:999px;font-size:11.5px;font-weight:550;background:rgba(255,255,255,.07);border:1px solid var(--stroke-2);color:var(--ink);cursor:pointer}
+.select-wrap select option{background:#131a15}
+.select-wrap .i{position:absolute;right:9px;top:50%;translate:0 -50%;pointer-events:none;width:12px;height:12px;color:var(--ink-3)}
+.trend{position:relative}
+.trend svg{display:block;width:100%;height:auto;overflow:visible;touch-action:none}
+.trend text{fill:var(--ink-4);font-size:8.5px;font-family:Inter,sans-serif}
+.trend text.hl{fill:var(--lime);font-weight:700}
+.tip{position:absolute;top:-6px;z-index:3;pointer-events:none;opacity:0;transform:translate(-50%,-100%);padding:4px 9px;border-radius:9px;font-size:10.5px;font-family:var(--mono);white-space:nowrap;color:var(--lime);background:rgba(5,8,6,.92);border:1px solid rgba(191,242,74,.35);transition:opacity .15s}
+.matrix{display:grid;grid-template-columns:repeat(16,1fr);gap:4px;padding:11px;border-radius:16px;background:rgba(0,0,0,.34);border:1px solid var(--stroke)}
+.matrix i{aspect-ratio:1;border-radius:5px;position:relative;transition:transform .2s var(--ease),filter .2s;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 10px -2px var(--c)}
+.matrix i:hover{transform:scale(1.35);z-index:2;filter:brightness(1.2)}
+.matrix i.c::after,.matrix i.s::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.matrix i.c::after{background-image:repeating-linear-gradient(135deg,transparent 0 2px,rgba(20,20,20,.5) 2px 3px)}
+.matrix i.s::after{background-image:radial-gradient(circle,rgba(20,10,10,.8) 1px,transparent 1.5px);background-size:4px 4px}
+.matrix-legend{display:flex;gap:12px;margin:9px 2px 0;font-size:11px;color:var(--ink-2)}
+.matrix-legend span{display:flex;align-items:center;gap:6px}
+.matrix-legend i{width:8px;height:8px;border-radius:3px}
+.foot-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--stroke);font-size:11.5px;color:var(--ink-2)}
+.ai-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:11.5px;font-weight:650;color:#142007;background:linear-gradient(180deg,#d4fa72,#a8e02a);box-shadow:0 8px 20px -6px rgba(168,224,42,.6),inset 0 1px 0 rgba(255,255,255,.55);transition:.25s var(--ease)}
+.ai-btn:hover{transform:translateY(-1px);box-shadow:0 12px 26px -6px rgba(168,224,42,.75),inset 0 1px 0 rgba(255,255,255,.55)}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.mini{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--stroke)}
+.mini .ico{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;color:var(--lime);background:rgba(191,242,74,.1);border:1px solid rgba(191,242,74,.22)}
+.mini small{display:block;font-size:10.5px;color:var(--ink-3)}
+.mini b{display:block;font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.mini em{display:block;font-style:normal;font-size:10px;color:var(--ink-4);font-family:var(--mono)}
+
+/* ---------- Dock ---------- */
+.dock{position:relative;z-index:5;display:grid;gap:12px;grid-template-columns:1fr}
+.ops{display:flex;flex-direction:column;gap:12px;container-type:inline-size;transition:.3s var(--ease)}
+.ops:hover{border-color:rgba(191,242,74,.28);transform:translateY(-2px)}
+.ops-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.ops-head h3{margin:0;font-size:14.5px;font-weight:650;letter-spacing:-.02em}
+.ops-head time{display:block;margin-top:1px;font-size:10.5px;color:var(--ink-3);font-family:var(--mono)}
+.ops-mid{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ops-mid .col{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.vehicle{width:70px;height:44px;flex:none;fill:none;stroke:rgba(255,255,255,.62);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.vehicle.amber{stroke:rgba(245,179,66,.8)}
+.chart-box{padding:8px 10px 8px;border-radius:14px;background:rgba(0,0,0,.3);border:1px solid var(--stroke)}
+.chart-box svg{display:block;width:100%;height:42px}
+.chart-box .axis{display:flex;justify-content:space-between;margin-top:2px;font-size:10px;color:var(--ink-3);font-family:var(--mono)}
+.track{position:relative;height:4px;border-radius:4px;margin-top:8px;background:rgba(255,255,255,.1)}
+.track i{position:absolute;inset:0 auto 0 0;width:50%;border-radius:inherit;transition:width 1s var(--ease)}
+.track i::after{content:"";position:absolute;right:-5px;top:50%;translate:0 -50%;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.18),0 2px 6px rgba(0,0,0,.5)}
+.track.lime i{background:linear-gradient(90deg,#4d7c0f,#bff24a)}
+.track.amber i{background:linear-gradient(90deg,#b45309,#fcd34d)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-top:12px;margin-top:auto;border-top:1px solid var(--stroke)}
+.stats small{display:block;font-size:10.5px;color:var(--ink-3)}
+.stats b{display:block;font-size:14px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stats > div:nth-child(2){text-align:center}.stats > div:nth-child(3){text-align:right}
+.irr-top{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.irr-top .meta{margin-top:5px}
+.tbl-wrap{border-radius:14px;overflow:hidden;border:1px solid var(--stroke);background:rgba(0,0,0,.3)}
+.tbl{width:100%;border-collapse:collapse;text-align:center;font-size:11.5px}
+.tbl th{font-weight:500;color:var(--ink-3);padding:6px 4px;font-size:10.5px}
+.tbl thead tr{background:rgba(255,255,255,.04)}
+.tbl tbody tr+tr th,.tbl tbody tr+tr td{border-top:1px solid var(--stroke)}
+.tbl tbody th{text-align:left;padding:8px 10px;color:var(--ink-2);font-size:11.5px}
+.tbl td{font-family:var(--mono);color:var(--ink-2);padding:8px 4px}
+.tbl td.up{color:var(--amber);font-weight:500}
+.tbl td.up::before{content:"◔ ";font-size:10px}
+.tbl td.bad{color:var(--rose);font-weight:600}
+.tbl td.bad.pulse{animation:blink 1s infinite}
+.irr-foot{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3);padding-top:10px;border-top:1px solid var(--stroke);margin-top:auto}
+.yield-body{display:grid;gap:10px}
+.yield-body .num{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.hist-wrap{position:relative}
+.hist{display:flex;align-items:flex-end;gap:3px;height:68px;padding:8px 8px 6px;border-radius:14px;background:rgba(0,0,0,.3);border:1px solid var(--stroke)}
+.hist b{flex:1;min-width:0;border-radius:3px 3px 1px 1px;background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.07));cursor:pointer;transition:.18s}
+.hist b:hover{background:var(--lime)}
+.hist b.peak{background:linear-gradient(180deg,#e2ff8c,#84cc16);box-shadow:0 0 14px rgba(191,242,74,.6)}
+@container (min-width:330px){.yield-body{grid-template-columns:auto 1fr;align-items:end}}
+.run{display:flex;justify-content:space-between;font-size:11px;padding-top:10px;margin-top:auto;border-top:1px solid var(--stroke);color:var(--ink-3)}
+.run b{color:var(--lime);font-weight:650}
+
+/* ---------- Dialog ---------- */
+dialog{margin:auto;width:min(440px,calc(100% - 32px));padding:22px;color:var(--ink);border-radius:var(--r-lg);border:1px solid var(--stroke-2);background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 40%),rgba(14,19,15,.94);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);box-shadow:0 40px 90px -20px #000}
+dialog::backdrop{background:rgba(2,5,3,.66);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+dialog[open]{animation:pop .3s var(--ease)}
+dialog h2{margin:0;font-size:18px;font-weight:650;letter-spacing:-.02em}
+dialog p{margin:10px 0 0;font-size:13.5px;color:var(--ink-2);line-height:1.6}
+dialog .close{margin-top:18px;padding:9px 18px;border-radius:12px;font-size:12.5px;font-weight:600;background:rgba(255,255,255,.09);border:1px solid var(--stroke-2)}
+dialog .close:hover{background:rgba(255,255,255,.15)}
+
+/* ---------- Motion ---------- */
+@keyframes radar{0%{transform:scale(.65);opacity:.9}50%{transform:scale(1.6);opacity:.25}100%{transform:scale(2.4);opacity:0}}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(191,242,74,.55)}70%,100%{box-shadow:0 0 0 9px rgba(191,242,74,0)}}
+@keyframes blink{50%{opacity:.35}}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.97)}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes dronePulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.3);opacity:1}}
+.drone-anim{animation:dronePulse 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.glass.card,.topbar,.subhead{animation:rise .7s var(--ease) both}
+.rail .glass:nth-child(2){animation-delay:.08s}.rail .glass:nth-child(3){animation-delay:.16s}
+.dock .glass:nth-child(2){animation-delay:.06s}.dock .glass:nth-child(3){animation-delay:.12s}.dock .glass:nth-child(4){animation-delay:.18s}
+
+/* ---------- Breakpoints ---------- */
+@media(min-width:700px){.dock{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:900px){.chip-status{display:flex}}
+@media(min-width:1100px){.nav-search{display:block}}
 @media(min-width:1500px){.inventory{display:flex}}
-@media(pointer:coarse){button,select{min-height:44px;min-width:44px}}
+@media(max-width:899px){
+  .menu-toggle{display:block}
+  .nav-links{display:none;position:absolute;inset-inline:0;top:calc(100% + 8px);z-index:12;padding:6px;flex-direction:column;background:rgba(14,19,15,.96);border-radius:18px}
+  .nav-links.is-open{display:flex}
+  .nav-item{text-align:left;padding:10px 12px}
+  .sim-toggle span:last-child{display:none}
+  .sim-toggle{padding:10px}
+  .avatar{display:none}
+}
+@media(max-width:767px){
+  .weather .wchip:nth-child(n+3){display:none}
+  .map{height:clamp(420px,66dvh,560px)}
+  .map-tools{flex-direction:row;align-items:flex-start;top:8px;right:8px;gap:6px}
+  .layers{width:auto;flex-direction:column}
+  .layer{padding:4px}.lc,.layer .lc small{display:none}
+  .lc{display:none}
+  .map-detail,.view-panel{width:calc(100% - 24px);bottom:48px}
+  button:not(.skip-link),select{min-height:44px}
+  .icon-btn,.ctrls button{min-height:0}
+  .field-label{padding:7px 10px}.field-ico{display:none}
+}
+@media(min-width:1180px){
+  .app{height:100dvh;min-height:640px;display:grid;overflow:hidden;gap:12px 16px;
+    grid-template-columns:minmax(300px,340px) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto}
+  .map{position:absolute;inset:12px;height:auto;border-radius:34px;z-index:0}
+  .topbar{grid-column:1/-1;grid-row:1}
+  .subhead{grid-column:1/-1;grid-row:2}
+  .rail{grid-column:1;grid-row:3/5;min-height:0;overflow-y:auto;display:flex;flex-direction:column;padding:2px 4px 2px 0;margin-right:-4px;
+    -webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 22px),transparent);padding-bottom:20px}
+  .rail>.glass{flex:none}
+  .dock{grid-column:2;grid-row:4;grid-template-columns:1fr 1fr 1.3fr 1.3fr;align-self:end}
+  .map-tools{top:calc(var(--pad) + 112px);right:calc(var(--pad) + 4px)}
+  .map-caption{left:auto;bottom:auto;top:calc(var(--pad) + 112px);left:392px}
+  .map-detail,.view-panel{left:392px;bottom:auto;top:calc(var(--pad) + 150px);width:310px}
+}
+@media(min-width:1180px) and (max-height:800px){
+  .map-tools{flex-direction:row;align-items:flex-start}
+  .layers{width:auto;flex-direction:column}
+  .layer .lc{display:none}
+  .layer{padding:5px}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-[aria-disabled=true]{opacity:.5;cursor:default}.map-image[hidden]{display:none!important}
-@media(max-width:767px){.map-tools{grid-auto-flow:column;align-items:start}.map-tools>div:nth-child(2){grid-column:2}.map-tools>div:first-child{grid-column:1}}
-@media(min-width:1280px) and (max-height:730px){.map-tools{grid-auto-flow:column;align-items:start}}
-</style></head>
-<body class="text-slate-100 font-sans antialiased"><a class="skip-link" href="#content">Skip to content</a><div id="app">
-<!-- Dynamic Alert Banner for Irrigation Variance -->
-<div id="irrigation-alert-banner" class="hidden transition-all duration-300 relative z-20 flex items-center justify-between px-4 py-2.5 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-200 text-xs shadow-lg backdrop-blur-md">
-  <div class="flex items-center space-x-2.5">
-    <span class="flex h-2.5 w-2.5 relative">
-      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
-    </span>
-    <span class="font-bold text-rose-300 tracking-wide uppercase text-[11px] bg-rose-950/60 px-2 py-0.5 rounded border border-rose-500/30">Irrigation Alert</span>
-    <span id="alert-banner-text">Irrigation variance exceeded ±3.0 min threshold in Zone B (Current: -3.2 min).</span>
+</style>
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-logo" viewBox="0 0 24 24"><path d="M12 3 3 7.5l9 4.5 9-4.5zM3 12l9 4.5 9-4.5M3 16.5 12 21l9-4.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M3 9a14 14 0 0 1 18 0M6 12.5a9.5 9.5 0 0 1 12 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r=".8"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 10 10 5 20 5c0 9-5 15-13 15"/><path d="M5 19c3-5 6-8 10-10"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 9h11a3 3 0 1 0-3-3M3 15h15a3 3 0 1 1-3 3M3 12h7"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></symbol>
+  <symbol id="i-therm" viewBox="0 0 24 24"><path d="M10 14V5a2 2 0 0 1 4 0v9a4 4 0 1 1-4 0z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="m11 3 1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8z"/><path d="m19 15 .7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-fit" viewBox="0 0 24 24"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.5-5.8M20 4v4h-4"/></symbol>
+  <symbol id="i-drone" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M10.5 10.5 6 6M13.5 10.5 18 6M10.5 13.5 6 18M13.5 13.5 18 18"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></symbol>
+</defs></svg>
+
+<!-- Irrigation alert -->
+<div class="alert hidden" id="irrigation-alert-banner" role="alert">
+  <div class="alert-body">
+    <span class="alert-tag">Irrigation Alert</span>
+    <span id="alert-banner-text">Irrigation variance exceeded ±3.0 min threshold in Zone B.</span>
   </div>
-  <button id="alert-dismiss-btn" type="button" class="text-rose-300 hover:text-white px-2 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 transition text-[11px] font-semibold">Dismiss</button>
+  <button class="alert-dismiss" id="alert-dismiss-btn" type="button">Dismiss</button>
 </div>
 
-<header class="top-header" data-purpose="master-navigation-header">
-<nav aria-label="Primary" class="glass-hud topbar rounded-2xl">
-<div class="nav-left">
-<div class="brand flex items-center gap-2">
-<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-lime-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-lime-900/40">
-<svg aria-hidden="true" class="w-5 h-5 text-zinc-950" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
-<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-</svg>
-</div>
-<span class="text-lg font-bold tracking-tight text-white">Furrow</span>
-</div>
-<div class="nav-links rounded-xl bg-black/40 border border-white/5" id="primary-links">
-<button aria-current="page" class="nav-item rounded-lg text-xs font-semibold" data-view="map" type="button">Live Map</button>
-<button class="nav-item rounded-lg text-xs font-semibold" data-view="fields" type="button">Fields</button>
-<button class="nav-item rounded-lg text-xs font-semibold" data-view="analytics" type="button">Analytics</button>
-<button class="nav-item rounded-lg text-xs font-semibold" data-view="reports" type="button">Reports</button>
-<button class="nav-item rounded-lg text-xs font-semibold" data-view="farmers" type="button">Farmers</button>
-</div>
-<div class="inventory items-center gap-1 text-xs text-slate-300">
-<span class="px-2 py-1 rounded-lg bg-white/5 whitespace-nowrap">14 Fields</span>
-<span class="px-2 py-1 rounded-lg bg-white/5 whitespace-nowrap">170 Sensors</span>
-<span class="px-2 py-1 rounded-lg bg-white/5 whitespace-nowrap">13 Systems</span>
-<span class="px-2 py-1 rounded-lg bg-white/5 whitespace-nowrap">12 Tractors</span>
-</div>
-</div>
-<div class="nav-right">
-<!-- Interactive Live Telemetry Pause/Resume Toggle -->
-<button id="telemetry-toggle-btn" type="button" class="flex items-center space-x-1.5 px-3 py-1.5 bg-lime-500/15 border border-lime-400/40 hover:bg-lime-500/25 rounded-xl text-lime-300 text-xs font-semibold transition shadow-sm" title="Toggle Live Telemetry Simulation">
-  <span id="telemetry-indicator" class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
-  <span id="telemetry-btn-text">Simulation: Live</span>
-</button>
+<div class="app" id="app">
 
-<div class="nav-search relative">
-<input aria-label="Search parcels and equipment" autocomplete="off" class="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-1.5 text-xs text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-lime-400/50 focus:border-lime-400/50 transition" id="dashboard-search" placeholder="Search parcel, unit..." type="search"/>
-<svg aria-hidden="true" class="search-icon w-4 h-4 text-slate-400" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
-</svg>
-<div class="search-results glass-hud rounded-xl p-2" hidden="" id="search-results"></div></div>
-<div class="flex items-center space-x-1.5 px-2.5 py-1.5 bg-emerald-500/10 border border-emerald-500/25 rounded-xl text-emerald-400 text-[11px] font-semibold connection" role="status">
-<span class="relative flex h-2 w-2">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-</span>
-<span>LTE Telemetry</span>
-</div>
-<button aria-label="Notifications" class="relative w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 transition" data-dialog="notifications" type="button">
-<svg aria-hidden="true" class="w-4 h-4" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<span class="absolute top-2 right-2 w-2 h-2 bg-lime-400 rounded-full"></span>
-</button>
-<div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-stone-800 to-stone-700 border border-white/20 flex items-center justify-center text-xs font-semibold text-lime-400 shadow-inner avatar">
-            JD
+  <header class="glass strong topbar" aria-label="Primary">
+    <nav class="nav-left" aria-label="Primary">
+      <div class="brand"><span class="brand-mark"><svg class="i" style="width:18px;height:18px;stroke-width:2.2"><use href="#i-logo"/></svg></span>Furrow</div>
+      <div class="nav-links" id="primary-links">
+        <button class="nav-item" aria-current="page" data-view="map" type="button">Live Map</button>
+        <button class="nav-item" data-view="fields" type="button">Fields</button>
+        <button class="nav-item" data-view="analytics" type="button">Analytics</button>
+        <button class="nav-item" data-view="reports" type="button">Reports</button>
+        <button class="nav-item" data-view="farmers" type="button">Farmers</button>
+      </div>
+      <div class="inventory" aria-label="Inventory"><span><b>14</b> Fields</span><span><b>170</b> Sensors</span><span><b>13</b> Systems</span><span><b>12</b> Tractors</span></div>
+    </nav>
+    <div class="nav-right">
+      <button class="sim-toggle" id="telemetry-toggle-btn" type="button" aria-pressed="true" title="Toggle live telemetry simulation"><span class="pulse" id="telemetry-indicator"></span><span id="telemetry-btn-text">Simulation: Live</span></button>
+      <div class="nav-search">
+        <input id="dashboard-search" type="search" autocomplete="off" placeholder="Search parcel, unit…" aria-label="Search parcels and equipment">
+        <svg class="i" aria-hidden="true"><use href="#i-search"/></svg>
+        <div class="glass strong search-results" id="search-results" hidden></div>
+      </div>
+      <div class="chip-status" role="status"><svg class="i sm"><use href="#i-wifi"/></svg>LTE Telemetry</div>
+      <button class="icon-btn bell" data-dialog="notifications" type="button" aria-label="Notifications"><svg class="i"><use href="#i-bell"/></svg></button>
+      <div class="avatar" aria-hidden="true">JD</div>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-controls="primary-links" aria-expanded="false">Menu</button>
+    </div>
+  </header>
+
+  <div class="subhead">
+    <div>
+      <h1 class="page-title" id="page-title">Field Management</h1>
+      <p class="page-sub" id="page-subtitle">Field health, fleet telemetry and operations · Live simulation active</p>
+    </div>
+    <div class="weather" aria-label="Weather">
+      <div class="wchip"><svg class="i" style="color:#fbbf24"><use href="#i-sun"/></svg><div><b>28°</b><small>Clear Sky</small></div></div>
+      <div class="wchip"><svg class="i" style="color:var(--emerald)"><use href="#i-wind"/></svg><div><b id="weather-wind">12 km/h</b><small>NE</small></div></div>
+      <div class="wchip"><svg class="i" style="color:var(--sky)"><use href="#i-drop"/></svg><div><b id="weather-humidity">62%</b><small>Humidity</small></div></div>
+    </div>
+  </div>
+
+  <main id="content" tabindex="-1" style="display:contents">
+
+    <!-- MAP -->
+    <section class="map" id="map-view" data-layer="satellite" aria-label="Interactive farm map">
+      <div id="map-stage">
+        <img class="map-image" alt="Top-down aerial satellite photograph of agricultural fields" draggable="false" fetchpriority="high"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfk4GGG4d7WPO-mRL3z-_8N9wP4qrwAR2GqYlskSqEuq0-eBQUR2WqTj9eYZfF7cdg8fpkXCqn7SLl5AWOEmhXs89uAOcVsqp5CRt0CYfR1GSxjkXkBC5I59uqzn0sWP6Y3Ox-yUZlyY4eHScjCgE0EhplPsvGZKl2U9tTI4vPTVMPYks7-u0QuGgxUBMxEncPJ_T8j8-Pd54VInSiObsDDkgsb7xN8qCyuIWwcz4">
+        <svg class="map-vectors" aria-hidden="true" focusable="false" fill="none" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4ff8a"/><stop offset=".5" stop-color="#b7f03c"/><stop offset="1" stop-color="#6aa80f"/></linearGradient>
+            <radialGradient id="fieldFill" cx=".5" cy=".5" r=".7"><stop offset="0" stop-color="#d9ff6b" stop-opacity=".32"/><stop offset="1" stop-color="#7fc41a" stop-opacity=".07"/></radialGradient>
+            <pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="16" stroke="#bff24a" stroke-opacity=".18" stroke-width=".8"/></pattern>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <polygon id="parcel" points="954,342 1530,344 1532,714 1145,712 918,485 918,410" fill="url(#fieldFill)"/>
+          <polygon points="954,342 1530,344 1532,714 1145,712 918,485 918,410" fill="url(#hatch)"/>
+          <polygon points="954,342 1530,344 1532,714 1145,712 918,485 918,410" stroke="url(#neon)" stroke-width="3" stroke-linejoin="round" filter="url(#glow)"/>
+          <g fill="#facc15" stroke="#1c1917" stroke-width="1.5"><circle cx="954" cy="342" r="4"/><circle cx="1530" cy="344" r="4"/><circle cx="1532" cy="714" r="4"/><circle cx="1145" cy="712" r="4"/><circle cx="918" cy="485" r="4"/></g>
+
+          <g id="drone-path-group">
+            <path d="M 980 370 L 1490 375 L 1490 440 L 970 440 L 970 510 L 1480 510 L 1480 580 L 1020 580 L 1020 650 L 1450 650" stroke="#5fc8ff" stroke-width="2" stroke-dasharray="6 6" opacity=".6"/>
+            <g fill="#5fc8ff" stroke="#0f172a" stroke-width="1.5"><circle cx="980" cy="370" r="4"/><circle cx="1490" cy="375" r="4"/><circle cx="1490" cy="440" r="4"/><circle cx="970" cy="440" r="4"/><circle cx="1480" cy="510" r="4"/><circle cx="1020" cy="580" r="4"/></g>
+            <g id="drone-marker" class="marker" transform="translate(980,370)">
+              <circle r="15" fill="#0284c7" opacity=".28" class="drone-anim"/><circle r="6" fill="#5fc8ff" stroke="#fff" stroke-width="1.5"/><polygon points="0,-10 6,4 0,1 -6,4" fill="#e0f2fe"/>
+              <rect x="12" y="-12" width="96" height="22" rx="11" fill="#06121acc" stroke="#5fc8ff88"/><text x="22" y="3" fill="#7dd3fc" font-size="10.5" font-weight="600" font-family="Inter,sans-serif">Drone Scan-03</text>
+            </g>
+          </g>
+          <g id="tractor-gps-group">
+            <path d="M 960 410 L 1080 410 L 1080 620 L 1150 620 L 1150 430 L 1220 430 L 1220 620" stroke="#bff24a" stroke-width="2.5" stroke-dasharray="4 4" opacity=".55"/>
+            <g id="tractor-marker" class="marker" transform="translate(1080,410)">
+              <circle r="13" fill="#bff24a" opacity=".25"/><circle r="5" fill="#bff24a" stroke="#0f172a" stroke-width="1.5"/>
+              <rect x="10" y="-11" width="88" height="22" rx="11" fill="#09140fcc" stroke="#bff24a88"/><text x="20" y="3.5" fill="#d9f99d" font-size="10" font-weight="700" font-family="Inter,sans-serif">T-04 · 8 km/h</text>
+            </g>
+          </g>
+          <g id="sprayer-gps-group">
+            <path d="M 1320 370 L 1320 680 L 1400 680 L 1400 370 L 1470 370 L 1470 660" stroke="#f5b342" stroke-width="2.5" stroke-dasharray="4 4" opacity=".55"/>
+            <g id="sprayer-marker" class="marker" transform="translate(1320,450)">
+              <circle r="13" fill="#f5b342" opacity=".25"/><circle r="5" fill="#f5b342" stroke="#0f172a" stroke-width="1.5"/>
+              <rect x="10" y="-11" width="88" height="22" rx="11" fill="#140f09cc" stroke="#f5b34288"/><text x="20" y="3.5" fill="#fde68a" font-size="10" font-weight="700" font-family="Inter,sans-serif">S-01 · 6 km/h</text>
+            </g>
+          </g>
+        </svg>
+        <button class="field-trigger" id="field-trigger" type="button" aria-controls="field-detail" aria-expanded="false">
+          <span class="radar" aria-hidden="true"><i></i><i></i><b></b></span>
+          <span class="field-label">
+            <span class="field-ico"><svg class="i"><use href="#i-leaf"/></svg></span>
+            <span>
+              <span class="field-name">North Field <svg class="i sm"><use href="#i-chev-r"/></svg></span>
+              <span class="field-meta"><span class="dot"></span><span>92% Health</span><span>· +2%</span></span>
+            </span>
+          </span>
+        </button>
+      </div>
+      <div class="veil a"></div><div class="veil b"></div><div class="veil c"></div>
+
+      <aside class="map-tools" aria-label="Map controls">
+        <div class="glass strong layers" role="group" aria-label="Map layers">
+          <button class="layer" type="button" aria-pressed="true" data-layer-choice="satellite"><span class="thumb t-sat"></span><span class="lc"><b>Satellite</b><small class="layer-description">RGB High-Res</small></span></button>
+          <button class="layer" type="button" aria-pressed="false" data-layer-choice="ndvi"><span class="thumb t-ndvi"></span><span class="lc"><b>NDVI</b><small class="layer-description">Biomass Index</small></span></button>
+          <button class="layer" type="button" aria-pressed="false" data-layer-choice="soil"><span class="thumb t-soil"></span><span class="lc"><b>Soil</b><small class="layer-description">Moisture Profile</small></span></button>
+          <button class="layer" type="button" aria-pressed="true" id="drone-layer-toggle"><span class="thumb t-drone"><svg class="i sm"><use href="#i-drone"/></svg></span><span class="lc"><b>Drones</b><small class="layer-description">Flight Path</small></span></button>
+        </div>
+        <div class="glass strong ctrls">
+          <button type="button" data-map-action="compass" aria-label="Compass orientation" title="Compass orientation"><svg class="i"><use href="#i-compass"/></svg></button>
+          <hr>
+          <button type="button" data-map-action="in" aria-label="Zoom in" title="Zoom in"><svg class="i"><use href="#i-plus"/></svg></button>
+          <button type="button" data-map-action="out" aria-label="Zoom out" title="Zoom out"><svg class="i"><use href="#i-minus"/></svg></button>
+          <hr>
+          <button type="button" data-map-action="fit" aria-label="Fit bounds" title="Fit bounds"><svg class="i"><use href="#i-fit"/></svg></button>
+          <button type="button" data-map-action="rotate" aria-label="Rotate map clockwise" title="Rotate map clockwise"><svg class="i"><use href="#i-rotate"/></svg></button>
+        </div>
+      </aside>
+
+      <p class="map-caption" id="map-caption">Satellite imagery · Live telemetry &amp; GPS tracking active</p>
+
+      <article class="glass strong map-detail" id="field-detail" hidden aria-labelledby="field-title">
+        <h2 id="field-title">North Field</h2>
+        <p>92% crop health · 248 ha monitored across the farm</p>
+        <p class="meta">Last scan: 09:42 (sample reading)</p>
+        <button class="link-btn" id="field-close" type="button">Close details</button>
+      </article>
+      <section class="glass strong view-panel" id="view-panel" hidden aria-labelledby="view-title"><h2 id="view-title"></h2><p id="view-copy"></p></section>
+      <p class="sr-only" id="map-status" role="status"></p>
+    </section>
+
+    <!-- LEFT RAIL -->
+    <section class="rail" id="analytics" aria-labelledby="analytics-title">
+      <h2 class="sr-only" id="analytics-title">Field analytics</h2>
+
+      <article class="glass card" data-purpose="crop-health-card" data-value="92" aria-labelledby="crop-health-title">
+        <div class="card-h"><h3 class="card-title" id="crop-health-title">Crop Health</h3>
+          <button class="icon-btn" data-dialog="health" type="button" aria-label="Crop health details"><svg class="i"><use href="#i-arrow"/></svg></button></div>
+        <div class="gauge-row">
+          <div class="gauge">
+            <svg id="crop-gauge" viewBox="0 0 200 108" role="img" aria-label="Crop health: 92 percent"><g id="gauge-ticks"></g></svg>
+            <div class="gauge-val"><span style="color:#fff;font-size:inherit;margin:0" id="gauge-value">92</span><span>%</span></div>
           </div>
-<button aria-controls="primary-links" aria-expanded="false" class="menu-toggle glass-pill rounded-xl px-3 text-xs font-semibold" id="menu-toggle" type="button">Menu</button></div>
-</nav>
-<div class="subheader">
-<div>
-<h1 class="page-title font-bold tracking-tight text-white" id="page-title">Field Management</h1>
-<p class="text-xs text-slate-300" id="page-subtitle">Field health, fleet telemetry and operations · Live Simulation Active</p>
-</div>
-<div class="glass-pill px-4 py-2 rounded-2xl flex items-center space-x-4 text-xs font-medium text-slate-200 shadow-lg weather">
-<div class="flex items-center space-x-2">
-<svg aria-hidden="true" class="w-4 h-4 text-amber-400" fill="currentColor" focusable="false" viewBox="0 0 20 20">
-<path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path>
-</svg>
-<span class="text-white font-semibold">28°</span>
-<span class="text-slate-400">Clear Sky</span>
-</div>
-<span class="w-px h-3.5 bg-white/15"></span>
-<div class="flex items-center space-x-1.5">
-<svg aria-hidden="true" class="w-3.5 h-3.5 text-sky-400" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<span id="weather-wind">12 km/h NE</span>
-</div>
-<span class="w-px h-3.5 bg-white/15"></span>
-<div class="flex items-center space-x-1.5">
-<span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-<span id="weather-humidity">62% Humidity</span>
-</div>
-</div>
-</div>
-</header><main aria-label="Farm workspace" id="content" tabindex="-1"><section aria-label="Interactive farm map preview" data-layer="satellite" id="map-view"><div id="map-stage"><img alt="High-resolution top-down aerial satellite photography of agricultural fields" class="map-image" draggable="false" fetchpriority="high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfk4GGG4d7WPO-mRL3z-_8N9wP4qrwAR2GqYlskSqEuq0-eBQUR2WqTj9eYZfF7cdg8fpkXCqn7SLl5AWOEmhXs89uAOcVsqp5CRt0CYfR1GSxjkXkBC5I59uqzn0sWP6Y3Ox-yUZlyY4eHScjCgE0EhplPsvGZKl2U9tTI4vPTVMPYks7-u0QuGgxUBMxEncPJ_T8j8-Pd54VInSiObsDDkgsb7xN8qCyuIWwcz4"/><svg aria-hidden="true" class="map-vectors" fill="none" focusable="false" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<linearGradient id="neonLimeGrad" x1="0%" x2="100%" y1="0%" y2="100%">
-<stop offset="0%" stop-color="#bef264"></stop>
-<stop offset="50%" stop-color="#84cc16"></stop>
-<stop offset="100%" stop-color="#4d7c0f"></stop>
-</linearGradient>
-<pattern height="16" id="cropHatch" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse" width="16">
-<line stroke="#a3e635" stroke-opacity="0.16" stroke-width="0.7" x1="0" x2="0" y1="0" y2="16"></line>
-</pattern>
-</defs>
-<polygon class="field-scanlines" fill="url(#cropHatch)" points="954,342 1530,344 1532,714 1145,712 918,485 918,410"></polygon>
-<polygon class="polygon-glow" points="954,342 1530,344 1532,714 1145,712 918,485 918,410" stroke="url(#neonLimeGrad)" stroke-linejoin="round" stroke-width="2.6"></polygon>
-<circle cx="954" cy="342" fill="#facc15" r="3.5" stroke="#1c1917" stroke-width="1.5"></circle>
-<circle cx="1530" cy="344" fill="#facc15" r="3.5" stroke="#1c1917" stroke-width="1.5"></circle>
-<circle cx="1532" cy="714" fill="#facc15" r="3.5" stroke="#1c1917" stroke-width="1.5"></circle>
-<circle cx="1145" cy="712" fill="#facc15" r="3.5" stroke="#1c1917" stroke-width="1.5"></circle>
-<circle cx="918" cy="485" fill="#facc15" r="3.5" stroke="#1c1917" stroke-width="1.5"></circle>
+          <div class="area">
+            <div class="big">248<small>ha</small></div>
+            <div class="meta" style="margin-top:4px">Total monitored area</div>
+            <span class="delta"><svg class="i sm"><use href="#i-arrow"/></svg>Optimal vigor</span>
+          </div>
+        </div>
+      </article>
 
-<!-- Drone Flight Path Overlay (Interactive Simulation) -->
-<g id="drone-path-group" class="cursor-pointer" opacity="0.9">
-  <!-- Waypoint connecting flight line -->
-  <path id="drone-flight-path" d="M 980 370 L 1490 375 L 1490 440 L 970 440 L 970 510 L 1480 510 L 1480 580 L 1020 580 L 1020 650 L 1450 650" stroke="#38bdf8" stroke-width="2" stroke-dasharray="6 6" fill="none" opacity="0.65"></path>
-  
-  <!-- Waypoints -->
-  <circle cx="980" cy="370" r="4" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"></circle>
-  <circle cx="1490" cy="375" r="4" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"></circle>
-  <circle cx="1490" cy="440" r="4" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"></circle>
-  <circle cx="970" cy="440" r="4" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"></circle>
-  <circle cx="1480" cy="510" r="4" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"></circle>
-  <circle cx="1020" cy="580" r="4" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"></circle>
-  
-  <!-- Live Animated Drone Marker -->
-  <g id="drone-marker" transform="translate(980, 370)">
-    <circle r="14" fill="#0284c7" opacity="0.25" class="drone-anim"></circle>
-    <circle r="6" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5"></circle>
-    <polygon points="0,-10 6,4 0,1 -6,4" fill="#bae6fd"></polygon>
-    <!-- Drone Label -->
-    <rect x="10" y="-12" width="86" height="20" rx="6" fill="#0b1318cc" stroke="#38bdf8aa" stroke-width="1"></rect>
-    <text x="16" y="2" fill="#38bdf8" font-size="10" font-weight="600" font-family="Inter, sans-serif">Drone Scan-03</text>
-  </g>
-</g>
+      <article class="glass card" data-purpose="health-trend-card" aria-labelledby="trend-title">
+        <div class="card-h"><h3 class="card-title" id="trend-title">Health Trend</h3>
+          <label class="select-wrap"><span class="sr-only">Health trend period</span>
+            <select id="trend-range"><option value="24h">24 Hours</option><option value="7d" selected>7 Days</option><option value="30d">30 Days</option></select>
+            <svg class="i"><use href="#i-chev-d"/></svg></label></div>
+        <div class="trend" id="trend-box">
+          <div class="tip" id="trend-tip"></div>
+          <svg id="trend-chart" viewBox="0 0 320 140" role="img" aria-label="Seven-day crop health trend">
+            <defs>
+              <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bff24a" stop-opacity=".32"/><stop offset="1" stop-color="#bff24a" stop-opacity="0"/></linearGradient>
+              <linearGradient id="colFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bff24a" stop-opacity=".22"/><stop offset="1" stop-color="#bff24a" stop-opacity="0"/></linearGradient>
+            </defs>
+            <g id="trend-grid"></g><g id="trend-cols"></g>
+            <path id="trend-target" stroke="rgba(255,255,255,.28)" stroke-dasharray="3 4" stroke-width="1" fill="none"/>
+            <path id="trend-area" fill="url(#trendFill)"/>
+            <path id="trend-line" fill="none" stroke="#d4fa72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <g id="trend-marks"></g>
+            <g id="trend-hover" style="display:none"><line y1="8" y2="112" stroke="rgba(255,255,255,.35)" stroke-dasharray="2 3"/><circle r="4" fill="#0b1208" stroke="#d4fa72" stroke-width="2"/></g>
+            <g id="trend-xlabels"></g>
+          </svg>
+        </div>
+      </article>
 
-<!-- Tractor T-04 GPS Route & Live Position -->
-<g id="tractor-gps-group">
-  <path id="tractor-trail" d="M 960 410 L 1080 410 L 1080 620 L 1150 620 L 1150 430 L 1220 430 L 1220 620" stroke="#84cc16" stroke-width="2.5" stroke-dasharray="4 4" fill="none" opacity="0.6"></path>
-  <g id="tractor-marker" transform="translate(1080, 410)" class="cursor-pointer">
-    <circle r="12" fill="#84cc16" opacity="0.25"></circle>
-    <circle r="5" fill="#84cc16" stroke="#0f172a" stroke-width="1.5"></circle>
-    <rect x="8" y="-10" width="76" height="18" rx="5" fill="#09140fdd" stroke="#84cc16aa" stroke-width="1"></rect>
-    <text x="13" y="3" fill="#bef264" font-size="9" font-weight="bold" font-family="Inter, sans-serif">T-04 · 8km/h</text>
-  </g>
-</g>
+      <article class="glass card" data-purpose="stress-zones-card" aria-labelledby="stress-title">
+        <div class="card-h"><div><h3 class="card-title" id="stress-title">Stress Zones</h3><div class="meta">Sensor matrix overview</div></div>
+          <span class="pill ok">Good for Planting</span></div>
+        <div class="matrix" id="matrix" role="img" aria-labelledby="matrix-summary"></div>
+        <div class="matrix-legend" id="matrix-summary"></div>
+        <div class="foot-row"><span>12% yield increase projected</span>
+          <button class="ai-btn" data-dialog="insights" type="button"><svg class="i sm"><use href="#i-spark"/></svg>AI Insights</button></div>
+        <div class="mini-grid">
+          <div class="mini"><span class="ico"><svg class="i sm"><use href="#i-drop"/></svg></span><div><small>Avg. Humidity</small><b id="matrix-humidity">62%</b><em>Max 80% · Min 10%</em></div></div>
+          <div class="mini"><span class="ico"><svg class="i sm"><use href="#i-therm"/></svg></span><div><small>Avg. Temp</small><b id="matrix-temp">28°C</b><em>Max 42° · Min 19°</em></div></div>
+        </div>
+      </article>
+    </section>
 
-<!-- Sprayer S-01 GPS Route & Live Position -->
-<g id="sprayer-gps-group">
-  <path id="sprayer-trail" d="M 1320 370 L 1320 680 L 1400 680 L 1400 370 L 1470 370 L 1470 660" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="4 4" fill="none" opacity="0.6"></path>
-  <g id="sprayer-marker" transform="translate(1320, 450)" class="cursor-pointer">
-    <circle r="12" fill="#f59e0b" opacity="0.25"></circle>
-    <circle r="5" fill="#f59e0b" stroke="#0f172a" stroke-width="1.5"></circle>
-    <rect x="8" y="-10" width="76" height="18" rx="5" fill="#140f09dd" stroke="#f59e0baa" stroke-width="1"></rect>
-    <text x="13" y="3" fill="#fde68a" font-size="9" font-weight="bold" font-family="Inter, sans-serif">S-01 · 6km/h</text>
-  </g>
-</g>
+    <!-- DOCK -->
+    <section class="dock" id="operations" aria-labelledby="operations-title">
+      <h2 class="sr-only" id="operations-title">Fleet and operations</h2>
 
-</svg><button aria-controls="field-detail" aria-expanded="false" class="field-trigger flex items-center gap-2" data-purpose="field-target-callout" id="field-trigger" type="button">
-<span class="radar-pin relative grid place-items-center shrink-0">
-<span class="absolute w-12 h-12 rounded-full border border-lime-400/40 radar-ring-1"></span>
-<span class="absolute w-8 h-8 rounded-full border border-lime-400/60 radar-ring-2"></span>
-<span class="w-7 h-7 rounded-full bg-lime-500/20 backdrop-blur-md border border-lime-400 flex items-center justify-center shadow-[0_0_15px_rgba(132,204,22,0.8)] block">
-<span class="w-2.5 h-2.5 bg-white rounded-full shadow-sm block"></span>
-</span>
-</span>
-<span class="glass-hud py-2.5 px-4 rounded-2xl flex items-center space-x-3.5 border border-lime-500/30 hover:border-lime-400 transition-all duration-300 shadow-2xl cursor-pointer field-label">
-<span class="w-8 h-8 rounded-xl bg-lime-500/20 border border-lime-400/40 flex items-center justify-center text-lime-400">
-<svg aria-hidden="true" class="w-4 h-4" fill="currentColor" focusable="false" viewBox="0 0 20 20">
-<path clip-rule="evenodd" d="M4.16 4.16C7.57.75 13.06.75 16.47 4.16s3.41 8.9 0 12.31c-1.4 1.4-3.2 2.2-5.1 2.37-.42.04-.8-.28-.84-.7-.04-.42.28-.8.7-.84 1.54-.14 3.01-.79 4.16-1.93 2.94-2.94 2.94-7.7 0-10.64S9.75 1.79 6.81 4.73c-.94.94-1.55 2.1-1.8 3.34l2.42 2.42c.31.31.31.82 0 1.13s-.82.31-1.13 0L3.82 9.14C3.76 10.15 4 11.2 4.54 12.1c.21.36.09.83-.27 1.04-.36.21-.83.09-1.04-.27C2.5 11.62 2.2 10.3 2.28 9c.1-1.57.85-3.09 2.04-4.28l-.16-.56z" fill-rule="evenodd"></path>
-</svg>
-</span>
-<span class="text-left block">
-<span class="flex items-center space-x-2">
-<span class="text-sm font-semibold text-white tracking-wide">North Field</span>
-<svg aria-hidden="true" class="w-3.5 h-3.5 text-white/50" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
-</svg>
-</span>
-<span class="flex items-center space-x-1.5 mt-0.5">
-<span class="inline-block w-1.5 h-1.5 rounded-full bg-lime-400"></span>
-<span class="text-xs font-semibold text-[#a3e635]">92% Health</span>
-<span class="text-[11px] text-lime-300/80 font-medium">· +2%</span>
-</span>
-</span>
-</span>
-</button></div><div class="absolute pointer-events-none bg-gradient-to-r from-[#070c09]/95 via-[#070c09]/30 to-[#070c09]/85 mix-blend-multiply vignette vignette-0"></div><div class="absolute pointer-events-none bg-gradient-to-t from-[#050907] via-transparent to-[#050907]/75 vignette vignette-1"></div><div class="absolute pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(4,7,5,0.75)_100%)] vignette vignette-2"></div></section><article aria-labelledby="field-title" class="glass-hud rounded-2xl p-4 map-detail" hidden="" id="field-detail"><h2 class="text-white font-semibold" id="field-title">North Field</h2><p class="mt-2 text-sm text-slate-300">92% crop health · 248 ha monitored across the farm</p><p class="mt-1 text-xs text-slate-300">Last scan: 09:42 (sample reading)</p><button class="mt-2 text-sm text-lime-300" id="field-close" type="button">Close details</button></article><aside aria-label="Map controls" class="map-tools" data-purpose="floating-map-controls">
-<div class="glass-hud p-2 rounded-2xl flex flex-col space-y-2 shadow-2xl">
-<button aria-pressed="true" class="layer-choice flex items-center gap-2 px-3 py-2 rounded-xl text-left" data-layer-choice="satellite" type="button">
-<div aria-hidden="true" class="w-7 h-7 rounded-lg overflow-hidden border border-lime-400 relative">
-<div class="w-full h-full bg-emerald-800 flex items-center justify-center">
-<div class="w-3 h-3 rounded-full bg-lime-400/80"></div>
+      <article class="glass card ops" id="tractor" aria-labelledby="tractor-title">
+        <div class="ops-head"><div><h3 id="tractor-title">Tractor T-04</h3><time data-offset-min="0">—</time></div>
+          <button class="icon-btn" data-dialog="tractor" type="button" aria-label="Tractor T-04 details"><svg class="i"><use href="#i-arrow"/></svg></button></div>
+        <div class="ops-mid">
+          <div class="col"><span class="pill ok" data-fleet-status role="status"><span class="dot"></span><span data-status-text>Online</span></span>
+            <span class="meta mono"><svg class="i sm" style="vertical-align:-2px"><use href="#i-wifi"/></svg> GPS · LTE</span></div>
+          <svg class="vehicle" viewBox="0 0 96 60" aria-hidden="true"><circle cx="26" cy="42" r="14"/><circle cx="26" cy="42" r="6"/><circle cx="74" cy="46" r="10"/><circle cx="74" cy="46" r="4"/><path d="M26 28V14h14l8 12h12l6 10M40 14l-4-6h-10"/><path d="M12 34H40V28M60 26v8M48 26v10H88"/><path d="M52 14h10l4 12"/></svg>
+        </div>
+        <div>
+          <div class="chart-box">
+            <svg viewBox="0 0 200 42" preserveAspectRatio="none" aria-label="Sample tractor activity timeline, 6 AM to 11 PM" role="img">
+              <g stroke="rgba(255,255,255,.07)"><path d="M0 10.5H200M0 21H200M0 31.5H200"/><path d="M40 0V42M80 0V42M120 0V42M160 0V42"/></g>
+              <path d="M0 32H30V10H70V26H110V10H150V32H196" stroke="#bff24a" stroke-width="1.8" fill="none" stroke-linejoin="bevel" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <div class="axis"><span>06 AM</span><span>11 PM</span></div>
+          </div>
+          <div class="track lime"><i id="tractor-fuel-bar" style="width:64%"></i></div>
+        </div>
+        <div class="stats"><div><small>Fuel</small><b id="tractor-fuel">64%</b></div><div><small>Area</small><b id="tractor-area">12.4 ha</b></div><div><small>Speed</small><b id="tractor-speed" style="color:var(--lime)">8 km/h</b></div></div>
+      </article>
+
+      <article class="glass card ops" id="sprayer" aria-labelledby="sprayer-title">
+        <div class="ops-head"><div><h3 id="sprayer-title">Sprayer S-01</h3><time data-offset-min="2">—</time></div>
+          <button class="icon-btn" data-dialog="sprayer" type="button" aria-label="Sprayer S-01 details"><svg class="i"><use href="#i-arrow"/></svg></button></div>
+        <div class="ops-mid">
+          <div class="col"><span class="pill warn" data-fleet-status role="status"><span class="dot"></span><span data-status-text>Working</span></span>
+            <span class="meta mono"><svg class="i sm" style="vertical-align:-2px"><use href="#i-wifi"/></svg> GPS · LTE</span></div>
+          <svg class="vehicle amber" viewBox="0 0 96 60" aria-hidden="true"><circle cx="28" cy="46" r="9"/><circle cx="68" cy="46" r="9"/><circle cx="28" cy="46" r="3.5"/><circle cx="68" cy="46" r="3.5"/><path d="M20 36h56V22H40l-8-10H20z"/><path d="M4 24h88M8 24v8M24 24v8M48 24v8M72 24v8M88 24v8"/><path d="M44 10h18v12"/></svg>
+        </div>
+        <div>
+          <div class="chart-box">
+            <svg viewBox="0 0 200 42" preserveAspectRatio="none" aria-label="Sample sprayer activity timeline, 7 AM to 5 PM" role="img">
+              <g stroke="rgba(255,255,255,.07)"><path d="M0 10.5H200M0 21H200M0 31.5H200"/><path d="M40 0V42M80 0V42M120 0V42M160 0V42"/></g>
+              <path d="M0 18H45V8H90V34H140V14H196" stroke="#f5b342" stroke-width="1.8" fill="none" stroke-linejoin="bevel" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <div class="axis"><span>07 AM</span><span>05 PM</span></div>
+          </div>
+          <div class="track amber"><i id="sprayer-tank-bar" style="width:41%"></i></div>
+        </div>
+        <div class="stats"><div><small>Tank</small><b id="sprayer-tank" style="color:var(--amber)">41%</b></div><div><small>Area</small><b id="sprayer-area">6.8 ha</b></div><div><small>Speed</small><b id="sprayer-speed">6 km/h</b></div></div>
+      </article>
+
+      <article class="glass card ops" id="irrigation" aria-labelledby="irrigation-title">
+        <div class="ops-head"><h3 id="irrigation-title">Irrigation Offset</h3>
+          <button class="icon-btn" data-dialog="irrigation" type="button" aria-label="Irrigation Offset details"><svg class="i"><use href="#i-arrow"/></svg></button></div>
+        <div class="irr-top"><div><div class="big" id="irrigation-global-variance">± 2.5<small>min</small></div><div class="meta">Peak zone variance</div></div></div>
+        <div class="tbl-wrap">
+          <table class="tbl" aria-label="Sample irrigation offsets by zone">
+            <thead><tr><th scope="col" style="text-align:left;padding-left:10px">Zone</th><th scope="col">Z1</th><th scope="col">Z2</th><th scope="col">Z3</th><th scope="col">Z4</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Zone A</th><td id="irrig-a1">-2.0m</td><td id="irrig-a2" class="up">+1.0m</td><td id="irrig-a3" class="up">+1.5m</td><td id="irrig-a4">-1.0m</td></tr>
+              <tr><th scope="row">Zone B</th><td id="irrig-b1">-1.0m</td><td id="irrig-b2">-2.0m</td><td id="irrig-b3" class="up">+2.0m</td><td id="irrig-b4" class="bad">-2.5m</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="irr-foot"><span>Main Pump Station 02</span><span id="pump-status" style="color:var(--emerald);font-weight:600">Calibrated</span></div>
+      </article>
+
+      <article class="glass card ops" id="yield" aria-labelledby="yield-title">
+        <div class="ops-head"><h3 id="yield-title">Live Yield Volume</h3>
+          <button class="icon-btn" data-dialog="yield" type="button" aria-label="Live Yield Volume details"><svg class="i"><use href="#i-arrow"/></svg></button></div>
+        <div class="yield-body">
+          <div class="num"><span class="big" id="yield-volume-val">142,580</span><span class="meta">kg harvested today</span></div>
+          <div class="hist-wrap" id="yield-histogram-container">
+            <div class="tip" id="histogram-tooltip"><span id="tooltip-text"></span></div>
+            <div class="hist" id="yield-histogram" role="img" aria-label="Harvest activity histogram with interactive tooltips"></div>
+          </div>
+        </div>
+        <div class="run"><span>Peak run rate</span><b id="yield-runrate">+18.4 tn/hr</b></div>
+      </article>
+    </section>
+  </main>
 </div>
-</div>
-<div class="layer-caption">
-<span class="block text-xs font-semibold text-white">Satellite</span>
-<span class="layer-description">RGB High-Res</span>
-</div>
-</button>
-<button aria-pressed="false" class="layer-choice flex items-center gap-2 px-3 py-2 rounded-xl text-left" data-layer-choice="ndvi" type="button">
-<div aria-hidden="true" class="w-7 h-7 rounded-lg overflow-hidden border border-white/20 relative">
-<div class="w-full h-full bg-gradient-to-tr from-amber-600 via-yellow-400 to-emerald-500"></div>
-</div>
-<div class="layer-caption">
-<span class="block text-xs font-medium text-slate-300 group-hover:text-white">NDVI</span>
-<span class="layer-description">Biomass Index</span>
-</div>
-</button>
-<button aria-pressed="false" class="layer-choice flex items-center gap-2 px-3 py-2 rounded-xl text-left" data-layer-choice="soil" type="button">
-<div aria-hidden="true" class="w-7 h-7 rounded-lg overflow-hidden border border-white/20 relative">
-<div class="w-full h-full bg-amber-900/80 flex items-center justify-center">
-<div class="w-3.5 h-3.5 rounded bg-amber-700"></div>
-</div>
-</div>
-<div class="layer-caption">
-<span class="block text-xs font-medium text-slate-300 group-hover:text-white">Soil</span>
-<span class="layer-description">Moisture Profile</span>
-</div>
-</button>
-<!-- Drone layer button -->
-<button aria-pressed="true" id="drone-layer-toggle" class="layer-choice flex items-center gap-2 px-3 py-2 rounded-xl text-left" type="button">
-<div aria-hidden="true" class="w-7 h-7 rounded-lg overflow-hidden border border-sky-400/60 relative bg-sky-950/80 flex items-center justify-center">
-<svg class="w-4 h-4 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/></svg>
-</div>
-<div class="layer-caption">
-<span class="block text-xs font-medium text-slate-300 group-hover:text-white">Drones</span>
-<span class="layer-description text-sky-400">Flight Path</span>
-</div>
-</button>
-</div>
-<div class="glass-hud p-1.5 rounded-2xl flex flex-col space-y-1 items-center shadow-xl">
-<button aria-label="Compass Orientation" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition" data-map-action="compass" title="Compass Orientation" type="button">
-<svg aria-hidden="true" class="w-4 h-4 text-rose-400" fill="currentColor" focusable="false" viewBox="0 0 24 24">
-<polygon points="12,2 15,10 12,8 9,10"></polygon>
-<polygon fill="#94a3b8" points="12,22 9,14 12,16 15,14"></polygon>
-</svg>
-</button>
-<div class="w-5 h-px bg-white/10"></div>
-<button aria-label="Zoom In" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition text-sm font-semibold" data-map-action="in" title="Zoom In" type="button">+</button>
-<button aria-label="Zoom Out" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition text-sm font-semibold" data-map-action="out" title="Zoom Out" type="button">−</button>
-<div class="w-5 h-px bg-white/10"></div>
-<button aria-label="Fit Bounds" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition" data-map-action="fit" title="Fit Bounds" type="button">
-<svg aria-hidden="true" class="w-4 h-4" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</button>
-<button aria-label="Rotate map clockwise" class="w-9 h-9 rounded-xl text-slate-300 hover:text-white hover:bg-white/10" data-map-action="rotate" title="Rotate map clockwise" type="button">↻</button></div>
-</aside><p class="map-caption glass-pill rounded-xl px-3 py-1" id="map-caption">Satellite imagery · Live telemetry & GPS tracking active</p><section aria-labelledby="analytics-title" class="analytics" data-purpose="left-analytics-stack" id="analytics"><h2 class="sr-only" id="analytics-title">Field analytics</h2>
-<article aria-labelledby="crop-health-title" class="glass-hud p-4 rounded-2xl relative overflow-hidden" data-purpose="crop-health-card" data-value="92">
-<div class="flex items-center justify-between mb-2">
-<h3 class="text-xs font-semibold text-slate-300 uppercase tracking-wider" id="crop-health-title">Crop Health</h3>
-<button aria-label="Crop health details" class="text-slate-400 hover:text-white" data-dialog="health" type="button">
-<svg aria-hidden="true" class="w-3.5 h-3.5" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</button>
-</div>
-<div class="flex items-center justify-between pt-1">
-<div class="relative w-28 h-16 flex items-end justify-center">
-<svg aria-label="Crop health: 92 percent" class="w-28 h-16 overflow-visible" focusable="false" id="crop-gauge" role="img" viewBox="0 0 100 55"><defs><linearGradient id="gaugeLimeGrad" x1="0%" x2="100%" y1="0%" y2="100%"><stop offset="0%" stop-color="#bef264"></stop><stop offset="50%" stop-color="#84cc16"></stop><stop offset="100%" stop-color="#4d7c0f"></stop></linearGradient></defs>
-<path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="rgba(255,255,255,0.12)" stroke-linecap="round" stroke-width="8"></path>
-<path class="polygon-glow" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" id="gauge-fill" pathLength="100" stroke="url(#gaugeLimeGrad)" stroke-dasharray="92 100" stroke-linecap="round" stroke-width="8"></path>
-</svg>
-<div class="absolute bottom-0 text-center">
-<span class="text-2xl font-bold text-white tracking-tight"><span id="gauge-value">92</span><span class="text-sm font-semibold text-lime-400">%</span></span>
-</div>
-</div>
-<div class="text-right">
-<span class="text-2xl font-bold text-white tracking-tight">248 <span class="text-sm font-normal text-slate-300">ha</span></span>
-<p class="text-[11px] text-slate-400 font-medium">Total monitored area</p>
-<span class="inline-flex items-center text-[11px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded mt-1">
-                Optimal vigor index
-              </span>
-</div>
-</div>
-</article>
-<article aria-labelledby="trend-title" class="glass-hud p-4 rounded-2xl" data-purpose="health-trend-card">
-<div class="flex items-center justify-between mb-3">
-<h3 class="text-xs font-semibold text-slate-300 uppercase tracking-wider" id="trend-title">Health Trend</h3>
-<select aria-label="Health trend period" class="period-select rounded-lg" id="trend-range"><option value="24h">24 Hours</option><option selected="" value="7d">7 Days</option><option value="30d">30 Days</option></select>
-</div>
-<div class="w-full h-24 relative">
-<svg aria-label="Seven-day crop health trend" class="w-full h-full" fill="none" focusable="false" id="trend-chart" role="img" viewBox="0 0 260 80">
-<line stroke="rgba(255,255,255,0.1)" stroke-dasharray="3 3" x1="0" x2="260" y1="42" y2="42"></line>
-<path d="M 0,58 Q 40,50 80,55 T 160,48 T 260,52" stroke="rgba(255,255,255,0.18)" stroke-dasharray="2 3" stroke-width="1.2"></path>
-<defs>
-<linearGradient id="trendGradient" x1="0" x2="0" y1="0" y2="1">
-<stop offset="0%" stop-color="#84cc16" stop-opacity="0.35"></stop>
-<stop offset="100%" stop-color="#84cc16" stop-opacity="0.0"></stop>
-</linearGradient>
-</defs>
-<path d="M 0,55 L 20,53 L 50,46 L 85,22 L 120,44 L 160,35 L 200,48 L 240,40 L 260,42 L 260,78 L 0,78 Z" fill="url(#trendGradient)" id="trend-area"></path>
-<path d="M 0,55 L 20,53 L 50,46 L 85,22 L 120,44 L 160,35 L 200,48 L 240,40 L 260,42" id="trend-line" stroke="#a3e635" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
-<circle cx="85" cy="22" fill="#facc15" id="trend-peak" r="4.5" stroke="#1c1917" stroke-width="2"></circle>
-</svg>
-</div>
-<div class="flex items-center justify-between text-[11px] text-slate-400 font-medium px-1 mt-1" id="trend-labels">
-<span>Mon</span>
-<span>Tue</span>
-<span class="text-lime-400 font-bold">Wed</span>
-<span>Thu</span>
-<span>Fri</span>
-<span>Sat</span>
-<span>Sun</span>
-</div>
-</article>
-<article aria-labelledby="stress-title" class="glass-hud p-4 rounded-2xl" data-purpose="stress-zones-card">
-<div class="flex items-center justify-between mb-2">
-<div>
-<h3 class="text-xs font-semibold text-slate-200" id="stress-title">Stress Zones</h3>
-<p class="text-[11px] text-slate-400">Sensor Matrix Overview</p>
-</div>
-<div class="bg-lime-500/10 border border-lime-500/25 px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-lime-400">
-              Good for Planting
-            </div>
-</div>
-<div aria-labelledby="matrix-summary" class="grid grid-cols-16 gap-1 my-3 bg-black/40 p-2 rounded-xl border border-white/5" role="img" style="grid-template-columns: repeat(16, minmax(0, 1fr));">
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-500 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-500 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span><span aria-hidden="true" class="h-2 rounded-sm bg-amber-500 cell-caution"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-amber-500 cell-caution"></span><span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-500 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span><span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-amber-500 cell-caution"></span><span aria-hidden="true" class="h-2 rounded-sm bg-rose-500 cell-stress"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-rose-500 cell-stress"></span><span aria-hidden="true" class="h-2 rounded-sm bg-amber-500 cell-caution"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-amber-500 cell-caution"></span><span aria-hidden="true" class="h-2 rounded-sm bg-yellow-400 cell-caution"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-<span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span><span aria-hidden="true" class="h-2 rounded-sm bg-lime-400 cell-healthy"></span>
-</div><p class="matrix-legend text-slate-300" id="matrix-summary">47 Healthy · 15 Caution · 2 Stress</p>
-<div class="flex items-center justify-between pt-1 border-t border-white/5">
-<span class="text-[11px] text-slate-300 font-medium">12% yield increase projected</span>
-<button class="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-lime-500/20 hover:bg-lime-500/30 text-lime-300 border border-lime-400/40 text-[11px] font-semibold transition" data-dialog="insights" type="button">
-<svg aria-hidden="true" class="w-3 h-3" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
-</svg>
-<span>+ AI Insights</span>
-</button>
-</div>
-<div class="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-white/5">
-<div class="bg-white/5 p-2 rounded-xl">
-<div class="flex items-center justify-between text-[11px] text-slate-400">
-<span>Avg. Humidity</span>
-<span id="matrix-humidity" class="text-white font-semibold">62%</span>
-</div>
-<div class="text-[11px] text-slate-400 mt-0.5">Max 80% · Min 10%</div>
-</div>
-<div class="bg-white/5 p-2 rounded-xl">
-<div class="flex items-center justify-between text-[11px] text-slate-400">
-<span>Avg. Temp</span>
-<span id="matrix-temp" class="text-white font-semibold">28°C</span>
-</div>
-<div class="text-[11px] text-slate-400 mt-0.5">Max 42° · Min 19°</div>
-</div>
-</div>
-</article>
-</section><button aria-controls="analytics" aria-expanded="false" class="drawer-toggle glass-hud rounded-xl px-4 text-sm font-semibold" id="drawer-toggle" type="button">Field analytics</button><section aria-labelledby="operations-title" class="operations" data-purpose="bottom-operations-dock" id="operations"><h2 class="sr-only" id="operations-title">Fleet and operations</h2>
-<article aria-labelledby="tractor-title" class="glass-hud p-4 rounded-2xl flex flex-col justify-between group hover:border-lime-500/40 transition ops-card" id="tractor">
-<div>
-<div class="flex items-center justify-between">
-<div class="fleet-heading">
-<h3 class="text-sm font-bold text-white tracking-tight" id="tractor-title">Tractor T-04</h3>
-<time class="fleet-time text-slate-300" data-offset-min="0" datetime="">Demo reading</time>
-</div>
-<button aria-label="Tractor T-04 details" class="text-slate-400 hover:text-white" data-dialog="tractor" type="button">
-<svg aria-hidden="true" class="w-3.5 h-3.5" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</button>
-</div>
-<div class="flex items-center justify-between mt-2.5">
-<div class="flex items-center space-x-2">
-<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-[11px] font-semibold border border-emerald-500/30" data-fleet-status="" role="status">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-<span data-status-text="">Online</span>
-</span>
-<span class="text-[11px] text-slate-400 font-mono">GPS · LTE</span>
-</div>
-<div class="w-10 h-7 text-lime-400/80">
-<svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 48 32">
-<circle cx="12" cy="24" r="6"></circle>
-<circle cx="36" cy="22" r="8"></circle>
-<path d="M12 24h16V10H16l-4 6v8z"></path>
-<path d="M28 14h10v8"></path>
-<path d="M16 10V6h4"></path>
-</svg>
-</div>
-</div>
-<div class="mt-2 bg-black/30 p-2 rounded-xl border border-white/5">
-<svg aria-label="Sample tractor activity timeline, 6 AM to 11 PM" class="w-full h-8" fill="none" focusable="false" role="img" viewBox="0 0 200 30">
-<path d="M 0,22 L 30,22 L 30,8 L 70,8 L 70,18 L 110,18 L 110,8 L 150,8 L 150,22 L 200,22" stroke="#84cc16" stroke-linejoin="bevel" stroke-width="1.8"></path>
-</svg>
-<div class="flex justify-between text-[11px] text-slate-400 mt-1 font-mono">
-<span>06 AM</span>
-<span>11 PM</span>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-3 gap-2 mt-3 pt-2.5 border-t border-white/5 text-center">
-<div>
-<span class="block text-[11px] text-slate-400">Fuel</span>
-<span id="tractor-fuel" class="text-xs font-bold text-white">64%</span>
-</div>
-<div>
-<span class="block text-[11px] text-slate-400">Area</span>
-<span id="tractor-area" class="text-xs font-bold text-white">12.4 ha</span>
-</div>
-<div>
-<span class="block text-[11px] text-slate-400">Speed</span>
-<span id="tractor-speed" class="text-xs font-bold text-lime-400">8 km/h</span>
-</div>
-</div>
-</article>
-<article aria-labelledby="sprayer-title" class="glass-hud p-4 rounded-2xl flex flex-col justify-between group hover:border-lime-500/40 transition ops-card" id="sprayer">
-<div>
-<div class="flex items-center justify-between">
-<div class="fleet-heading">
-<h3 class="text-sm font-bold text-white tracking-tight" id="sprayer-title">Sprayer S-01</h3>
-<time class="fleet-time text-slate-300" data-offset-min="2" datetime="">Demo reading</time>
-</div>
-<button aria-label="Sprayer S-01 details" class="text-slate-400 hover:text-white" data-dialog="sprayer" type="button">
-<svg aria-hidden="true" class="w-3.5 h-3.5" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</button>
-</div>
-<div class="flex items-center justify-between mt-2.5">
-<div class="flex items-center space-x-2">
-<span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 text-[11px] font-semibold border border-amber-500/30" data-fleet-status="" role="status">
-<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-<span data-status-text="">Working</span>
-</span>
-<span class="text-[11px] text-slate-400 font-mono">GPS · LTE</span>
-</div>
-<div class="w-10 h-7 text-amber-400/80">
-<svg aria-hidden="true" fill="none" focusable="false" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 48 32">
-<circle cx="14" cy="24" r="5"></circle>
-<circle cx="34" cy="24" r="5"></circle>
-<path d="M4 14h40"></path>
-<path d="M14 24h20V14H14v10z"></path>
-<path d="M8 14v4M24 14v4M40 14v4"></path>
-</svg>
-</div>
-</div>
-<div class="mt-2 bg-black/30 p-2 rounded-xl border border-white/5">
-<svg aria-label="Sample sprayer activity timeline, 7 AM to 5 PM" class="w-full h-8" fill="none" focusable="false" role="img" viewBox="0 0 200 30">
-<path d="M 0,16 L 45,16 L 45,6 L 90,6 L 90,24 L 140,24 L 140,10 L 200,10" stroke="#f59e0b" stroke-linejoin="bevel" stroke-width="1.8"></path>
-</svg>
-<div class="flex justify-between text-[11px] text-slate-400 mt-1 font-mono">
-<span>07 AM</span>
-<span>05 PM</span>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-3 gap-2 mt-3 pt-2.5 border-t border-white/5 text-center">
-<div>
-<span class="block text-[11px] text-slate-400">Tank</span>
-<span id="sprayer-tank" class="text-xs font-bold text-amber-400">41%</span>
-</div>
-<div>
-<span class="block text-[11px] text-slate-400">Area</span>
-<span id="sprayer-area" class="text-xs font-bold text-white">6.8 ha</span>
-</div>
-<div>
-<span class="block text-[11px] text-slate-400">Speed</span>
-<span id="sprayer-speed" class="text-xs font-bold text-white">6 km/h</span>
-</div>
-</div>
-</article>
-<article aria-labelledby="irrigation-title" class="glass-hud p-4 rounded-2xl flex flex-col justify-between group hover:border-lime-500/40 transition ops-card" id="irrigation">
-<div>
-<div class="flex items-center justify-between">
-<h3 class="text-sm font-bold text-white tracking-tight" id="irrigation-title">Irrigation Offset</h3>
-<div class="flex items-center space-x-1.5">
-<span id="irrigation-global-variance" class="text-xs font-bold text-lime-400">± 2.5 <span class="text-[11px] text-slate-300 font-normal">min</span></span>
-<button aria-label="Irrigation Offset details" class="text-slate-400 hover:text-white" data-dialog="irrigation" type="button">
-<svg aria-hidden="true" class="w-3.5 h-3.5" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</button>
-</div>
-</div>
-<p class="text-[11px] text-slate-400 mt-0.5">Average system flow variance</p>
-<div class="mt-3 overflow-hidden rounded-xl border border-white/5 bg-black/30">
-<table aria-label="Sample irrigation offsets by zone" class="w-full text-center text-[11px]">
-<thead class="bg-white/5 text-slate-400 border-b border-white/5">
-<tr>
-<th class="py-1 px-2 text-left font-medium" scope="col">Zone</th>
-<th class="py-1 font-medium" scope="col">Z1</th>
-<th class="py-1 font-medium" scope="col">Z2</th>
-<th class="py-1 font-medium" scope="col">Z3</th>
-<th class="py-1 font-medium" scope="col">Z4</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-white/5 font-mono">
-<tr>
-<th class="py-1.5 px-2 text-left font-sans text-slate-300 font-medium" scope="row">Zone A</th>
-<td id="irrig-a1" class="text-slate-300">-2.0m</td>
-<td id="irrig-a2" class="text-amber-400 font-semibold">+1.0m</td>
-<td id="irrig-a3" class="text-amber-400 font-semibold">+1.5m</td>
-<td id="irrig-a4" class="text-slate-300">-1.0m</td>
-</tr>
-<tr>
-<th class="py-1.5 px-2 text-left font-sans text-slate-300 font-medium" scope="row">Zone B</th>
-<td id="irrig-b1" class="text-slate-300">-1.0m</td>
-<td id="irrig-b2" class="text-slate-300">-2.0m</td>
-<td id="irrig-b3" class="text-amber-400 font-semibold">+2.0m</td>
-<td id="irrig-b4" class="text-rose-400 font-semibold">-2.5m</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="flex items-center justify-between text-[11px] mt-2 pt-2 border-t border-white/5 text-slate-400">
-<span>Main Pump Station 02</span>
-<span id="pump-status" class="text-emerald-400 font-medium">Calibrated</span>
-</div>
-</article>
-<article aria-labelledby="yield-title" class="glass-hud p-4 rounded-2xl flex flex-col justify-between group hover:border-lime-500/40 transition ops-card" id="yield">
-<div>
-<div class="flex items-center justify-between">
-<h3 class="text-sm font-bold text-white tracking-tight" id="yield-title">Live Yield Volume</h3>
-<button aria-label="Live Yield Volume details" class="text-slate-400 hover:text-white" data-dialog="yield" type="button">
-<svg aria-hidden="true" class="w-3.5 h-3.5" fill="none" focusable="false" stroke="currentColor" viewBox="0 0 24 24">
-<path d="M7 17L17 7M17 7H7M17 7V17" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</button>
-</div>
-<div class="mt-1">
-<span id="yield-volume-val" class="text-2xl font-bold text-white tracking-tight">142,580</span>
-<span class="text-xs text-slate-400 ml-1 font-medium">kg harvested today</span>
-</div>
-<!-- Live Histogram with Tooltips -->
-<div id="yield-histogram-container" class="relative mt-3">
-  <!-- Tooltip Floating Badge -->
-  <div id="histogram-tooltip" class="absolute pointer-events-none -top-8 left-1/2 -translate-x-1/2 opacity-0 transition-opacity bg-black/90 text-lime-300 text-[10px] font-mono px-2 py-0.5 rounded border border-lime-400/40 shadow-lg whitespace-nowrap z-20">
-    <span id="tooltip-text">14:00 · 18.4 tn/hr</span>
-  </div>
-  <div aria-label="Harvest activity histogram with interactive tooltips" class="flex items-end justify-between h-14 bg-black/30 p-2 rounded-xl border border-white/5 gap-1" role="img" id="yield-histogram">
-    <div data-val="5.2" data-time="06:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[35%] cursor-pointer"></div>
-    <div data-val="7.8" data-time="07:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[50%] cursor-pointer"></div>
-    <div data-val="6.5" data-time="08:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[42%] cursor-pointer"></div>
-    <div data-val="10.1" data-time="09:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[65%] cursor-pointer"></div>
-    <div data-val="4.6" data-time="10:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[30%] cursor-pointer"></div>
-    <div data-val="11.8" data-time="11:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[75%] cursor-pointer"></div>
-    <div data-val="7.5" data-time="12:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[48%] cursor-pointer"></div>
-    <div data-val="9.0" data-time="13:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[58%] cursor-pointer"></div>
-    <div data-val="10.9" data-time="14:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[70%] cursor-pointer"></div>
-    <div data-val="7.0" data-time="15:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[45%] cursor-pointer"></div>
-    <div data-val="18.4" data-time="16:00 (Peak)" class="yield-bar flex-1 bg-gradient-to-t from-lime-500 to-lime-300 rounded-t h-[95%] shadow-[0_0_8px_rgba(132,204,22,0.8)] cursor-pointer"></div>
-    <div data-val="17.1" data-time="17:00 (Peak)" class="yield-bar flex-1 bg-gradient-to-t from-lime-500 to-lime-300 rounded-t h-[88%] shadow-[0_0_8px_rgba(132,204,22,0.8)] cursor-pointer"></div>
-    <div data-val="8.6" data-time="18:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[55%] cursor-pointer"></div>
-    <div data-val="9.7" data-time="19:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[62%] cursor-pointer"></div>
-    <div data-val="5.9" data-time="20:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[38%] cursor-pointer"></div>
-    <div data-val="6.9" data-time="21:00" class="yield-bar flex-1 bg-slate-700/60 hover:bg-lime-400 transition-colors rounded-t h-[44%] cursor-pointer"></div>
-  </div>
-</div>
-</div>
-<div class="flex items-center justify-between text-[11px] mt-2 pt-2 border-t border-white/5">
-<span class="text-slate-400">Peak Run Rate</span>
-<span id="yield-runrate" class="text-lime-400 font-semibold">+18.4 tn/hr</span>
-</div>
-</article>
-</section><section aria-labelledby="view-title" class="view-panel glass-hud rounded-2xl p-4" hidden="" id="view-panel"><h2 class="text-base font-semibold" id="view-title"></h2><p class="mt-2 text-sm text-slate-300" id="view-copy"></p></section><p class="sr-only" id="map-status" role="status"></p></main></div><dialog aria-labelledby="dialog-title" class="glass-hud rounded-2xl p-5 text-slate-100" id="detail-dialog"><h2 class="text-lg font-semibold" id="dialog-title"></h2><p class="mt-2 text-sm text-slate-300" id="dialog-copy"></p><form class="mt-4" method="dialog"><button autofocus="" class="glass-pill rounded-xl px-4 text-sm">Close</button></form></dialog><script>
+
+<dialog id="detail-dialog" aria-labelledby="dialog-title">
+  <h2 id="dialog-title"></h2><p id="dialog-copy"></p>
+  <form method="dialog"><button class="close" autofocus>Close</button></form>
+</dialog>
+
+<script>
 (() => {
   'use strict';
-  const $ = (q, scope = document) => scope.querySelector(q);
-  const $$ = (q, scope = document) => [...scope.querySelectorAll(q)];
+  const $ = (q, s = document) => s.querySelector(q);
+  const $$ = (q, s = document) => [...s.querySelectorAll(q)];
   const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
+  const rng = seed => () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs = {}, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent && parent.append(n); return n; };
+
+  /* ================= MAP ================= */
   const map = $('#map-view'), stage = $('#map-stage'), image = $('.map-image'), vectors = $('.map-vectors');
   const trigger = $('#field-trigger'), field = $('#field-detail'), viewPanel = $('#view-panel');
-  const mobile = matchMedia('(max-width: 767px)'), tablet = matchMedia('(min-width: 768px) and (max-width: 1279px)');
-  const nav = $('#primary-links'), menu = $('#menu-toggle'), drawer = $('#drawer-toggle'), analytics = $('#analytics');
+  const mobile = matchMedia('(max-width: 767px)');
+  const nav = $('#primary-links'), menu = $('#menu-toggle');
   const mapActions = Object.fromEntries($$('[data-map-action]').map(b => [b.dataset.mapAction, b]));
   let zoom = 1, angle = 0, panX = 0, panY = 0, drag = null;
-  
-  const parcel = vectors.querySelector('polygon').getAttribute('points').trim().split(/\s+/).map(p => p.split(',').map(Number));
+
+  const parcel = $('#parcel').getAttribute('points').trim().split(/\s+/).map(p => p.split(',').map(Number));
   const centroid = (() => {
     let sum = 0, x = 0, y = 0;
-    parcel.forEach(([a,b], i) => {
-      const [c,d] = parcel[(i + 1) % parcel.length], cross = a*d - c*b;
-      sum += cross; x += (a+c)*cross; y += (b+d)*cross;
-    });
-    return [x/(3*sum), y/(3*sum)];
+    parcel.forEach(([a, b], i) => { const [c, d] = parcel[(i + 1) % parcel.length], cr = a * d - c * b; sum += cr; x += (a + c) * cr; y += (b + d) * cr; });
+    return [x / (3 * sum), y / (3 * sum)];
   })();
 
   function renderMap() {
     const w = map.clientWidth, h = map.clientHeight;
     if (!w || !h) return;
     const iw = image.naturalWidth || 1920, ih = image.naturalHeight || 1080;
-    const originalCover = Math.max(1920/iw, 1080/ih)*1.02;
-    const rw = iw*originalCover, rh = ih*originalCover, rx = (1920-rw)/2, ry = (1080-rh)/2;
+    const oc = Math.max(1920 / iw, 1080 / ih) * 1.02;
+    const rw = iw * oc, rh = ih * oc, rx = (1920 - rw) / 2, ry = (1080 - rh) / 2;
     vectors.setAttribute('viewBox', `${rx} ${ry} ${rw} ${rh}`);
-    const ax = (centroid[0]-rx)/rw, ay = (centroid[1]-ry)/rh;
-    const rad = angle*Math.PI/180, cos = Math.cos(rad), sin = Math.sin(rad);
-    const cover = Math.max((w*Math.abs(cos)+h*Math.abs(sin))/iw, (w*Math.abs(sin)+h*Math.abs(cos))/ih);
-    const bw = cover*iw, bh = cover*ih, zw = bw*zoom, zh = bh*zoom;
-    const limX = (zw - w*Math.abs(cos) - h*Math.abs(sin))/2;
-    const limY = (zh - w*Math.abs(sin) - h*Math.abs(cos))/2;
-    const focusX = mobile.matches ? (.5-ax)*zw : 0;
-    const focusY = mobile.matches ? (.5-ay)*zh : 0;
-    const px = clamp(focusX + panX, -Math.max(0,limX), Math.max(0,limX));
-    const py = clamp(focusY + panY, -Math.max(0,limY), Math.max(0,limY));
-    const x = px*cos - py*sin, y = px*sin + py*cos;
-    stage.style.width = `${bw}px`; stage.style.height = `${bh}px`;
-    stage.style.left = `${(w-bw)/2}px`; stage.style.top = `${(h-bh)/2}px`;
+    const ax = (centroid[0] - rx) / rw, ay = (centroid[1] - ry) / rh;
+    const rad = angle * Math.PI / 180, cos = Math.cos(rad), sin = Math.sin(rad);
+    const cover = Math.max((w * Math.abs(cos) + h * Math.abs(sin)) / iw, (w * Math.abs(sin) + h * Math.abs(cos)) / ih);
+    const bw = cover * iw, bh = cover * ih, zw = bw * zoom, zh = bh * zoom;
+    const limX = (zw - w * Math.abs(cos) - h * Math.abs(sin)) / 2;
+    const limY = (zh - w * Math.abs(sin) - h * Math.abs(cos)) / 2;
+    const fx = mobile.matches ? (.5 - ax) * zw : 0, fy = mobile.matches ? (.5 - ay) * zh : 0;
+    const px = clamp(fx + panX, -Math.max(0, limX), Math.max(0, limX));
+    const py = clamp(fy + panY, -Math.max(0, limY), Math.max(0, limY));
+    const x = px * cos - py * sin, y = px * sin + py * cos;
+    stage.style.width = bw + 'px'; stage.style.height = bh + 'px';
+    stage.style.left = (w - bw) / 2 + 'px'; stage.style.top = (h - bh) / 2 + 'px';
     stage.style.transform = `translate(${x}px, ${y}px) rotate(${angle}deg) scale(${zoom})`;
-    stage.style.setProperty('--counter-angle', `${-angle}deg`); stage.style.setProperty('--counter-scale', 1/zoom);
-    trigger.style.left = `${ax*100}%`; trigger.style.top = `${ay*100}%`;
+    stage.style.setProperty('--counter-angle', -angle + 'deg');
+    stage.style.setProperty('--counter-scale', 1 / zoom);
+    trigger.style.left = ax * 100 + '%'; trigger.style.top = ay * 100 + '%';
     mapActions.in.setAttribute('aria-disabled', String(zoom >= 3));
     mapActions.out.setAttribute('aria-disabled', String(zoom <= 1));
   }
@@ -725,364 +685,332 @@ button,select{cursor:pointer}button:disabled{cursor:default;opacity:.5}
   image.addEventListener('load', renderMap);
   image.addEventListener('error', () => { image.hidden = true; $('#map-caption').textContent = 'Image unavailable · Demo field outline'; });
   if (image.complete && !image.naturalWidth) image.hidden = true;
-  function announceMap(message) { $('#map-status').textContent = message; }
-  function moveMap(action) {
-    if (action === 'in' || action === 'out') zoom = clamp(zoom + (action === 'in' ? .25 : -.25), 1, 3);
-    if (action === 'out' && zoom === 1) panX = panY = 0;
-    if (action === 'rotate') angle = (angle+15)%360;
-    if (action === 'compass') angle = 0;
-    if (action === 'fit') { zoom = 1; panX = panY = 0; angle = 0; }
+  const announce = m => { $('#map-status').textContent = m; };
+  function moveMap(a) {
+    if (a === 'in' || a === 'out') zoom = clamp(zoom + (a === 'in' ? .25 : -.25), 1, 3);
+    if (a === 'out' && zoom === 1) panX = panY = 0;
+    if (a === 'rotate') angle = (angle + 15) % 360;
+    if (a === 'compass') angle = 0;
+    if (a === 'fit') { zoom = 1; panX = panY = 0; angle = 0; }
     renderMap();
-    announceMap(action === 'fit' ? 'Map reset to fit bounds.' : action === 'compass' ? 'Map oriented north.' : `Map zoom ${zoom*100} percent, rotation ${angle} degrees.`);
+    announce(a === 'fit' ? 'Map reset to fit bounds.' : a === 'compass' ? 'Map oriented north.' : `Map zoom ${zoom * 100} percent, rotation ${angle} degrees.`);
   }
-  for (const [action,b] of Object.entries(mapActions)) b.addEventListener('click', () => {
-    if (b.getAttribute('aria-disabled') !== 'true') moveMap(action);
-  });
+  for (const [a, b] of Object.entries(mapActions)) b.addEventListener('click', () => { if (b.getAttribute('aria-disabled') !== 'true') moveMap(a); });
   map.addEventListener('pointerdown', e => {
     if (zoom === 1 || e.button !== 0 || e.pointerType === 'touch' || e.target.closest('button')) return;
-    drag = { id:e.pointerId, x:e.clientX, y:e.clientY };
+    drag = { id: e.pointerId, x: e.clientX, y: e.clientY };
     stage.classList.add('dragging'); map.setPointerCapture(e.pointerId);
   });
   map.addEventListener('pointermove', e => {
     if (!drag || drag.id !== e.pointerId) return;
-    const x = e.clientX-drag.x, y = e.clientY-drag.y, a = angle*Math.PI/180;
-    panX = clamp(panX + x*Math.cos(a) + y*Math.sin(a), -stage.clientWidth, stage.clientWidth);
-    panY = clamp(panY - x*Math.sin(a) + y*Math.cos(a), -stage.clientHeight, stage.clientHeight);
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y, a = angle * Math.PI / 180;
+    panX = clamp(panX + dx * Math.cos(a) + dy * Math.sin(a), -stage.clientWidth, stage.clientWidth);
+    panY = clamp(panY - dx * Math.sin(a) + dy * Math.cos(a), -stage.clientHeight, stage.clientHeight);
     drag.x = e.clientX; drag.y = e.clientY; renderMap();
   });
   map.addEventListener('lostpointercapture', () => { drag = null; stage.classList.remove('dragging'); });
-  
-  const layers = { satellite:['RGB High-Res','Satellite imagery · Demo data'], ndvi:['Biomass preview','NDVI · Simulated color preview'], soil:['Moisture preview','Soil · Simulated color preview'] };
+
+  const layers = { satellite: ['RGB High-Res', 'Satellite imagery · Demo data'], ndvi: ['Biomass preview', 'NDVI · Simulated color preview'], soil: ['Moisture preview', 'Soil · Simulated color preview'] };
+  const layerIdle = { satellite: 'RGB High-Res', ndvi: 'Biomass Index', soil: 'Moisture Profile' };
   $$('[data-layer-choice]').forEach(b => b.addEventListener('click', () => {
-    const key = b.dataset.layerChoice;
-    map.dataset.layer = key;
+    const key = b.dataset.layerChoice; map.dataset.layer = key;
     $$('[data-layer-choice]').forEach(item => {
-      const active = item === b;
-      item.setAttribute('aria-pressed', String(active));
-      $('.layer-description',item).textContent = active ? layers[key][0] : ({satellite:'RGB High-Res',ndvi:'Biomass Index',soil:'Moisture Profile'})[item.dataset.layerChoice];
+      const on = item === b; item.setAttribute('aria-pressed', String(on));
+      $('.layer-description', item).textContent = on ? layers[key][0] : layerIdle[item.dataset.layerChoice];
     });
     $('#map-caption').textContent = layers[key][1] + (image.hidden ? ' · Image unavailable' : '');
-    announceMap($('#map-caption').textContent);
+    announce($('#map-caption').textContent);
   }));
 
-  // Drone Layer Toggle button
-  const droneToggleBtn = $('#drone-layer-toggle');
-  const droneGroup = $('#drone-path-group');
-  if (droneToggleBtn && droneGroup) {
-    droneToggleBtn.addEventListener('click', () => {
-      const isVisible = droneGroup.style.display !== 'none';
-      droneGroup.style.display = isVisible ? 'none' : 'block';
-      droneToggleBtn.setAttribute('aria-pressed', String(!isVisible));
-      droneToggleBtn.querySelector('.layer-description').textContent = isVisible ? 'Hidden' : 'Flight Path';
-      announceMap(isVisible ? 'Drone layer hidden' : 'Drone flight simulation visible');
-    });
-  }
+  const droneBtn = $('#drone-layer-toggle'), droneGroup = $('#drone-path-group');
+  droneBtn.addEventListener('click', () => {
+    const vis = droneGroup.style.display !== 'none';
+    droneGroup.style.display = vis ? 'none' : '';
+    droneBtn.setAttribute('aria-pressed', String(!vis));
+    $('.layer-description', droneBtn).textContent = vis ? 'Hidden' : 'Flight Path';
+    announce(vis ? 'Drone layer hidden' : 'Drone flight simulation visible');
+  });
 
   function fieldOpen(open, focus = false) {
     field.hidden = !open; trigger.setAttribute('aria-expanded', String(open));
     if (focus) (open ? $('#field-close') : trigger).focus();
   }
   trigger.addEventListener('click', () => fieldOpen(field.hidden, true));
-  $('#field-close').addEventListener('click', () => fieldOpen(false,true));
-  function menuOpen(open) { nav.classList.toggle('is-open',open); menu.setAttribute('aria-expanded',String(open)); }
-  function drawerOpen(open) { analytics.classList.toggle('is-open',open); drawer.setAttribute('aria-expanded',String(open)); }
+  $('#field-close').addEventListener('click', () => fieldOpen(false, true));
+  function menuOpen(o) { nav.classList.toggle('is-open', o); menu.setAttribute('aria-expanded', String(o)); }
   menu.addEventListener('click', () => menuOpen(!nav.classList.contains('is-open')));
-  drawer.addEventListener('click', () => drawerOpen(!analytics.classList.contains('is-open')));
   mobile.addEventListener('change', () => { menuOpen(false); renderMap(); });
-  tablet.addEventListener('change', () => drawerOpen(false));
-  
+
   const views = {
-    map:['Field Management','Field health, fleet telemetry and operations · Live Simulation Active',''],
-    fields:['Fields','Parcel monitoring · Demo','North Field: 92% crop health. Use the highlighted map marker to open field details.'],
-    analytics:['Analytics','Crop health trends and stress zones · Demo','Use the Health Trend period selector to compare 24-hour, 7-day and 30-day sample readings.'],
-    reports:['Reports','Irrigation and harvest summaries · Demo','The operations cards below show irrigation offsets and sample harvest volume.'],
-    farmers:['Farmers','Farm team overview · Demo','This prototype has no connected team directory.']
+    map: ['Field Management', 'Field health, fleet telemetry and operations · Live simulation active', ''],
+    fields: ['Fields', 'Parcel monitoring · Demo', 'North Field: 92% crop health. Use the highlighted map marker to open field details.'],
+    analytics: ['Analytics', 'Crop health trends and stress zones · Demo', 'Use the Health Trend period selector to compare 24-hour, 7-day and 30-day sample readings.'],
+    reports: ['Reports', 'Irrigation and harvest summaries · Demo', 'The operations cards below show irrigation offsets and sample harvest volume.'],
+    farmers: ['Farmers', 'Farm team overview · Demo', 'This prototype has no connected team directory.']
   };
   $$('[data-view]').forEach(b => b.addEventListener('click', () => {
-    const wasMobileMenu = mobile.matches && nav.classList.contains('is-open');
-    $$('[data-view]').forEach(item => item === b ? item.setAttribute('aria-current','page') : item.removeAttribute('aria-current'));
-    const key = b.dataset.view, [title, subtitle, copy] = views[key];
-    $('#page-title').textContent = title; $('#page-subtitle').textContent = subtitle;
-    $('#view-title').textContent = title + ' overview'; $('#view-copy').textContent = copy; viewPanel.hidden = key === 'map';
-    fieldOpen(false); if (tablet.matches) drawerOpen(key === 'analytics'); menuOpen(false);
-    if (wasMobileMenu) menu.focus();
+    const wasMenu = mobile.matches && nav.classList.contains('is-open');
+    $$('[data-view]').forEach(i => i === b ? i.setAttribute('aria-current', 'page') : i.removeAttribute('aria-current'));
+    const key = b.dataset.view, [t, s, c] = views[key];
+    $('#page-title').textContent = t; $('#page-subtitle').textContent = s;
+    $('#view-title').textContent = t + ' overview'; $('#view-copy').textContent = c; viewPanel.hidden = key === 'map';
+    fieldOpen(false); menuOpen(false);
+    if (wasMenu) menu.focus();
   }));
 
+  /* ================= GAUGE ================= */
   const health = $('[data-purpose=crop-health-card]');
+  const gaugeTicks = $('#gauge-ticks'), TICKS = 46;
+  for (let i = 0; i < TICKS; i++) {
+    const a = Math.PI + i / (TICKS - 1) * Math.PI, c = Math.cos(a), s = Math.sin(a);
+    el('line', { class: 'tick', x1: 100 + 64 * c, y1: 100 + 64 * s, x2: 100 + 84 * c, y2: 100 + 84 * s }, gaugeTicks);
+  }
   function renderGauge() {
-    const p = clamp(Number(health.dataset.value) || 0,0,100);
-    $('#gauge-fill').setAttribute('stroke-dasharray', `${p} 100`);
-    $('#gauge-fill').style.visibility = p ? 'visible' : 'hidden';
+    const p = clamp(Number(health.dataset.value) || 0, 0, 100);
+    [...gaugeTicks.children].forEach((t, i) => {
+      const f = i / (TICKS - 1), on = f * 100 <= p;
+      t.classList.toggle('on', on);
+      t.style.stroke = on ? `hsl(${74 + f * 16} 85% ${44 + f * 24}%)` : '';
+    });
     $('#gauge-value').textContent = p; $('#crop-gauge').setAttribute('aria-label', `Crop health: ${p} percent`);
   }
-  new MutationObserver(renderGauge).observe(health,{attributes:true,attributeFilter:['data-value']}); renderGauge();
-  
-  const ranges = {
-    '24h':{ name:'24-hour', y:[56,53,49,38,30,39,35], labels:['00:00','04:00','08:00','12:00','16:00','20:00','24:00'], peak:'16:00' },
-    '7d':{ name:'seven-day', y:[55,53,22,44,35,48,42], labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], peak:'Wednesday' },
-    '30d':{ name:'30-day', y:[62,56,59,43,48,34,26], labels:['Day 1','5','10','15','20','25','30'], peak:'day 30' }
-  };
-  function renderTrend() {
-    const d = ranges[$('#trend-range').value], step = 260/(d.y.length-1);
-    const path = d.y.map((y,i) => `${i?'L':'M'} ${i*step},${y}`).join(' ');
-    $('#trend-line').setAttribute('d',path); $('#trend-area').setAttribute('d',path+' L 260,78 L 0,78 Z');
-    const p = d.y.indexOf(Math.min(...d.y));
-    $('#trend-peak').setAttribute('cx',p*step); $('#trend-peak').setAttribute('cy',d.y[p]);
-    $('#trend-chart').setAttribute('aria-label', `Sample ${d.name} crop health trend. Highest point: ${d.peak}.`);
-    $('#trend-labels').replaceChildren(...d.labels.map((label,i) => {
-      const span = document.createElement('span'); span.textContent = label;
-      if (i === p) span.className = 'text-lime-400 font-bold'; return span;
-    }));
-  }
-  $('#trend-range').addEventListener('change',renderTrend); renderTrend();
+  new MutationObserver(renderGauge).observe(health, { attributes: true, attributeFilter: ['data-value'] }); renderGauge();
 
-  // Dialog handling
+  /* ================= TREND ================= */
+  const ranges = {
+    '24h': { name: '24-hour', n: 48, key: [90, 89, 88, 85, 83, 87, 91, 93, 92, 90], labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'], seed: 11, noise: 2.2 },
+    '7d':  { name: 'seven-day', n: 84, key: [88, 90, 95, 90, 85, 91, 92], labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], seed: 7, noise: 2.6 },
+    '30d': { name: '30-day', n: 90, key: [84, 87, 90, 86, 91, 94, 92], labels: ['Day 1', '5', '10', '15', '20', '25', '30'], seed: 3, noise: 2.4 }
+  };
+  const G = { W: 320, L: 26, R: 316, T: 10, B: 112, MIN: 70 };
+  let tSeries = [], tCfg = ranges['7d'], tPeak = 0;
+  const tx = i => G.L + i * (G.R - G.L) / (tSeries.length - 1);
+  const ty = v => G.T + (100 - v) / (100 - G.MIN) * (G.B - G.T);
+  function buildSeries(d) {
+    const r = rng(d.seed), out = [];
+    for (let i = 0; i < d.n; i++) {
+      const t = i / (d.n - 1) * (d.key.length - 1), a = Math.min(Math.floor(t), d.key.length - 2);
+      let f = t - a; f = f * f * (3 - 2 * f);
+      out.push(clamp(d.key[a] * (1 - f) + d.key[a + 1] * f + (r() - .5) * d.noise, G.MIN + 2, 99.5));
+    }
+    return out;
+  }
+  const smooth = pts => {
+    let d = `M${pts[0][0]},${pts[0][1]}`;
+    for (let i = 1; i < pts.length; i++) { const [x0, y0] = pts[i - 1], [x1, y1] = pts[i]; d += ` Q${x0},${y0} ${(x0 + x1) / 2},${(y0 + y1) / 2}`; }
+    return d + ` L${pts[pts.length - 1][0]},${pts[pts.length - 1][1]}`;
+  };
+  function labelAt(i) {
+    const f = i / (tSeries.length - 1);
+    if (tCfg === ranges['24h']) { const m = Math.round(f * 24 * 60); return `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`; }
+    if (tCfg === ranges['7d']) return tCfg.labels[Math.min(6, Math.round(f * 6))];
+    return `Day ${Math.round(1 + f * 29)}`;
+  }
+  function renderTrend() {
+    tCfg = ranges[$('#trend-range').value]; tSeries = buildSeries(tCfg);
+    const pts = tSeries.map((v, i) => [tx(i), ty(v)]), line = smooth(pts);
+    $('#trend-line').setAttribute('d', line);
+    $('#trend-area').setAttribute('d', `${line} L${G.R},${G.B} L${G.L},${G.B} Z`);
+    $('#trend-target').setAttribute('d', `M${G.L},${ty(90)} L${G.R},${ty(90)}`);
+    const grid = $('#trend-grid'); grid.replaceChildren();
+    [100, 90, 80, 70].forEach(v => {
+      el('line', { x1: G.L, x2: G.R, y1: ty(v), y2: ty(v), stroke: 'rgba(255,255,255,.07)', 'stroke-dasharray': v === 100 || v === 70 ? '' : '2 4' }, grid);
+      const t = el('text', { x: 0, y: ty(v) + 3 }, grid); t.textContent = v;
+    });
+    tPeak = tSeries.indexOf(Math.max(...tSeries));
+    let low = tPeak; for (let i = tPeak + 1; i < tSeries.length; i++) if (tSeries[i] < tSeries[low] || low === tPeak) low = i;
+    const cols = $('#trend-cols'); cols.replaceChildren();
+    [tPeak, low].forEach(i => el('rect', { x: tx(i) - 8, y: ty(tSeries[i]), width: 16, height: G.B - ty(tSeries[i]), rx: 4, fill: 'url(#colFill)' }, cols));
+    const marks = $('#trend-marks'); marks.replaceChildren();
+    el('circle', { cx: tx(tPeak), cy: ty(tSeries[tPeak]), r: 4.5, fill: '#facc15', stroke: '#1c1917', 'stroke-width': 2 }, marks);
+    el('circle', { cx: tx(low), cy: ty(tSeries[low]), r: 3.5, fill: '#fff', stroke: '#1c1917', 'stroke-width': 1.5 }, marks);
+    const xl = $('#trend-xlabels'); xl.replaceChildren();
+    tCfg.labels.forEach((l, i) => {
+      const x = G.L + i * (G.R - G.L) / (tCfg.labels.length - 1);
+      const t = el('text', { x, y: 130, 'text-anchor': i === 0 ? 'start' : i === tCfg.labels.length - 1 ? 'end' : 'middle' }, xl);
+      t.textContent = l;
+      if (Math.abs(x - tx(tPeak)) < 24) t.setAttribute('class', 'hl');
+    });
+    $('#trend-chart').setAttribute('aria-label', `Sample ${tCfg.name} crop health trend. Highest point: ${labelAt(tPeak)}, ${tSeries[tPeak].toFixed(0)} percent.`);
+  }
+  $('#trend-range').addEventListener('change', renderTrend); renderTrend();
+  (() => {
+    const svg = $('#trend-chart'), hov = $('#trend-hover'), tip = $('#trend-tip'), box = $('#trend-box');
+    svg.addEventListener('pointermove', e => {
+      const r = svg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * G.W;
+      const i = clamp(Math.round((x - G.L) / (G.R - G.L) * (tSeries.length - 1)), 0, tSeries.length - 1);
+      hov.style.display = ''; $('line', hov).setAttribute('x1', tx(i)); $('line', hov).setAttribute('x2', tx(i));
+      $('circle', hov).setAttribute('cx', tx(i)); $('circle', hov).setAttribute('cy', ty(tSeries[i]));
+      tip.textContent = `${labelAt(i)} · ${tSeries[i].toFixed(1)}%`;
+      tip.style.left = clamp(tx(i) / G.W * box.clientWidth, 50, box.clientWidth - 50) + 'px'; tip.style.opacity = 1;
+    });
+    svg.addEventListener('pointerleave', () => { hov.style.display = 'none'; tip.style.opacity = 0; });
+  })();
+
+  /* ================= STRESS MATRIX ================= */
+  (() => {
+    const layout = ['HHHHHCCHHHHHHHHH', 'HHHHCCCCHHHHHHHH', 'HHHHHCCSSCCHHHHH', 'HHCCCCCHHHHHHHHH'];
+    const m = $('#matrix'), count = { H: 0, C: 0, S: 0 };
+    layout.forEach((row, r) => [...row].forEach((k, c) => {
+      count[k]++;
+      const i = document.createElement('i');
+      const col = k === 'H' ? `hsl(${84 - c * .7} 78% ${58 + ((r + c) % 3) * 3}%)` : k === 'C' ? `hsl(${42 - c * .4} 92% 58%)` : 'hsl(4 80% 58%)';
+      i.style.background = col; i.style.setProperty('--c', col);
+      i.className = k.toLowerCase(); i.title = `Sensor R${r + 1}·C${c + 1} — ${{ H: 'Healthy', C: 'Caution', S: 'Stress' }[k]}`;
+      m.append(i);
+    }));
+    $('#matrix-summary').innerHTML = `<span><i style="background:hsl(80 78% 60%)"></i>${count.H} Healthy</span><span><i style="background:hsl(40 92% 58%)"></i>${count.C} Caution</span><span><i style="background:hsl(4 80% 58%)"></i>${count.S} Stress</span>`;
+  })();
+
+  /* ================= YIELD HISTOGRAM ================= */
+  (() => {
+    const hourly = [5.2, 7.8, 6.5, 10.1, 4.6, 11.8, 7.5, 9.0, 10.9, 7.0, 18.4, 17.1, 8.6, 9.7, 5.9, 6.9];
+    const r = rng(21), box = $('#yield-histogram'), tip = $('#histogram-tooltip'), wrap = $('#yield-histogram-container');
+    hourly.forEach((v, h) => [0, 1].forEach(half => {
+      const val = v * (.9 + r() * .2), b = document.createElement('b');
+      b.dataset.val = val.toFixed(1); b.dataset.time = `${String(6 + h).padStart(2, '0')}:${half ? '30' : '00'}`;
+      b.style.height = clamp(val / 19 * 100, 12, 100) + '%';
+      if (v > 16) b.classList.add('peak');
+      box.append(b);
+    }));
+    box.addEventListener('pointerover', e => {
+      const b = e.target.closest('b'); if (!b) return;
+      $('#tooltip-text').textContent = `${b.dataset.time} · ${b.dataset.val} tn/hr`;
+      const br = b.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
+      tip.style.left = clamp(br.left - wr.left + br.width / 2, 55, wr.width - 55) + 'px'; tip.style.opacity = 1;
+    });
+    box.addEventListener('pointerleave', () => { tip.style.opacity = 0; });
+    box.addEventListener('click', e => { const b = e.target.closest('b'); if (b) $('#yield-runrate').textContent = `+${b.dataset.val} tn/hr`; });
+  })();
+
+  /* ================= DIALOGS & SEARCH ================= */
   const dialog = $('#detail-dialog');
   const detailCopy = {
-    notifications:['Notifications','Alert history: Zone B irrigation variance exceeded threshold at 09:41.'],
-    health:['Crop health',() => `The dashboard shows ${$('#gauge-value').textContent}% crop health over a monitored farm area of 248 ha.`],
-    insights:['AI Insights','Soil moisture optimal across Zone A; Zone B requires schedule compensation to prevent root stress.'],
-    tractor:['Tractor T-04 Telemetry',() => `Current telemetry: Speed ${$('#tractor-speed').textContent}, Fuel ${$('#tractor-fuel').textContent}, Area ${$('#tractor-area').textContent}. Autonomous GPS path tracking active.`],
-    sprayer:['Sprayer S-01 Telemetry',() => `Current telemetry: Speed ${$('#sprayer-speed').textContent}, Tank ${$('#sprayer-tank').textContent}, Area ${$('#sprayer-area').textContent}. Variable-rate spraying active.`],
-    irrigation:['Irrigation Offset Alert System','Real-time flow sensors evaluate deviation across all zones. If offset exceeds ±3.0 minutes, high-priority alert banners are triggered.'],
-    yield:['Live Yield Volume Telemetry',() => `Total harvested today: ${$('#yield-volume-val').textContent} kg. Current run rate: ${$('#yield-runrate').textContent}.`]
+    notifications: ['Notifications', 'Alert history: Zone B irrigation variance exceeded threshold at 09:41.'],
+    health: ['Crop health', () => `The dashboard shows ${$('#gauge-value').textContent}% crop health over a monitored farm area of 248 ha.`],
+    insights: ['AI Insights', 'Soil moisture optimal across Zone A; Zone B requires schedule compensation to prevent root stress.'],
+    tractor: ['Tractor T-04 Telemetry', () => `Current telemetry: speed ${$('#tractor-speed').textContent}, fuel ${$('#tractor-fuel').textContent}, area ${$('#tractor-area').textContent}. Autonomous GPS path tracking active.`],
+    sprayer: ['Sprayer S-01 Telemetry', () => `Current telemetry: speed ${$('#sprayer-speed').textContent}, tank ${$('#sprayer-tank').textContent}, area ${$('#sprayer-area').textContent}. Variable-rate spraying active.`],
+    irrigation: ['Irrigation Offset Alert System', 'Real-time flow sensors evaluate deviation across all zones. If the offset exceeds ±3.0 minutes, a high-priority alert banner is triggered.'],
+    yield: ['Live Yield Volume Telemetry', () => `Total harvested today: ${$('#yield-volume-val').textContent} kg. Current run rate: ${$('#yield-runrate').textContent}.`],
+    drone: ['Drone Scan-03 Flight Status', 'Autonomous multi-spectral crop scan at 65 m altitude. Battery: 78%. Coverage: 18.5 ha completed.']
   };
   function showDetails(key) {
-    const item = detailCopy[key];
-    if (!item) return;
-    const [title,copy] = item;
-    $('#dialog-title').textContent = title;
-    $('#dialog-copy').textContent = typeof copy === 'function' ? copy() : copy;
+    const item = detailCopy[key]; if (!item) return;
+    $('#dialog-title').textContent = item[0];
+    $('#dialog-copy').textContent = typeof item[1] === 'function' ? item[1]() : item[1];
     dialog.showModal();
   }
   $$('[data-dialog]').forEach(b => b.addEventListener('click', () => showDetails(b.dataset.dialog)));
 
-  // Search feature
   const search = $('#dashboard-search'), results = $('#search-results');
-  const searchable = [['North Field','field'],['Tractor T-04','tractor'],['Sprayer S-01','sprayer'],['Irrigation Station','irrigation'],['Yield Analysis','yield']];
+  const searchable = [['North Field', 'field'], ['Tractor T-04', 'tractor'], ['Sprayer S-01', 'sprayer'], ['Drone Scan-03', 'drone'], ['Irrigation Station', 'irrigation'], ['Yield Analysis', 'yield']];
   search.addEventListener('input', () => {
     const term = search.value.trim().toLowerCase(); results.replaceChildren(); results.hidden = !term;
     if (!term) return;
-    for (const [name,key] of searchable.filter(([name]) => name.toLowerCase().includes(term))) {
+    for (const [name, key] of searchable.filter(([n]) => n.toLowerCase().includes(term))) {
       const b = document.createElement('button'); b.type = 'button'; b.textContent = name;
-      b.addEventListener('click',() => { results.hidden = true; search.focus(); key === 'field' ? fieldOpen(true,true) : showDetails(key); }); results.append(b);
+      b.addEventListener('click', () => { results.hidden = true; search.focus(); key === 'field' ? fieldOpen(true, true) : showDetails(key); });
+      results.append(b);
     }
     if (!results.childElementCount) results.textContent = 'No matching parcels or equipment.';
   });
-  search.addEventListener('focus',() => { if (search.value.trim() && results.textContent.trim()) results.hidden = false; });
-  search.parentElement.addEventListener('focusout',e => { if (!search.parentElement.contains(e.relatedTarget)) results.hidden = true; });
+  search.addEventListener('focus', () => { if (search.value.trim() && results.textContent.trim()) results.hidden = false; });
+  search.parentElement.addEventListener('focusout', e => { if (!search.parentElement.contains(e.relatedTarget)) results.hidden = true; });
 
-  // Yield Histogram Interactive Tooltip Connection
-  const tooltip = $('#histogram-tooltip');
-  const tooltipText = $('#tooltip-text');
-  const histogramContainer = $('#yield-histogram-container');
-  $$('.yield-bar').forEach(bar => {
-    bar.addEventListener('mouseenter', e => {
-      const val = bar.dataset.val;
-      const time = bar.dataset.time;
-      tooltipText.textContent = `${time} · ${val} tn/hr`;
-      const rect = bar.getBoundingClientRect();
-      const parentRect = histogramContainer.getBoundingClientRect();
-      const leftOffset = rect.left - parentRect.left + (rect.width / 2);
-      tooltip.style.left = `${leftOffset}px`;
-      tooltip.style.opacity = '1';
-    });
-    bar.addEventListener('mouseleave', () => {
-      tooltip.style.opacity = '0';
-    });
-    bar.addEventListener('click', () => {
-      $('#yield-runrate').textContent = `+${bar.dataset.val} tn/hr`;
-    });
+  /* ================= LIVE SIMULATION ================= */
+  let sim = true;
+  const toggle = $('#telemetry-toggle-btn');
+  toggle.addEventListener('click', () => {
+    sim = !sim; lastTick = performance.now();
+    toggle.classList.toggle('paused', !sim); toggle.setAttribute('aria-pressed', String(sim));
+    $('#telemetry-btn-text').textContent = sim ? 'Simulation: Live' : 'Simulation: Paused';
+    announce(sim ? 'Live telemetry simulation resumed' : 'Live telemetry simulation paused');
   });
 
-  // --- LIVE TELEMETRY & SIMULATION ENGINE ---
-  let isSimulating = true;
-  const toggleBtn = $('#telemetry-toggle-btn');
-  const indicator = $('#telemetry-indicator');
-  const btnText = $('#telemetry-btn-text');
+  const droneWp = [[980, 370], [1490, 375], [1490, 440], [970, 440], [970, 510], [1480, 510], [1480, 580], [1020, 580], [1020, 650], [1450, 650]];
+  const tractorWp = [[960, 410], [1080, 410], [1080, 620], [1150, 620], [1150, 430], [1220, 430], [1220, 620]];
+  const sprayerWp = [[1320, 370], [1320, 680], [1400, 680], [1400, 370], [1470, 370], [1470, 660]];
+  const agents = [
+    { wp: droneWp, el: $('#drone-marker'), leg: 0, t: 0, speed: .35 },
+    { wp: tractorWp, el: $('#tractor-marker'), leg: 0, t: 0, speed: .12 },
+    { wp: sprayerWp, el: $('#sprayer-marker'), leg: 0, t: 0, speed: .14 }
+  ];
+  agents[1].el.addEventListener('click', () => showDetails('tractor'));
+  agents[2].el.addEventListener('click', () => showDetails('sprayer'));
+  agents[0].el.addEventListener('click', () => showDetails('drone'));
 
-  toggleBtn.addEventListener('click', () => {
-    isSimulating = !isSimulating;
-    if (isSimulating) {
-      indicator.className = 'w-2 h-2 rounded-full bg-lime-400 animate-pulse';
-      btnText.textContent = 'Simulation: Live';
-      toggleBtn.classList.remove('bg-rose-500/20','border-rose-400/40','text-rose-300');
-      toggleBtn.classList.add('bg-lime-500/15','border-lime-400/40','text-lime-300');
-      announceMap('Live telemetry simulation resumed');
+  const banner = $('#irrigation-alert-banner'), bannerText = $('#alert-banner-text');
+  let dismissed = false;
+  $('#alert-dismiss-btn').addEventListener('click', () => { banner.classList.add('hidden'); dismissed = true; });
+
+  let lastTick = performance.now(), acc = 0, clock = 0, harvest = 142580, tSpeed = 8, sSpeed = 6, fuel = 64, tank = 41, tArea = 12.4, sArea = 6.8;
+  const lerp = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+
+  function tick(now) {
+    requestAnimationFrame(tick);
+    if (!sim) return;
+    const dt = Math.min((now - lastTick) / 1000, .25); lastTick = now;
+    for (const a of agents) {
+      a.t += dt * a.speed;
+      if (a.t >= 1) { a.t = 0; a.leg = (a.leg + 1) % (a.wp.length - 1); }
+      const p = lerp(a.wp[a.leg], a.wp[a.leg + 1], a.t);
+      a.el.setAttribute('transform', `translate(${p[0]}, ${p[1]})`);
+    }
+    acc += dt; clock += dt;
+    if (acc < 1.6) return;
+    acc = 0;
+
+    tSpeed = clamp(tSpeed + Math.random() * .8 - .4, 6.5, 9.5); tArea += .02; fuel = Math.max(10, fuel - .03);
+    $('#tractor-speed').textContent = `${tSpeed.toFixed(1)} km/h`; $('#tractor-area').textContent = `${tArea.toFixed(1)} ha`;
+    $('#tractor-fuel').textContent = `${Math.round(fuel)}%`; $('#tractor-fuel-bar').style.width = fuel + '%';
+
+    sSpeed = clamp(sSpeed + Math.random() * .6 - .3, 5, 7.5); sArea += .015; tank = Math.max(5, tank - .05);
+    $('#sprayer-speed').textContent = `${sSpeed.toFixed(1)} km/h`; $('#sprayer-area').textContent = `${sArea.toFixed(1)} ha`;
+    $('#sprayer-tank').textContent = `${Math.round(tank)}%`; $('#sprayer-tank-bar').style.width = tank + '%';
+
+    harvest += Math.floor(Math.random() * 12 + 6); $('#yield-volume-val').textContent = harvest.toLocaleString('en-US');
+
+    const b4 = -2.5 - .85 * Math.sin(clock / 9) + (Math.random() * .4 - .2), v = Math.abs(b4), cell = $('#irrig-b4');
+    cell.textContent = `${b4 >= 0 ? '+' : ''}${b4.toFixed(1)}m`;
+    $('#irrigation-global-variance').innerHTML = `± ${v.toFixed(1)}<small>min</small>`;
+    if (v > 3) {
+      cell.classList.add('pulse');
+      $('#pump-status').textContent = 'Variance Alert'; $('#pump-status').style.color = 'var(--rose)';
+      if (!dismissed) { bannerText.textContent = `Variance exceeded ±3.0 min threshold in Zone B (current: ${b4.toFixed(1)} min). Flow readjustment suggested.`; banner.classList.remove('hidden'); }
     } else {
-      indicator.className = 'w-2 h-2 rounded-full bg-amber-400';
-      btnText.textContent = 'Simulation: Paused';
-      toggleBtn.classList.remove('bg-lime-500/15','border-lime-400/40','text-lime-300');
-      toggleBtn.classList.add('bg-rose-500/20','border-rose-400/40','text-rose-300');
-      announceMap('Live telemetry simulation paused');
-    }
-  });
-
-  // GPS Waypoint movement loops
-  const droneWaypoints = [
-    [980, 370], [1490, 375], [1490, 440], [970, 440], 
-    [970, 510], [1480, 510], [1480, 580], [1020, 580], [1020, 650], [1450, 650]
-  ];
-  let droneLeg = 0, droneT = 0;
-  const droneMarker = $('#drone-marker');
-
-  const tractorWaypoints = [
-    [960, 410], [1080, 410], [1080, 620], [1150, 620], [1150, 430], [1220, 430], [1220, 620]
-  ];
-  let tractorLeg = 0, tractorT = 0;
-  const tractorMarker = $('#tractor-marker');
-
-  const sprayerWaypoints = [
-    [1320, 370], [1320, 680], [1400, 680], [1400, 370], [1470, 370], [1470, 660]
-  ];
-  let sprayerLeg = 0, sprayerT = 0;
-  const sprayerMarker = $('#sprayer-marker');
-
-  // Irrigation alert elements
-  const alertBanner = $('#irrigation-alert-banner');
-  const alertText = $('#alert-banner-text');
-  const alertDismiss = $('#alert-dismiss-btn');
-  let alertDismissedManually = false;
-
-  alertDismiss.addEventListener('click', () => {
-    alertBanner.classList.add('hidden');
-    alertDismissedManually = true;
-  });
-
-  // Clickable markers show dialogs
-  tractorMarker.addEventListener('click', () => showDetails('tractor'));
-  sprayerMarker.addEventListener('click', () => showDetails('sprayer'));
-  $('#drone-marker').addEventListener('click', () => {
-    $('#dialog-title').textContent = 'Drone Scan-03 Flight Status';
-    $('#dialog-copy').textContent = 'Autonomous multi-spectral crop scan at 65m altitude. Battery: 78%. Coverage: 18.5 ha completed.';
-    dialog.showModal();
-  });
-
-  // Main animation frame for smooth vehicle motions & telemetry updates
-  let lastTick = performance.now();
-  let telemetryCounter = 0;
-  let harvestVolume = 142580;
-  let tractorSpeedVal = 8;
-  let sprayerSpeedVal = 6;
-  let tractorFuelVal = 64;
-  let sprayerTankVal = 41;
-  let tractorAreaVal = 12.4;
-  let sprayerAreaVal = 6.8;
-
-  function interpolate(p1, p2, t) {
-    return [p1[0] + (p2[0] - p1[0]) * t, p1[1] + (p2[1] - p1[1]) * t];
-  }
-
-  function tickSimulation(now) {
-    requestAnimationFrame(tickSimulation);
-    if (!isSimulating) return;
-    const delta = (now - lastTick) / 1000;
-    lastTick = now;
-
-    // Move Drone
-    droneT += delta * 0.35;
-    if (droneT >= 1) {
-      droneT = 0;
-      droneLeg = (droneLeg + 1) % (droneWaypoints.length - 1);
-    }
-    const dPos = interpolate(droneWaypoints[droneLeg], droneWaypoints[droneLeg + 1], droneT);
-    droneMarker.setAttribute('transform', `translate(${dPos[0]}, ${dPos[1]})`);
-
-    // Move Tractor T-04
-    tractorT += delta * 0.12;
-    if (tractorT >= 1) {
-      tractorT = 0;
-      tractorLeg = (tractorLeg + 1) % (tractorWaypoints.length - 1);
-    }
-    const tPos = interpolate(tractorWaypoints[tractorLeg], tractorWaypoints[tractorLeg + 1], tractorT);
-    tractorMarker.setAttribute('transform', `translate(${tPos[0]}, ${tPos[1]})`);
-
-    // Move Sprayer S-01
-    sprayerT += delta * 0.14;
-    if (sprayerT >= 1) {
-      sprayerT = 0;
-      sprayerLeg = (sprayerLeg + 1) % (sprayerWaypoints.length - 1);
-    }
-    const sPos = interpolate(sprayerWaypoints[sprayerLeg], sprayerWaypoints[sprayerLeg + 1], sprayerT);
-    sprayerMarker.setAttribute('transform', `translate(${sPos[0]}, ${sPos[1]})`);
-
-    // Telemetry increments every ~1.5s
-    telemetryCounter += delta;
-    if (telemetryCounter >= 1.6) {
-      telemetryCounter = 0;
-
-      // Update Tractor telemetry
-      tractorSpeedVal = clamp(tractorSpeedVal + (Math.random() * 0.8 - 0.4), 6.5, 9.5);
-      tractorAreaVal += 0.02;
-      tractorFuelVal = Math.max(10, tractorFuelVal - 0.03);
-      $('#tractor-speed').textContent = `${tractorSpeedVal.toFixed(1)} km/h`;
-      $('#tractor-area').textContent = `${tractorAreaVal.toFixed(1)} ha`;
-      $('#tractor-fuel').textContent = `${Math.round(tractorFuelVal)}%`;
-
-      // Update Sprayer telemetry
-      sprayerSpeedVal = clamp(sprayerSpeedVal + (Math.random() * 0.6 - 0.3), 5.0, 7.5);
-      sprayerAreaVal += 0.015;
-      sprayerTankVal = Math.max(5, sprayerTankVal - 0.05);
-      $('#sprayer-speed').textContent = `${sprayerSpeedVal.toFixed(1)} km/h`;
-      $('#sprayer-area').textContent = `${sprayerAreaVal.toFixed(1)} ha`;
-      $('#sprayer-tank').textContent = `${Math.round(sprayerTankVal)}%`;
-
-      // Update Live Harvest Yield
-      harvestVolume += Math.floor(Math.random() * 12 + 6);
-      $('#yield-volume-val').textContent = harvestVolume.toLocaleString();
-
-      // Fluctuate Irrigation variance & trigger Alert Banner when exceeding ±3.0 min
-      const jitter = (Math.random() * 0.6 - 0.28);
-      const b4Offset = -2.5 + jitter;
-      $('#irrig-b4').textContent = `${b4Offset >= 0 ? '+' : ''}${b4Offset.toFixed(1)}m`;
-
-      const globalVariance = Math.abs(b4Offset);
-      $('#irrigation-global-variance').innerHTML = `± ${globalVariance.toFixed(1)} <span class="text-[11px] text-slate-300 font-normal">min</span>`;
-
-      if (globalVariance > 3.0) {
-        $('#irrig-b4').className = 'text-rose-400 font-bold animate-pulse';
-        $('#pump-status').textContent = 'Variance Alert';
-        $('#pump-status').className = 'text-rose-400 font-bold';
-        if (!alertDismissedManually) {
-          alertText.textContent = `Warning: Irrigation variance exceeded ±3.0 min threshold in Zone B (Current: ${b4Offset.toFixed(1)} min). Flow readjustment suggested.`;
-          alertBanner.classList.remove('hidden');
-        }
-      } else {
-        $('#irrig-b4').className = 'text-rose-400 font-semibold';
-        $('#pump-status').textContent = 'Calibrated';
-        $('#pump-status').className = 'text-emerald-400 font-medium';
-        if (!alertDismissedManually && globalVariance <= 2.8) {
-          alertBanner.classList.add('hidden');
-        }
-      }
+      cell.classList.remove('pulse');
+      $('#pump-status').textContent = 'Calibrated'; $('#pump-status').style.color = 'var(--emerald)';
+      if (v <= 2.8) { banner.classList.add('hidden'); dismissed = false; }
     }
   }
-  requestAnimationFrame(tickSimulation);
+  requestAnimationFrame(tick);
 
-  // Keep times updated
-  const sampleStart = Date.now(), staleAfter = 15*60_000;
-  const fleetTimes = $$('time[data-offset-min]').map(t => ({ node:t, reading:sampleStart - Number(t.dataset.offsetMin)*60_000 }));
-  const format = new Intl.DateTimeFormat('hu-HU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false});
+  /* ================= TIMESTAMPS ================= */
+  const start = Date.now(), staleAfter = 15 * 60000;
+  const times = $$('time[data-offset-min]').map(t => ({ node: t, reading: start - Number(t.dataset.offsetMin) * 60000 }));
+  const fmt = new Intl.DateTimeFormat('hu-HU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false });
   function renderTimes() {
     const now = Date.now();
-    for (const {node,reading} of fleetTimes) {
-      const date = new Date(reading), parts = Object.fromEntries(format.formatToParts(date).map(p => [p.type,p.value]));
-      const label = `${parts.day}.${parts.month}.${parts.year}, ${parts.hour}:${parts.minute}`;
-      node.dateTime = date.toISOString(); if (node.textContent !== label) node.textContent = label;
-      const status = $('[data-fleet-status]',node.closest('article')), text = $('[data-status-text]',status);
-      const stale = now-reading > staleAfter; status.classList.toggle('is-stale',stale);
+    for (const { node, reading } of times) {
+      const d = new Date(reading), p = Object.fromEntries(fmt.formatToParts(d).map(x => [x.type, x.value]));
+      const label = `${p.day}.${p.month}.${p.year}, ${p.hour}:${p.minute}`;
+      node.dateTime = d.toISOString(); if (node.textContent !== label) node.textContent = label;
+      const status = $('[data-fleet-status]', node.closest('article')), text = $('[data-status-text]', status);
+      const stale = now - reading > staleAfter; status.classList.toggle('is-stale', stale);
       if (stale && text.textContent !== 'Stale') text.textContent = 'Stale';
     }
   }
-  renderTimes(); setInterval(renderTimes,30_000);
+  renderTimes(); setInterval(renderTimes, 30000);
 
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape' || dialog.open) return;
     if (!results.hidden) { results.hidden = true; search.focus(); }
     else if (nav.classList.contains('is-open')) { menuOpen(false); menu.focus(); }
-    else if (!field.hidden) fieldOpen(false,true);
-    else if (analytics.classList.contains('is-open')) { drawerOpen(false); drawer.focus(); }
+    else if (!field.hidden) fieldOpen(false, true);
   });
   renderMap();
 })();
-</script></body></html>
+</script>
+</body>
+</html>
