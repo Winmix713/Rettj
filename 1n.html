@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Furrow Prime — Precíziós Gazdálkodási Irányítóközpont</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050806;
+  --glass:rgba(19,24,20,.58);
+  --glass-strong:rgba(12,16,13,.88);
+  --stroke:rgba(255,255,255,.07);
+  --stroke-2:rgba(255,255,255,.14);
+  --ink:#f3f7ef;
+  --ink-2:#c5cfc1;
+  --ink-3:#8a968a;
+  --ink-4:#5d695f;
+  --lime:#bff24a;
+  --lime-deep:#4d7c0f;
+  --amber:#f5b342;
+  --rose:#fb7185;
+  --sky:#5fc8ff;
+  --emerald:#34d399;
+  --r-xl:30px;
+  --r-lg:22px;
+  --r-md:16px;
+  --r-sm:10px;
+  --blur:blur(24px) saturate(155%);
+  --shadow:0 30px 60px -28px rgba(0,0,0,.85),0 8px 20px -12px rgba(0,0,0,.6);
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --pad:clamp(12px,1.6vw,26px);
+  --gap:12px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 13.5px/1.45 var(--font);font-feature-settings:'cv11','ss03','tnum' 1;-webkit-font-smoothing:antialiased}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:where(button,a,input,select,[tabindex]):focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:10px}
+.mono{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.i{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+
+/* Glass & cards */
+.glass{position:relative;border-radius:var(--r-lg);border:1px solid var(--stroke);background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 38%),var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.06)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(155deg,rgba(255,255,255,.24),rgba(255,255,255,0) 32%,rgba(255,255,255,0) 68%,rgba(191,242,74,.18));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.glass.strong{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0) 38%),var(--glass-strong)}
+@supports not (backdrop-filter:blur(1px)){.glass{background:var(--glass-strong)}}
+.card{padding:16px 18px}
+.eyebrow{font-size:10.5px;font-weight:650;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;min-height:28px}
+.card-title{margin:0;font-size:13.5px;font-weight:650;letter-spacing:-.01em;color:var(--ink)}
+.meta{font-size:11px;color:var(--ink-3)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:650;border:1px solid var(--stroke-2);white-space:nowrap}
+.pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill.ok{color:var(--lime);background:rgba(191,242,74,.09);border-color:rgba(191,242,74,.3)}
+.pill.warn{color:var(--amber);background:rgba(245,179,66,.1);border-color:rgba(245,179,66,.32)}
+.pill.bad{color:var(--rose);background:rgba(251,113,133,.12);border-color:rgba(251,113,133,.4)}
+.pill.info{color:var(--sky);background:rgba(95,200,255,.1);border-color:rgba(95,200,255,.3)}
+.icon-btn{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:var(--ink-3);border:1px solid transparent;transition:.2s var(--ease)}
+.icon-btn:hover{color:#fff;background:rgba(255,255,255,.08);border-color:var(--stroke)}
+
+/* App Shell */
+.app{position:relative;display:flex;flex-direction:column;gap:var(--gap);padding:calc(var(--pad) + env(safe-area-inset-top,0px)) var(--pad) calc(var(--pad) + env(safe-area-inset-bottom,0px))}
+.topbar{position:relative;z-index:25;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;border-radius:20px}
+.nav-left,.nav-right{display:flex;align-items:center;gap:clamp(8px,1vw,14px)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:750;font-size:16.5px;letter-spacing:-.03em;color:#fff}
+.brand-mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#0b1406;background:linear-gradient(145deg,#e4ff8a,#8fd11a 55%,#3f7d0b);box-shadow:0 6px 18px -4px rgba(143,209,26,.55),inset 0 1px 0 rgba(255,255,255,.55)}
+.nav-links{display:flex;gap:3px;padding:3px;border-radius:13px;background:rgba(0,0,0,.35);border:1px solid var(--stroke)}
+.nav-item{padding:6px 12px;border-radius:10px;font-size:12px;font-weight:600;color:var(--ink-3);border:1px solid transparent;text-decoration:none;transition:.2s var(--ease)}
+.nav-item:hover{color:#fff}
+.nav-item[aria-current="location"]{color:#fff;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.07));border-color:var(--stroke-2)}
+
+.btn-cmd{display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid var(--stroke-2);font-size:12px;font-weight:550;color:var(--ink-2);transition:.2s}
+.btn-cmd:hover{background:rgba(255,255,255,.1);color:#fff}
+.kbd{font-family:var(--mono);font-size:10px;padding:2px 5px;border-radius:5px;background:rgba(0,0,0,.45);border:1px solid var(--stroke-2);color:var(--ink-3)}
+.sim-toggle{display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:11px;font-size:11.5px;font-weight:650;color:var(--lime);background:rgba(191,242,74,.09);border:1px solid rgba(191,242,74,.28);transition:.2s}
+.sim-toggle .pulse{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(191,242,74,.6);animation:ping 2s infinite}
+.sim-toggle.paused{color:var(--amber);background:rgba(245,179,66,.09);border-color:rgba(245,179,66,.3)}
+.sim-toggle.paused .pulse{background:var(--amber);animation:none}
+
+/* Subhead + KPI Strip */
+.subhead{position:relative;z-index:20;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:2px 4px}
+.page-title{margin:0;font-size:clamp(22px,2.4vw,34px);font-weight:700;letter-spacing:-.04em;line-height:1.08}
+.page-sub{margin:4px 0 0;font-size:12px;color:var(--ink-2)}
+.kpi-strip{display:flex;gap:8px;flex-wrap:wrap}
+.kpi-chip{display:flex;align-items:center;gap:9px;padding:8px 14px;border-radius:999px;font-size:11.5px;font-weight:550;color:var(--ink);background:rgba(16,21,17,.65);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--stroke-2)}
+.kpi-chip .i{width:16px;height:16px}
+.kpi-chip b{display:block;font-size:13px;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums}
+.kpi-chip small{display:block;font-size:10px;color:var(--ink-3);line-height:1}
+
+/* Alert Banner */
+.alert-banner{position:fixed;z-index:95;top:calc(12px + env(safe-area-inset-top,0px));left:50%;translate:-50% 0;width:min(680px,calc(100% - 24px));display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 14px;border-radius:16px;font-size:12px;color:#ffd5db;background:linear-gradient(180deg,rgba(244,63,94,.26),rgba(244,63,94,.14));border:1px solid rgba(251,113,133,.45);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);box-shadow:0 24px 50px -18px rgba(244,63,94,.5);transition:.35s var(--ease)}
+.alert-banner.hidden{opacity:0;translate:-50% -150%;pointer-events:none}
+.alert-tag{font-weight:750;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#fecdd3;background:rgba(76,5,25,.65);padding:3px 8px;border-radius:6px;border:1px solid rgba(251,113,133,.35)}
+.alert-ack{padding:5px 12px;border-radius:9px;font-weight:650;font-size:11.5px;background:rgba(251,113,133,.22);color:#fff;border:1px solid rgba(251,113,133,.35);transition:.2s}
+.alert-ack:hover{background:rgba(251,113,133,.38)}
+
+/* Map Layout */
+.map-container{position:relative;z-index:1;min-height:460px;height:56dvh;border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--stroke);background:radial-gradient(ellipse at 60% 45%,#263a25,#111e15 65%,#050806);box-shadow:var(--shadow)}
+#map-stage{position:absolute;inset:0;transform-origin:center;will-change:transform}
+.map-svg{width:100%;height:100%;display:block;touch-action:none}
+.veil{position:absolute;inset:0;pointer-events:none;z-index:2}
+.veil.a{background:linear-gradient(90deg,rgba(5,8,6,.9),rgba(5,8,6,.15) 45%,rgba(5,8,6,.5))}
+.veil.b{background:linear-gradient(0deg,rgba(5,8,6,.92),transparent 45%,rgba(5,8,6,.65))}
+
+/* Parcel Selector & Tools */
+.map-overlay-left{position:absolute;top:12px;left:12px;z-index:6;display:flex;flex-direction:column;gap:8px}
+.parcel-select-wrap{position:relative;width:240px}
+.parcel-select-wrap select{width:100%;padding:9px 32px 9px 12px;border-radius:14px;background:rgba(12,17,13,.82);border:1px solid var(--stroke-2);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);font-size:12.5px;font-weight:650;color:#fff;appearance:none;-webkit-appearance:none;cursor:pointer}
+.parcel-select-wrap .i{position:absolute;right:11px;top:50%;translate:0 -50%;pointer-events:none;color:var(--ink-3)}
+
+.map-tools{position:absolute;top:12px;right:12px;z-index:6;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.layers-card{padding:5px;display:flex;flex-direction:column;gap:3px;border-radius:18px;width:160px}
+.layer-btn{display:flex;align-items:center;gap:9px;padding:6px 9px 6px 6px;border-radius:12px;text-align:left;border:1px solid transparent;color:var(--ink-2);transition:.2s var(--ease)}
+.layer-btn:hover{background:rgba(255,255,255,.08);color:#fff}
+.layer-btn[aria-pressed="true"]{color:#fff;background:rgba(255,255,255,.11);border-color:rgba(191,242,74,.4)}
+.layer-thumb{width:28px;height:28px;border-radius:50%;flex:none;border:1.5px solid rgba(255,255,255,.25)}
+.layer-btn[aria-pressed="true"] .layer-thumb{border-color:var(--lime)}
+.t-sat{background:radial-gradient(circle at 35% 30%,#8bc24a,#2f6a1c 55%,#173d12)}
+.t-ndvi{background:linear-gradient(140deg,#c2410c,#facc15 50%,#16a34a)}
+.t-soil{background:radial-gradient(circle at 40% 35%,#a5603a,#6b3a22 60%,#3b2113)}
+.t-drone{background:radial-gradient(circle,#0c4a6e,#082f49);display:grid;place-items:center;color:var(--sky)}
+.layer-txt b{display:block;font-size:11.5px;font-weight:650}
+.layer-txt small{display:block;font-size:9.5px;color:var(--ink-3);font-family:var(--mono)}
+
+.ctrls-card{padding:4px;display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:16px}
+.ctrls-card button{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:var(--ink-2);transition:.2s}
+.ctrls-card button:hover{color:#fff;background:rgba(255,255,255,.1)}
+.ctrls-card hr{width:16px;height:1px;border:0;background:var(--stroke-2);margin:2px 0}
+
+.map-caption{position:absolute;z-index:4;left:14px;bottom:12px;margin:0;padding:6px 12px;border-radius:999px;font-size:11px;color:var(--ink-2);background:rgba(12,17,13,.7);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--stroke-2);pointer-events:none}
+.map-honesty{position:absolute;z-index:4;right:14px;bottom:12px;margin:0;padding:5px 11px;border-radius:999px;font-size:10.5px;color:var(--amber);background:rgba(245,179,66,.1);border:1px solid rgba(245,179,66,.3);font-family:var(--mono)}
+
+/* Left Rail (Analytics) */
+.rail{position:relative;z-index:10;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:var(--gap);align-content:start}
+.gauge-row{display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+.gauge{position:relative;width:146px;height:84px;flex:none}
+.gauge svg{width:100%;height:100%;overflow:visible}
+.gauge .tick{stroke:rgba(255,255,255,.13);stroke-width:3.2;stroke-linecap:round;transition:stroke .4s,opacity .4s}
+.gauge .tick.on{filter:drop-shadow(0 0 3px rgba(191,242,74,.6))}
+.gauge-val{position:absolute;inset:auto 0 0 0;text-align:center;font-size:30px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.gauge-val span{font-size:14px;color:var(--lime);margin-left:2px}
+.area-box{text-align:right}
+.area-box .big{font-size:32px;font-weight:700;letter-spacing:-.03em}
+
+.trend-box{position:relative}
+.trend-box svg{display:block;width:100%;height:120px;overflow:visible;touch-action:none}
+.trend-tip{position:absolute;top:-8px;z-index:4;pointer-events:none;opacity:0;transform:translate(-50%,-100%);padding:4px 9px;border-radius:8px;font-size:10.5px;font-family:var(--mono);color:var(--lime);background:rgba(5,8,6,.94);border:1px solid rgba(191,242,74,.4);transition:opacity .15s}
+.trend-summary{font-size:11px;color:var(--ink-2);margin-top:6px;font-family:var(--mono)}
+
+.matrix{display:grid;grid-template-columns:repeat(16,1fr);gap:4px;padding:10px;border-radius:15px;background:rgba(0,0,0,.35);border:1px solid var(--stroke)}
+.matrix i{aspect-ratio:1;border-radius:4px;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+.matrix i.c::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,transparent 0 2px,rgba(20,20,20,.6) 2px 3px);border-radius:inherit}
+.matrix i.s::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(20,10,10,.85) 1px,transparent 1.5px);background-size:4px 4px;border-radius:inherit}
+.matrix-legend{display:flex;gap:12px;margin-top:8px;font-size:11px;color:var(--ink-2)}
+.matrix-legend span{display:flex;align-items:center;gap:6px}
+.matrix-legend i{width:8px;height:8px;border-radius:3px}
+
+/* Bottom Dock */
+.dock{position:relative;z-index:10;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap)}
+.dock-card{display:flex;flex-direction:column;gap:10px}
+.dock-card-h{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.dock-card-h h3{margin:0;font-size:14px;font-weight:650;letter-spacing:-.01em}
+.dock-card-h time{display:block;font-size:10.5px;color:var(--ink-3);font-family:var(--mono)}
+
+.tbl-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--stroke);background:rgba(0,0,0,.32)}
+.tbl{width:100%;border-collapse:collapse;font-size:11px;text-align:center}
+.tbl th{font-weight:600;color:var(--ink-3);padding:6px 4px;background:rgba(255,255,255,.03)}
+.tbl td{padding:6px 4px;font-family:var(--mono);color:var(--ink-2);border-top:1px solid var(--stroke)}
+.tbl td.bad{color:var(--rose);font-weight:650}
+.tbl td.bad.pulse{animation:blink 1.2s infinite}
+
+.yield-bars{display:grid;grid-template-columns:repeat(32,1fr);gap:2px;align-items:end;height:58px;padding:6px 6px 4px;border-radius:12px;background:rgba(0,0,0,.32);border:1px solid var(--stroke)}
+.yield-bars b{display:block;width:100%;border-radius:2px 2px 0 0;background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.08));cursor:pointer;transition:.15s}
+.yield-bars b:hover,.yield-bars b:focus-visible{background:var(--lime);outline:none}
+.yield-bars b.peak{background:linear-gradient(180deg,#e2ff8c,#84cc16);box-shadow:0 0 10px rgba(191,242,74,.5)}
+
+/* Dialog & Command Palette */
+dialog{margin:auto;width:min(520px,calc(100% - 28px));padding:20px;border-radius:var(--r-lg);border:1px solid var(--stroke-2);background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 40%),rgba(12,17,13,.95);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);color:var(--ink);box-shadow:0 35px 80px -20px #000}
+dialog::backdrop{background:rgba(2,5,3,.7);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.dialog-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.dialog-h h2{margin:0;font-size:16px;font-weight:700}
+.search-input{width:100%;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid var(--stroke-2);color:#fff;font-size:13.5px}
+.search-input:focus{outline:none;border-color:var(--lime);background:rgba(255,255,255,.09)}
+.cmd-list{list-style:none;padding:0;margin:10px 0 0;max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.cmd-item{padding:9px 12px;border-radius:10px;font-size:12.5px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:transparent;border:1px solid transparent;transition:.15s}
+.cmd-item:hover,.cmd-item[aria-selected="true"]{background:rgba(191,242,74,.12);border-color:rgba(191,242,74,.3);color:#fff}
+
+.footer{margin-top:8px;padding:12px 6px 4px;border-top:1px solid var(--stroke);font-size:11px;color:var(--ink-3);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+
+/* Animations */
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(191,242,74,.6)}70%,100%{box-shadow:0 0 0 8px rgba(191,242,74,0)}}
+@keyframes blink{50%{opacity:.3}}
+@keyframes radar{0%{transform:scale(.7);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+.drone-pulse{animation:ping 2s cubic-bezier(0,0,.2,1) infinite}
+
+/* Breakpoints */
+@media(min-width:1280px){
+  .app{height:100dvh;min-height:720px;display:grid;overflow:hidden;gap:12px 14px;grid-template-columns:minmax(310px,340px) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto}
+  .map-container{position:absolute;inset:12px;height:auto;border-radius:32px;z-index:0}
+  .topbar{grid-column:1/-1;grid-row:1}
+  .subhead{grid-column:1/-1;grid-row:2}
+  .rail{grid-column:1;grid-row:3/5;min-height:0;overflow-y:auto;display:flex;flex-direction:column;padding:2px 4px 20px 0;-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 24px),transparent)}
+  .dock{grid-column:2;grid-row:4;grid-template-columns:repeat(4,minmax(0,1fr));align-self:end}
+  .map-tools{top:calc(var(--pad) + 110px);right:calc(var(--pad) + 8px)}
+  .map-overlay-left{top:calc(var(--pad) + 110px);left:370px}
+  .map-caption{left:370px;bottom:calc(var(--pad) + 185px)}
+  .map-honesty{right:calc(var(--pad) + 8px);bottom:calc(var(--pad) + 185px)}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- Irrigation Alert Banner -->
+<div class="alert-banner hidden" id="alert-banner" role="alert">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="alert-tag">Öntözési Riasztás</span>
+    <span id="alert-banner-text">Öntözési eltérés meghaladta a küszöböt (+3.2 perc, B zóna).</span>
+  </div>
+  <button class="alert-ack" id="alert-ack-btn" type="button">Nyugtázás</button>
+</div>
+
+<div class="app" id="app">
+
+  <!-- TOPBAR -->
+  <header class="glass strong topbar" aria-label="Fő navigáció">
+    <div class="nav-left">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg class="i" style="width:18px;height:18px"><polygon points="12,2 2,7 12,12 22,7"/><polyline points="2,12 12,17 22,12"/><polyline points="2,17 12,22 22,17"/></svg>
+        </span>
+        Furrow Prime
+      </div>
+      <nav class="nav-links" id="primary-links" aria-label="Oldal szekciók">
+        <a class="nav-item" href="#overview" aria-current="location">Áttekintés</a>
+        <a class="nav-item" href="#fields">Parcellák</a>
+        <a class="nav-item" href="#analytics">Analitika</a>
+        <a class="nav-item" href="#operations">Műveletek</a>
+      </nav>
+      <span class="pill warn" style="margin-left:4px"><span class="dot"></span>Demó / Szimuláció</span>
+    </div>
+
+    <div class="nav-right">
+      <button class="btn-cmd" id="btn-cmd-palette" type="button" aria-keyshortcuts="Control+K Meta+K" title="Gyorskereső megnyitása">
+        <svg class="i"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></svg>
+        <span>Keresés</span>
+        <span class="kbd">⌘K</span>
+      </button>
+
+      <button class="btn-cmd" id="btn-export-csv" type="button" title="Gazdasági adatok exportálása CSV formátumban">
+        <svg class="i"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>CSV Export</span>
+      </button>
+
+      <button class="sim-toggle" id="sim-toggle-btn" type="button" aria-pressed="true" title="Szimuláció futása">
+        <span class="pulse"></span>
+        <span id="sim-btn-text">Élő szimuláció</span>
+      </button>
+
+      <button class="icon-btn" id="btn-alerts-modal" type="button" aria-label="Riasztások listája" title="Riasztások">
+        <svg class="i"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></svg>
+      </button>
+      <div class="icon-btn" style="background:rgba(255,255,255,.07);font-weight:700;font-size:11px;color:var(--lime)">DT</div>
+    </div>
+  </header>
+
+  <!-- SUBHEAD + KPI STRIP -->
+  <div class="subhead" id="overview">
+    <div>
+      <h1 class="page-title" id="page-title">Gazdasági Irányítóközpont</h1>
+      <p class="page-sub">Duna–Tisza mintagazdaság · Növényállapot és flottaműveletek valós időben</p>
+    </div>
+
+    <!-- Slim Glass Stat Strip -->
+    <div class="kpi-strip" aria-label="Főbb mutatószámok">
+      <div class="kpi-chip">
+        <svg class="i" style="color:var(--emerald)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div><small>Követett terület</small><b id="kpi-area">488 ha</b></div>
+      </div>
+      <div class="kpi-chip">
+        <svg class="i" style="color:var(--lime)"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
+        <div><small>Növényegészség</small><b id="kpi-health">92%</b></div>
+      </div>
+      <div class="kpi-chip">
+        <svg class="i" style="color:var(--sky)"><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><path d="M9 18h6M5 15V8h14v7"/></svg>
+        <div><small>Aktív géppark</small><b id="kpi-fleet">3 egység</b></div>
+      </div>
+      <div class="kpi-chip">
+        <svg class="i" style="color:var(--amber)"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <div><small>Mai betakarítás</small><b id="kpi-harvest">14 280 kg</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <section class="map-container" id="fields" aria-label="Interaktív parcellatérkép">
+    <div id="map-stage">
+      <svg class="map-svg" id="map-svg" viewBox="0 0 900 530" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="terrain" x2="1" y2="1"><stop stop-color="#25382f"/><stop offset=".48" stop-color="#354534"/><stop offset="1" stop-color="#263c32"/></linearGradient>
+          <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <radialGradient id="fieldGlow" cx=".5" cy=".5" r=".7"><stop offset="0" stop-color="#d9ff6b" stop-opacity=".35"/><stop offset="1" stop-color="#7fc41a" stop-opacity=".08"/></radialGradient>
+          <pattern id="hatchPattern" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="14" stroke="#bff24a" stroke-opacity=".22" stroke-width="1"/></pattern>
+        </defs>
+
+        <rect width="900" height="530" fill="url(#terrain)"/>
+
+        <!-- Parcel Polygons -->
+        <g id="parcels-group">
+          <!-- Parcel A: Északi Táblák -->
+          <path id="poly-parcel-a" d="M83 152 319 92 395 151 373 272 141 324 88 269Z" fill="#4e613e" opacity=".7" stroke="rgba(255,255,255,.2)" stroke-width="1.5" style="cursor:pointer"/>
+          <!-- Parcel B: Keleti Dűlő -->
+          <path id="poly-parcel-b" d="M538 115 779 91 823 147 798 303 610 290 527 222Z" fill="#5d6440" opacity=".7" stroke="rgba(255,255,255,.2)" stroke-width="1.5" style="cursor:pointer"/>
+          <!-- Parcel C: Déli Sziget -->
+          <path id="poly-parcel-c" d="M242 359 387 297 530 290 680 335 643 424 496 460 275 447Z" fill="#415e44" opacity=".7" stroke="rgba(255,255,255,.2)" stroke-width="1.5" style="cursor:pointer"/>
+        </g>
+
+        <!-- Dynamic Selected Parcel Highlight Overlay -->
+        <path id="parcel-highlight" d="" fill="url(#fieldGlow)" stroke="#bff24a" stroke-width="2.5" filter="url(#neon-glow)" pointer-events="none"/>
+        <path id="parcel-hatch" d="" fill="url(#hatchPattern)" pointer-events="none"/>
+
+        <!-- Routes & Fleet Markers -->
+        <g id="routes-group" fill="none" opacity=".5">
+          <path id="route-tractor" d="M120 180 L320 140 L350 250 L160 290 Z" stroke="#bff24a" stroke-width="2" stroke-dasharray="4 4"/>
+          <path id="route-sprayer" d="M560 140 L760 120 L780 270 L580 260 Z" stroke="#f5b342" stroke-width="2" stroke-dasharray="4 4"/>
+          <path id="route-drone" d="M260 380 L500 320 L640 360 L610 430 L480 440 L280 430 Z" stroke="#5fc8ff" stroke-width="2" stroke-dasharray="6 6"/>
+        </g>
+
+        <g id="fleet-markers">
+          <g id="marker-tractor" class="marker" transform="translate(160,200)" style="cursor:pointer">
+            <circle r="12" fill="#bff24a" opacity=".25"/>
+            <circle r="5" fill="#bff24a" stroke="#000" stroke-width="1.5"/>
+            <rect x="10" y="-11" width="80" height="20" rx="9" fill="#09140fcc" stroke="#bff24a88"/>
+            <text x="18" y="3" fill="#d9f99d" font-size="9.5" font-weight="700" font-family="Inter,sans-serif">T-04 · 8 km/h</text>
+          </g>
+
+          <g id="marker-sprayer" class="marker" transform="translate(600,160)" style="cursor:pointer">
+            <circle r="12" fill="#f5b342" opacity=".25"/>
+            <circle r="5" fill="#f5b342" stroke="#000" stroke-width="1.5"/>
+            <rect x="10" y="-11" width="80" height="20" rx="9" fill="#140f09cc" stroke="#f5b34288"/>
+            <text x="18" y="3" fill="#fde68a" font-size="9.5" font-weight="700" font-family="Inter,sans-serif">P-01 · 6 km/h</text>
+          </g>
+
+          <g id="marker-drone" class="marker" transform="translate(320,380)" style="cursor:pointer">
+            <circle r="14" fill="#0284c7" opacity=".3" class="drone-pulse"/>
+            <circle r="5" fill="#5fc8ff" stroke="#fff" stroke-width="1.5"/>
+            <rect x="10" y="-11" width="82" height="20" rx="9" fill="#06121acc" stroke="#5fc8ff88"/>
+            <text x="18" y="3" fill="#7dd3fc" font-size="9.5" font-weight="700" font-family="Inter,sans-serif">Drón-03 · Légi</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="veil a"></div><div class="veil b"></div>
+
+    <!-- Parcel Selector on Map -->
+    <div class="map-overlay-left">
+      <div class="parcel-select-wrap">
+        <label for="parcel-select" class="sr-only">Parcella kiválasztása</label>
+        <select id="parcel-select">
+          <option value="parcel-a">Északi Táblák (248 ha · Kukorica)</option>
+          <option value="parcel-b">Keleti Dűlő (135 ha · Napraforgó)</option>
+          <option value="parcel-c">Déli Sziget (105 ha · Őszi búza)</option>
+        </select>
+        <svg class="i"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </div>
+
+    <!-- Layer Switcher & Map Controls -->
+    <aside class="map-tools" aria-label="Térkép vezérlők">
+      <div class="glass strong layers-card" role="group" aria-label="Térképrétegek">
+        <button class="layer-btn" type="button" data-layer="satellite" aria-pressed="true">
+          <span class="layer-thumb t-sat"></span>
+          <span class="layer-txt"><b>Műholdas</b><small>RGB Valós</small></span>
+        </button>
+        <button class="layer-btn" type="button" data-layer="ndvi" aria-pressed="false">
+          <span class="layer-thumb t-ndvi"></span>
+          <span class="layer-txt"><b>NDVI</b><small>Biomassza</small></span>
+        </button>
+        <button class="layer-btn" type="button" data-layer="soil" aria-pressed="false">
+          <span class="layer-thumb t-soil"></span>
+          <span class="layer-txt"><b>Talajnedvesség</b><small>Nedvességprofil</small></span>
+        </button>
+      </div>
+
+      <div class="glass strong ctrls-card" aria-label="Nagyítás és navigáció">
+        <button type="button" id="map-zoom-in" aria-label="Nagyítás" title="Nagyítás (vagy + billentyű)">
+          <svg class="i"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button type="button" id="map-zoom-out" aria-label="Kicsinyítés" title="Kicsinyítés (vagy - billentyű)">
+          <svg class="i"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <hr>
+        <button type="button" id="map-reset" aria-label="Alaphelyzet" title="Térkép visszaállítása (Home)">
+          <svg class="i"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <p class="map-caption" id="map-caption">Műholdas felvétel · Duna–Tisza gazdaság GPS telemetria</p>
+    <div class="map-honesty">Illusztráció, nem hitelesített mérés</div>
+  </section>
+
+  <!-- LEFT RAIL: ANALYTICS -->
+  <section class="rail" id="analytics" aria-label="Parcella analitika">
+    
+    <!-- Crop Health Gauge -->
+    <article class="glass card" aria-labelledby="health-card-title">
+      <div class="card-h">
+        <h3 class="card-title" id="health-card-title">Növényegészség</h3>
+        <span class="pill ok" id="parcel-status-pill"><span class="dot"></span>Optimális</span>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge">
+          <svg viewBox="0 0 200 108" id="tick-gauge-svg" role="img" aria-label="Növényegészség skála"><g id="gauge-ticks"></g></svg>
+          <div class="gauge-val"><span id="gauge-number">92</span><span>%</span></div>
+        </div>
+        <div class="area-box">
+          <div class="big num" id="parcel-area-num">248<small style="font-size:13px;color:var(--ink-3);margin-left:3px">ha</small></div>
+          <div class="meta" id="parcel-crop-name">Kukorica parcella</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Health Trend -->
+    <article class="glass card" aria-labelledby="trend-card-title">
+      <div class="card-h">
+        <h3 class="card-title" id="trend-card-title">Egészségi Trend</h3>
+        <div style="display:flex;gap:4px">
+          <button class="pill ok" data-range="24h" type="button" style="padding:2px 7px;font-size:10px">24ó</button>
+          <button class="pill ok" data-range="7d" type="button" aria-current="true" style="padding:2px 7px;font-size:10px;background:rgba(191,242,74,.2)">7n</button>
+          <button class="pill ok" data-range="30d" type="button" style="padding:2px 7px;font-size:10px">30n</button>
+        </div>
+      </div>
+      <div class="trend-box" id="trend-container">
+        <div class="trend-tip" id="trend-tip"></div>
+        <svg id="trend-svg" viewBox="0 0 300 120">
+          <defs>
+            <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#bff24a" stop-opacity=".3"/>
+              <stop offset="1" stop-color="#bff24a" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path id="trend-area" fill="url(#trendGrad)" d=""/>
+          <path id="trend-line" fill="none" stroke="#bff24a" stroke-width="2" stroke-linecap="round" d=""/>
+          <g id="trend-points"></g>
+        </svg>
+      </div>
+      <div class="trend-summary" id="trend-summary-text">7 napos átlag: 85% → 92% (+7 százalékpont)</div>
+    </article>
+
+    <!-- Stress Zones Matrix -->
+    <article class="glass card" aria-labelledby="stress-card-title">
+      <div class="card-h">
+        <div>
+          <h3 class="card-title" id="stress-card-title">Stressz Zónák</h3>
+          <div class="meta">Szenzormátrix (16 oszlop)</div>
+        </div>
+        <span class="pill ok" id="planting-pill">Vetésre alkalmas</span>
+      </div>
+      <div class="matrix" id="stress-matrix" role="img" aria-label="Szenzormátrix hőtérkép"></div>
+      <div class="matrix-legend">
+        <span><i style="background:var(--lime)"></i> Egészséges (<b id="count-ok">54</b>)</span>
+        <span><i style="background:var(--amber)"></i> Figyelmeztetés (<b id="count-warn">8</b>)</span>
+        <span><i style="background:var(--rose)"></i> Stresszes (<b id="count-stress">2</b>)</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- BOTTOM DOCK: OPERATIONS -->
+  <section class="dock" id="operations" aria-label="Géppark és műveletek">
+
+    <!-- Tractor T-04 -->
+    <article class="glass card dock-card" id="card-tractor">
+      <div class="dock-card-h">
+        <div>
+          <h3>Traktor T-04</h3>
+          <time>Aktív permetezés · 8.2 km/h</time>
+        </div>
+        <button class="icon-btn" data-modal="tractor" type="button" aria-label="Traktor részletek"><svg class="i"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="pill ok"><span class="dot"></span>Üzemel</span>
+        <span class="meta mono">GPS · LTE ÉLŐ</span>
+      </div>
+      <div style="font-size:11px;color:var(--ink-2);margin-top:auto">Üzemanyagszint: <b>78%</b> · Lefedettség: <b>64 ha</b></div>
+    </article>
+
+    <!-- Sprayer P-01 -->
+    <article class="glass card dock-card" id="card-sprayer">
+      <div class="dock-card-h">
+        <div>
+          <h3>Permetező P-01</h3>
+          <time>Sorvégi forduló · 6.0 km/h</time>
+        </div>
+        <button class="icon-btn" data-modal="sprayer" type="button" aria-label="Permetező részletek"><svg class="i"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="pill warn"><span class="dot"></span>Dolgozik</span>
+        <span class="meta mono">Nyomás: 3.4 bar</span>
+      </div>
+      <div style="font-size:11px;color:var(--ink-2);margin-top:auto">Tartály: <b>420 L</b> · Hatóanyag: <b>Bio-Stim A</b></div>
+    </article>
+
+    <!-- Irrigation Monitoring -->
+    <article class="glass card dock-card" id="card-irrigation">
+      <div class="dock-card-h">
+        <div>
+          <h3>Öntözési Hálózat</h3>
+          <time>4 szektor felügyelete</time>
+        </div>
+        <button class="icon-btn" data-modal="irrigation" type="button" aria-label="Öntözés részletek"><svg class="i"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead>
+            <tr><th>Zóna</th><th>Cél</th><th>Aktuális</th><th>Eltérés</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Zóna A</td><td>12m</td><td>12.2m</td><td style="color:var(--lime)">+0.2</td></tr>
+            <tr><td>Zóna B</td><td>15m</td><td>18.4m</td><td class="bad pulse" id="irr-var-b">+3.4</td></tr>
+            <tr><td>Zóna C</td><td>10m</td><td>9.8m</td><td style="color:var(--lime)">-0.2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- Harvest & Yield -->
+    <article class="glass card dock-card" id="card-yield">
+      <div class="dock-card-h">
+        <div>
+          <h3>Hozam &amp; Betakarítás</h3>
+          <time id="yield-current-label">Összesen: 14 280 kg</time>
+        </div>
+        <span class="pill ok">Csúcs: 14:00</span>
+      </div>
+      <div class="yield-bars" id="yield-bars-container" role="slider" aria-label="Óránkénti hozamgörbe" tabindex="0">
+        <!-- 32 bar elements dynamically populated -->
+      </div>
+      <div style="font-size:10px;color:var(--ink-3);display:flex;justify-content:space-between;margin-top:auto">
+        <span>06:00</span><span>12:00</span><span>18:00</span><span>21:00</span>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>Offline demó · Nincs élő adatkapcsolat vagy gépvezérlés · Duna–Tisza mintagazdaság</div>
+    <div>Precíziós mezőgazdasági döntéstámogató felület v2.4</div>
+  </footer>
+
+</div>
+
+<!-- Command Palette Modal (Ctrl+K) -->
+<dialog id="cmd-dialog">
+  <div class="dialog-h">
+    <h2>Gyorskereső &amp; Műveletek</h2>
+    <button class="icon-btn" id="cmd-close" type="button" aria-label="Bezárás">✕</button>
+  </div>
+  <input class="search-input" id="cmd-search-input" type="search" placeholder="Keress parcellát, egységet vagy műveletet…" autocomplete="off">
+  <ul class="cmd-list" id="cmd-results-list" role="listbox">
+    <!-- Populated by JS -->
+  </ul>
+</dialog>
+
+<!-- Generic Details Modal -->
+<dialog id="details-dialog">
+  <div class="dialog-h">
+    <h2 id="details-title">Részletek</h2>
+    <button class="icon-btn" id="details-close" type="button" aria-label="Bezárás">✕</button>
+  </div>
+  <div id="details-body" style="font-size:13px;line-height:1.6;color:var(--ink-2)"></div>
+</dialog>
+
+<!-- SCRIPT: Architecture, Data, State, Selector, Render, Sim -->
+<script>
+(function(){
+  "use strict";
+
+  // 1. DATA MODEL
+  const PARCELS = [
+    {
+      id: "parcel-a",
+      code: "T-01",
+      name: "Északi Táblák",
+      crop: "Kukorica",
+      area: 248,
+      health: 92,
+      moisture: 64,
+      polygon: "M83 152 319 92 395 151 373 272 141 324 88 269Z",
+      zones: [54, 8, 2], // ok, caution, stress
+      trends: {
+        "24h": [90,91,91,92,92,93,92],
+        "7d": [85,87,88,89,90,91,92],
+        "30d": [78,80,82,85,88,90,92]
+      }
+    },
+    {
+      id: "parcel-b",
+      code: "T-02",
+      name: "Keleti Dűlő",
+      crop: "Napraforgó",
+      area: 135,
+      health: 84,
+      moisture: 52,
+      polygon: "M538 115 779 91 823 147 798 303 610 290 527 222Z",
+      zones: [42, 18, 4],
+      trends: {
+        "24h": [83,83,84,84,85,84,84],
+        "7d": [80,81,81,82,83,83,84],
+        "30d": [75,76,78,80,82,83,84]
+      }
+    },
+    {
+      id: "parcel-c",
+      code: "T-03",
+      name: "Déli Sziget",
+      crop: "Őszi búza",
+      area: 105,
+      health: 89,
+      moisture: 58,
+      polygon: "M242 359 387 297 530 290 680 335 643 424 496 460 275 447Z",
+      zones: [48, 12, 4],
+      trends: {
+        "24h": [88,88,89,89,90,89,89],
+        "7d": [82,84,85,86,87,88,89],
+        "30d": [72,76,79,83,85,87,89]
+      }
+    }
+  ];
+
+  const HARVEST_SERIES = [
+    210, 240, 290, 340, 420, 510, 630, 780, 890, 950, 990, 1020,
+    980, 940, 880, 810, 740, 680, 590, 510, 440, 390, 320, 280,
+    220, 190, 160, 130, 110, 90, 70, 50
+  ];
+
+  // 2. STATE
+  const state = {
+    parcelId: "parcel-a",
+    layer: "satellite",
+    range: "7d",
+    zoom: 1,
+    panX: 0,
+    panY: 0,
+    simRunning: true,
+    alertActive: true,
+    irrigationVariance: 3.4,
+    simTime: 0
+  };
+
+  // 3. SELECTORS
+  function getSelectedParcel(){
+    return PARCELS.find(p => p.id === state.parcelId) || PARCELS[0];
+  }
+
+  // 4. RENDERING FUNCTIONS
+  function renderAll(){
+    renderParcelData();
+    renderGauge();
+    renderTrend();
+    renderStressMatrix();
+    renderMap();
+    renderYield();
+  }
+
+  function renderParcelData(){
+    const p = getSelectedParcel();
+    document.getElementById("parcel-select").value = p.id;
+    document.getElementById("gauge-number").textContent = p.health;
+    document.getElementById("parcel-area-num").innerHTML = `${p.area}<small style="font-size:13px;color:var(--ink-3);margin-left:3px">ha</small>`;
+    document.getElementById("parcel-crop-name").textContent = `${p.crop} parcella (${p.name})`;
+    document.getElementById("kpi-health").textContent = `${p.health}%`;
+    document.getElementById("parcel-highlight").setAttribute("d", p.polygon);
+    document.getElementById("parcel-hatch").setAttribute("d", p.polygon);
+  }
+
+  function renderGauge(){
+    const p = getSelectedParcel();
+    const g = document.getElementById("gauge-ticks");
+    g.innerHTML = "";
+    const totalTicks = 42;
+    const activeTicks = Math.round((p.health / 100) * totalTicks);
+    const cx = 100, cy = 95, r = 80;
+
+    for(let i=0; i<=totalTicks; i++){
+      const angle = Math.PI + (i / totalTicks) * Math.PI;
+      const x1 = cx + (r - 10) * Math.cos(angle);
+      const y1 = cy + (r - 10) * Math.sin(angle);
+      const x2 = cx + r * Math.cos(angle);
+      const y2 = cy + r * Math.sin(angle);
+      
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", x1);
+      line.setAttribute("y1", y1);
+      line.setAttribute("x2", x2);
+      line.setAttribute("y2", y2);
+      line.setAttribute("class", "tick" + (i <= activeTicks ? " on" : ""));
+      if(i <= activeTicks){
+        line.style.stroke = "var(--lime)";
+      }
+      g.appendChild(line);
+    }
+  }
+
+  function renderTrend(){
+    const p = getSelectedParcel();
+    const series = p.trends[state.range] || p.trends["7d"];
+    const svg = document.getElementById("trend-svg");
+    const pointsGroup = document.getElementById("trend-points");
+    pointsGroup.innerHTML = "";
+
+    const min = Math.min(...series) - 2;
+    const max = Math.max(...series) + 2;
+    const width = 300, height = 110;
+    const dx = width / (series.length - 1);
+
+    let pathD = "";
+    let areaD = `M 0 ${height} `;
+
+    series.forEach((val, i) => {
+      const x = i * dx;
+      const y = height - ((val - min) / (max - min)) * (height - 20) - 10;
+      if(i === 0){
+        pathD += `M ${x} ${y} `;
+        areaD += `L ${x} ${y} `;
+      } else {
+        pathD += `L ${x} ${y} `;
+        areaD += `L ${x} ${y} `;
+      }
+
+      // Peak & low markers
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", x);
+      circle.setAttribute("cy", y);
+      circle.setAttribute("r", (i === series.length - 1) ? "4" : "2.5");
+      circle.setAttribute("fill", (i === series.length - 1) ? "var(--lime)" : "#fff");
+      circle.setAttribute("opacity", (i === series.length - 1) ? "1" : "0.6");
+      pointsGroup.appendChild(circle);
+    });
+
+    areaD += `L ${width} ${height} Z`;
+    document.getElementById("trend-line").setAttribute("d", pathD);
+    document.getElementById("trend-area").setAttribute("d", areaD);
+
+    const first = series[0], last = series[series.length - 1];
+    const diff = last - first;
+    document.getElementById("trend-summary-text").textContent = 
+      `${state.range === "24h" ? "24 órás" : state.range === "7d" ? "7 napos" : "30 napos"} trend: ${first}% → ${last}% (${diff >= 0 ? "+" + diff : diff} pont)`;
+  }
+
+  function renderStressMatrix(){
+    const p = getSelectedParcel();
+    const container = document.getElementById("stress-matrix");
+    container.innerHTML = "";
+    const [ok, warn, stress] = p.zones;
+    document.getElementById("count-ok").textContent = ok;
+    document.getElementById("count-warn").textContent = warn;
+    document.getElementById("count-stress").textContent = stress;
+
+    const total = 64; // 16x4 grid
+    for(let i=0; i<total; i++){
+      const cell = document.createElement("i");
+      if(i < stress){
+        cell.className = "s";
+        cell.style.background = "var(--rose)";
+        cell.title = `Zóna ${i+1}: Súlyos stressz`;
+      } else if(i < stress + warn){
+        cell.className = "c";
+        cell.style.background = "var(--amber)";
+        cell.title = `Zóna ${i+1}: Mérsékelt figyelmeztetés`;
+      } else {
+        cell.style.background = "var(--lime)";
+        cell.title = `Zóna ${i+1}: Optimális vegetáció`;
+      }
+      container.appendChild(cell);
+    }
+  }
+
+  function renderMap(){
+    const stage = document.getElementById("map-stage");
+    stage.style.transform = `scale(${state.zoom}) translate(${state.panX}px, ${state.panY}px)`;
+  }
+
+  function renderYield(){
+    const container = document.getElementById("yield-bars-container");
+    container.innerHTML = "";
+    const max = Math.max(...HARVEST_SERIES);
+
+    HARVEST_SERIES.forEach((val, idx) => {
+      const b = document.createElement("b");
+      const heightPercent = Math.max(12, Math.round((val / max) * 100));
+      b.style.height = `${heightPercent}%`;
+      if(val >= 980) b.classList.add("peak");
+      b.title = `${idx}:00 — ${val} kg betakarítás`;
+      b.tabIndex = 0;
+      b.addEventListener("mouseenter", () => {
+        document.getElementById("yield-current-label").textContent = `${idx}:00 — ${val} kg hozam`;
+      });
+      container.appendChild(b);
+    });
+  }
+
+  // 5. ACTIONS
+  function setParcel(id){
+    state.parcelId = id;
+    renderAll();
+  }
+
+  function setLayer(layerName){
+    state.layer = layerName;
+    document.querySelectorAll(".layer-btn").forEach(btn => {
+      btn.setAttribute("aria-pressed", btn.dataset.layer === layerName);
+    });
+    const svg = document.getElementById("map-svg");
+    if(layerName === "ndvi"){
+      svg.style.filter = "hue-rotate(40deg) saturate(1.8)";
+      document.getElementById("map-caption").textContent = "NDVI Biomassza index szűrő aktív";
+    } else if(layerName === "soil"){
+      svg.style.filter = "sepia(0.8) contrast(1.2)";
+      document.getElementById("map-caption").textContent = "Talajnedvesség és mélységi profil";
+    } else {
+      svg.style.filter = "none";
+      document.getElementById("map-caption").textContent = "Műholdas felvétel · Duna–Tisza gazdaság GPS telemetria";
+    }
+  }
+
+  function acknowledgeAlert(){
+    state.alertActive = false;
+    document.getElementById("alert-banner").classList.add("hidden");
+    const irrCell = document.getElementById("irr-var-b");
+    if(irrCell){
+      irrCell.classList.remove("pulse");
+      irrCell.style.color = "var(--amber)";
+    }
+  }
+
+  function exportCSV(){
+    const rows = [
+      ["Parcella Kod", "Nev", "Kultura", "Terulet (ha)", "Egeszseg (%)", "Talajnedvesseg (%)"],
+      ...PARCELS.map(p => [p.code, p.name, p.crop, p.area, p.health, p.moisture]),
+      [],
+      ["Flotta Egyseg", "Tipus", "Allapot", "Sebesseg"],
+      ["T-04", "Traktor", "Aktiv permetezes", "8.2 km/h"],
+      ["P-01", "Permetezo", "Sorvegi fordulo", "6.0 km/h"],
+      ["Dron-03", "Multispektralis dron", "Repulesben", "14.5 km/h"],
+      [],
+      ["Ontozesi Zona", "Cel (perc)", "Aktualis (perc)", "Elteres (perc)"],
+      ["Zona A", "12.0", "12.2", "+0.2"],
+      ["Zona B", "15.0", "18.4", "+3.4"],
+      ["Zona C", "10.0", "9.8", "-0.2"]
+    ];
+
+    const csvContent = "\uFEFF" + rows.map(e => e.join(";")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", "furrow_prime_gazdasagi_riport.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  // 6. EVENT LISTENERS
+  document.getElementById("parcel-select").addEventListener("change", (e) => {
+    setParcel(e.target.value);
+  });
+
+  ["poly-parcel-a", "poly-parcel-b", "poly-parcel-c"].forEach((id, idx) => {
+    const el = document.getElementById(id);
+    if(el){
+      el.addEventListener("click", () => setParcel(PARCELS[idx].id));
+    }
+  });
+
+  document.querySelectorAll(".layer-btn").forEach(btn => {
+    btn.addEventListener("click", () => setLayer(btn.dataset.layer));
+  });
+
+  document.querySelectorAll("[data-range]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("[data-range]").forEach(b => {
+        b.removeAttribute("aria-current");
+        b.style.background = "";
+      });
+      btn.setAttribute("aria-current", "true");
+      btn.style.background = "rgba(191,242,74,.2)";
+      state.range = btn.dataset.range;
+      renderTrend();
+    });
+  });
+
+  document.getElementById("alert-ack-btn").addEventListener("click", acknowledgeAlert);
+  document.getElementById("btn-export-csv").addEventListener("click", exportCSV);
+
+  // Zoom / Pan Controls
+  document.getElementById("map-zoom-in").addEventListener("click", () => {
+    state.zoom = Math.min(1.72, state.zoom + 0.15);
+    renderMap();
+  });
+  document.getElementById("map-zoom-out").addEventListener("click", () => {
+    state.zoom = Math.max(1.0, state.zoom - 0.15);
+    renderMap();
+  });
+  document.getElementById("map-reset").addEventListener("click", () => {
+    state.zoom = 1;
+    state.panX = 0;
+    state.panY = 0;
+    renderMap();
+  });
+
+  // Arrow Key Map Pan
+  window.addEventListener("keydown", (e) => {
+    if(document.activeElement && document.activeElement.tagName === "INPUT") return;
+    const step = 25;
+    if(e.key === "ArrowLeft"){ state.panX += step; renderMap(); }
+    else if(e.key === "ArrowRight"){ state.panX -= step; renderMap(); }
+    else if(e.key === "ArrowUp"){ state.panY += step; renderMap(); }
+    else if(e.key === "ArrowDown"){ state.panY -= step; renderMap(); }
+    else if(e.key === "Home"){ state.zoom = 1; state.panX = 0; state.panY = 0; renderMap(); }
+    else if((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k"){
+      e.preventDefault();
+      openCommandPalette();
+    }
+  });
+
+  // Simulation Toggle
+  const simBtn = document.getElementById("sim-toggle-btn");
+  simBtn.addEventListener("click", () => {
+    state.simRunning = !state.simRunning;
+    simBtn.setAttribute("aria-pressed", state.simRunning);
+    if(state.simRunning){
+      simBtn.classList.remove("paused");
+      document.getElementById("sim-btn-text").textContent = "Élő szimuláció";
+    } else {
+      simBtn.classList.add("paused");
+      document.getElementById("sim-btn-text").textContent = "Szimuláció: Szünetel";
+    }
+  });
+
+  // Command Palette
+  const cmdDialog = document.getElementById("cmd-dialog");
+  const cmdInput = document.getElementById("cmd-search-input");
+  const cmdList = document.getElementById("cmd-results-list");
+
+  function openCommandPalette(){
+    cmdList.innerHTML = "";
+    const items = [
+      { label: "Északi Táblák parcella kijelölése", action: () => setParcel("parcel-a") },
+      { label: "Keleti Dűlő parcella kijelölése", action: () => setParcel("parcel-b") },
+      { label: "Déli Sziget parcella kijelölése", action: () => setParcel("parcel-c") },
+      { label: "Műholdas RGB réteg", action: () => setLayer("satellite") },
+      { label: "NDVI Biomassza réteg", action: () => setLayer("ndvi") },
+      { label: "Talajnedvesség réteg", action: () => setLayer("soil") },
+      { label: "CSV Gazdasági Adat Export", action: exportCSV },
+      { label: "Öntözési riasztás nyugtázása", action: acknowledgeAlert }
+    ];
+
+    function renderItems(filter = ""){
+      cmdList.innerHTML = "";
+      const norm = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      const filtered = items.filter(it => norm(it.label).includes(norm(filter)));
+      filtered.forEach((it, idx) => {
+        const li = document.createElement("li");
+        li.className = "cmd-item";
+        li.textContent = it.label;
+        li.tabIndex = 0;
+        li.addEventListener("click", () => {
+          it.action();
+          cmdDialog.close();
+        });
+        cmdList.appendChild(li);
+      });
+    }
+
+    renderItems();
+    cmdInput.value = "";
+    cmdInput.oninput = (e) => renderItems(e.target.value);
+    cmdDialog.showModal();
+    cmdInput.focus();
+  }
+
+  document.getElementById("btn-cmd-palette").addEventListener("click", openCommandPalette);
+  document.getElementById("cmd-close").addEventListener("click", () => cmdDialog.close());
+
+  // Fleet Detail Modals
+  const detailsDialog = document.getElementById("details-dialog");
+  document.getElementById("details-close").addEventListener("click", () => detailsDialog.close());
+
+  document.querySelectorAll("[data-modal]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const type = btn.dataset.modal;
+      const titleEl = document.getElementById("details-title");
+      const bodyEl = document.getElementById("details-body");
+
+      if(type === "tractor"){
+        titleEl.textContent = "Traktor T-04 Telemetria";
+        bodyEl.innerHTML = `
+          <p><b>Modell:</b> Fendt 942 Vario Gen6 (Autonóm vezérlés)</p>
+          <p><b>Aktuális feladat:</b> Sávos talajlazítás és permetezés</p>
+          <p><b>Sebesség:</b> 8.2 km/h · Fordulatszám: 1450 RPM</p>
+          <p><b>Üzemanyag:</b> 78% (fogyasztás: 14.2 L/óra)</p>
+          <p><b>GPS pontosság:</b> RTK Fix (±1.5 cm eltérés)</p>
+        `;
+      } else if(type === "sprayer"){
+        titleEl.textContent = "Permetező P-01 Állapot";
+        bodyEl.innerHTML = `
+          <p><b>Fúvókarendszer:</b> Pulse-Width Modulation (PWM) aktív</p>
+          <p><b>Szórásmennyiség:</b> 140 L/ha · Szélesség: 36 méter</p>
+          <p><b>Tartály szint:</b> 420 L / 1200 L</p>
+          <p><b>Szélkompenzáció:</b> Aktív (ÉK 12 km/h szélsebesség mellett)</p>
+        `;
+      } else if(type === "irrigation"){
+        titleEl.textContent = "Öntözési Hálózat Részletei";
+        bodyEl.innerHTML = `
+          <p><b>Fővezeték nyomás:</b> 4.2 bar (Szivattyútelep: K-02)</p>
+          <p><b>B Zóna diagnosztika:</b> Késleltetett elzárás miatt +3.4 perces eltérés tapasztalható.</p>
+          <p><b>Ajánlott beavatkozás:</b> Szolenoid szelep ellenőrzése a B4 aknában.</p>
+        `;
+      }
+      detailsDialog.showModal();
+    });
+  });
+
+  // 7. SIMULATION LOOP (Single rAF)
+  let lastTime = performance.now();
+  let tractorDist = 0, sprayerDist = 0, droneDist = 0;
+
+  function simLoop(now){
+    const dt = Math.min(250, now - lastTime) / 1000;
+    lastTime = now;
+
+    if(state.simRunning && !document.hidden){
+      state.simTime += dt;
+
+      // Vehicles along paths
+      tractorDist = (tractorDist + dt * 0.08) % 1;
+      sprayerDist = (sprayerDist + dt * 0.06) % 1;
+      droneDist = (droneDist + dt * 0.12) % 1;
+
+      const tX = 120 + Math.sin(tractorDist * Math.PI * 2) * 80;
+      const tY = 200 + Math.cos(tractorDist * Math.PI * 2) * 40;
+      document.getElementById("marker-tractor").setAttribute("transform", `translate(${tX},${tY})`);
+
+      const sX = 640 + Math.cos(sprayerDist * Math.PI * 2) * 70;
+      const sY = 180 + Math.sin(sprayerDist * Math.PI * 2) * 45;
+      document.getElementById("marker-sprayer").setAttribute("transform", `translate(${sX},${sY})`);
+
+      const dX = 400 + Math.sin(droneDist * Math.PI * 2) * 140;
+      const dY = 360 + Math.cos(droneDist * Math.PI * 2) * 40;
+      document.getElementById("marker-drone").setAttribute("transform", `translate(${dX},${dY})`);
+
+      // Dynamic Irrigation variance drift
+      const variance = 2.5 + Math.sin(state.simTime * 0.4) * 1.5;
+      const irrCell = document.getElementById("irr-var-b");
+      if(irrCell && state.alertActive){
+        irrCell.textContent = (variance >= 0 ? "+" : "") + variance.toFixed(1);
+        if(variance > 3.0){
+          document.getElementById("alert-banner").classList.remove("hidden");
+          irrCell.classList.add("pulse");
+        }
+      }
+    }
+
+    requestAnimationFrame(simLoop);
+  }
+
+  // Initial boot
+  renderAll();
+  requestAnimationFrame(simLoop);
+
+})();
+</script>
+</body>
+</html>
